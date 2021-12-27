@@ -1,0 +1,21 @@
+
+:root{
+  --colormvt1: #FFFFFF;
+  --color2mvt:#FFFFFF;
+  --color3mvt:#FFFFFF;
+
+}
+.mvtsolved{
+  background-color:var(--colormvt1) ;
+}
+.mvtaborted {
+  background-color:var(--color2mvt) ;
+}
+.mvt2aborted {
+  background-color:var(--color3mvt) ;
+}
+
+#nbrligne{
+    max-width: 80px;
+    margin-top: 4px;
+  }

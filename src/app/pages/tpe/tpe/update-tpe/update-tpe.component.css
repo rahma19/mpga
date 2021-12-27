@@ -1,0 +1,13 @@
+#tpeuptfixed{
+    position: absolute;
+    right: 10px;
+    top:190px;
+  }
+  #updtpe{
+    position: relative;
+  }
+  #addupinput{
+    margin-right: 20px;
+    margin-left: 20px;
+    width: 150px;
+  }

@@ -1,0 +1,22 @@
+#etatRE{
+    border: solid 2px;
+    color: black;
+    margin: 10%;
+   width: auto;
+}
+#etatRE>tr,#etatRE>tr>td{
+    border: solid 2px;
+    color: black;
+    margin: 10%;
+   width: auto;
+}
+#etatRE>td{
+    border: solid 2px;
+    color: black;
+    margin: 10%;
+   width: auto;
+}
+#titreEtat{
+    margin: 10px;
+    font-weight: bold;
+}

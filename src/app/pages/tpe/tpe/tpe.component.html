@@ -1,0 +1,132 @@
+<div id="affichtpe" *ngIf="isConnectionAvailable">
+    <div class="card">
+      <div  class="card-header font-weight-bold black-text p-0" [hidden]="loading "><span style="margin-left: 43%;">Recherche TPE</span>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="show()" title='Ouvrir'>
+          <i class="fa fa-bars"></i>
+        </button>
+        <button *ngIf="filter"  mdbBtn type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect 
+                  (click)="Rechercher(filterform.value)"> <i class="fa fa-search"></i></button>
+               
+      </div>
+    
+    
+      <div class="card-body" *ngIf="filter" [hidden]="loading ">
+          <div class="container-fluid">
+            <div class="row" >
+              <div class="col-9" id="ligne_horizon">
+        <form [formGroup]="filterform" class="form-inline">
+           
+            <div style="font-size: 10px">
+                <mat-form-field id="partinput" appearance="outline">
+                <mat-label>Numéro série</mat-label>
+                <input id="datestyle" matInput formControlName="num_serie" [(ngModel)]="serie" [formControl]="myControl"  [matAutocomplete]="auto">
+                
+                <mat-autocomplete #auto="matAutocomplete">
+                  
+                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{ option }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+            <div style="font-size: 10px">
+                <mat-form-field id="partinput" appearance="outline">
+                  <mat-label>Marque</mat-label>
+                  <mat-select  formControlName="marque_tpe"  [(ngModel)]="marque" placeholder="Marque"> 
+                    <mat-option [value]="''">Tous</mat-option>
+                  <mat-option *ngFor="let marque of marques" [value]="marque.idMarqueTpe">
+                  {{marque.designation}} </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div style="font-size: 10px">
+                <mat-form-field id="partinput" appearance="outline">
+                    <mat-label>Modèle</mat-label>
+                <mat-select  formControlName="model_tpe"  [(ngModel)]="model" placeholder=""> 
+                    <mat-option [value]="''">Tous</mat-option>
+                  <mat-option *ngFor="let model of models" [value]="model.idModeleTpe">
+                  {{model.designation}} </mat-option>
+                </mat-select>
+                </mat-form-field>
+                </div>
+                
+                <div style="font-size: 10px">
+                  <mat-form-field id="inputmagasin" appearance="outline">
+                      <mat-label>Magasin</mat-label>
+                      <input id="datestyle" matInput formControlName="magasin_" [(ngModel)]="magasin" [formControl]="myControlmagasin" placeholder="" [matAutocomplete]="mag">
+         
+          <mat-autocomplete #mag="matAutocomplete" (optionSelected)="getnom(magasin)">
+            <mat-option *ngFor="let option of filteredOptionsmagasin | async" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+            </mat-form-field>
+               
+              </div>
+
+              <div style="font-size: 10px">
+                  <mat-form-field id="partinput" appearance="outline">
+                <mat-label>Etat TPE</mat-label>
+            <mat-select  formControlName="situation_tpe"  [(ngModel)]="idsituation"  placeholder="" > 
+                <mat-option [value]="''">Tous</mat-option>
+                <mat-option *ngFor="let situation of situations" [value]="situation.idEtatTpe">
+                  {{situation.designation}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+        </div>
+          
+          </form>
+              </div>
+              <div class="col-3" style="text-align: left;">
+                <div id="ligne_verticale" style="font-size: 10px">
+                  <mat-form-field id="partinput" appearance="outline">
+                    <mat-label>Groupage par</mat-label>
+                    <mat-select   [(ngModel)]="groupe" placeholder="" (selectionChange)="groupage(groupe)">
+                        <mat-option *ngFor="let groupe of groupeby" [value]="groupe.value">
+                            {{groupe.name}} </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+               </div>
+               <h5 style="color: blue">Récapitulation : </h5>
+               <label style="font-weight: bold;">Nbr Ligne : {{nbr_ligne}}</label><br>
+               <label style="font-weight: bold;">Nbr TPE : {{nbr_tpe}}</label><br>
+              
+            </div>
+            </div>
+         
+        </div>
+     
+     </div>
+     <div class="card mt-1" [hidden]="loading ">
+      <div class="card-header  font-weight-bold black-text p-0"><span style="margin-left: 43%;">{{title}}</span>
+        <button   mdbBtn type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect 
+        (click)="Rechercher(filterform.value)"> <i class="fa fa-repeat"></i></button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Add()" title='Ajouter TPE'
+      [disabled]="addtpe==false">
+        <i class="fa fa-plus-square"></i>
+      </button>
+       <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="scroll_bol" mdbWavesEffect (click)="scroll()" title='scrolling'><i class="fa fa-arrows-v" aria-hidden="true"></i></button>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="page_bol" mdbWavesEffect (click)="page()" title='pagination'><i class="fa fa-files-o" aria-hidden="true"></i></button>
+        <input *ngIf="scroll_bol" class="float-right waves-light p-0 pl-3 pr-3" id="nbrligne" [(ngModel)]="row_nbr" (keyup)="getrow_nbr()">
+    </div>
+              <div class="table-responsive" >
+                  <!-- <ng2-smart-table [settings]="settings" [source]="source" >
+                     
+                  </ng2-smart-table> -->
+                </div>
+    </div>
+    </div>
+    </div>
+    <div *ngIf="!isConnectionAvailable" clickNoRightClick>
+      <img id="wifi" src="../assets/nowifi.png" alt="logo" class="col-3"/>
+      <p id="verifconx">Vérifier votre connexion</p>
+    </div>
+    
+    <div *ngIf="loading && isConnectionAvailable"  clickNoRightClick>
+               
+      
+      <div class="spinner-img">
+      </div>
+      <h3 id="titreload">Chargement en cours ....</h3>
+     
+    </div>

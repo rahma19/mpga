@@ -1,0 +1,58 @@
+
+<div class="d-flex justify-content-center align-items-center w-100 h-100 login-container" clickNoRightClick>
+    <div class="col-xl-4 col-md-6 col-10">
+        <div class="card border-0 box-shadow rounded-0">
+            <!-- <div class="card-header d-flex justify-content-center align-items-center border-0 box-shadow">
+                <i class="fa fa-sign-in" aria-hidden="true"></i>
+            </div> -->
+            <div class="card-body text-center pb-1" [hidden]="loading ">
+         <span class="ng"><img height="200px" src="assets/img/app/azizalogo.png"> </span>
+                <h5 style="font-weight: bold; color:black;">Accédez à votre espace </h5>
+                
+                <form #form="ngForm" [formGroup]="filterform" class="example-form" (ngSubmit)="onSubmit(form)">
+                    
+                    
+                    <div class="form-group">
+                        <input type="text"  placeholder="Nom d'utilisateur" formControlName="UserName" class="form-control validation-field">                      
+                        
+                    </div>
+                    <div class="form-group">
+                        <input type="password"  placeholder="Mot de passe" formControlName="Password" class="form-control validation-field">
+                          
+                    </div>
+                    <div *ngIf="isLoginError" >
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Nom d'utilisateur ou mot de passe incorrect
+                        </div>
+                        <br>
+                    <!-- <div class="form-group d-flex justify-content-between">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="login-checkbox">
+                            
+                        </div>
+                  
+                    </div> -->
+                    <div id="btnlogin" class="form-group">
+                            <button id="conxbutt" [disabled]="!form.valid"  class="btn btn-block" type="submit">Connexion</button>
+    
+                        </div>
+                </form>
+                
+            </div>
+          
+
+
+
+        </div>
+    </div>
+</div>
+<div *ngIf="loading" >
+           
+  
+    <div class="spinner-img">
+    
+      <!-- <img src="../../../../assets/aziza-logo.jpg" alt=""> -->
+    </div>
+    <h3 id="titreload">Chargement en cours ....</h3>
+   
+  </div>
+       

@@ -1,0 +1,48 @@
+<div class="card text-center" clickNoRightClick id="fixeente">
+    <div  class="card-header font-weight-bold black-text p-0" > Détails Mouvement Agent 
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+    </div></div><br>
+      <table id="detailrecon">
+        <tr><td> <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Matricule :</h6></label>
+          <label id="pass"><h6>{{matricule}}</h6></label></td>
+          <td>  <label id="pass"><h6 id="titleliste" style="font-weight: bold;">Nom :</h6></label>
+            <label id="pass"><h6>{{nomAgent}}</h6></label>  
+          </td> 
+       </tr>
+       <tr>
+          
+                <td><label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Date mouvement :</h6></label>
+                    <label id="pass"><h6>{{dateMvt}}</h6></label>  
+                  </td>
+              <td><label id="pass"><h6 id="titleliste" style="font-weight: bold;">Date effet :</h6></label>
+                <label id="pass"><h6>{{dateeffet}}</h6></label>  
+              </td>
+        </tr>
+        <tr>
+            <td>
+                  <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Magasin :</h6></label>
+                  <label id="pass"><h6>{{magasin}}</h6> </label></td>
+                <td><label id="pass"><h6 id="titleliste" style="font-weight: bold;">Catégorie :</h6></label>
+                  <label id="pass"><h6>{{categorie}}</h6></label>  
+                </td>
+                </tr>
+                <tr>
+                <td>
+                    <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Type :</h6></label>
+                    <label id="pass"><h6>{{type}}</h6> </label></td>
+            <td>
+                  <label id="pass"><h6 id="titleliste" style="font-weight: bold;">Etat :</h6></label>
+                  <label id="pass"><h6>{{etat}}</h6> </label></td>
+                
+          </tr>
+          <tr>
+            <td><label id="espleft"><h6 id="titleliste" style="font-weight: bold;">User :</h6></label>
+                <label id="pass"><h6>{{user}}</h6></label>  
+              </td>
+            <td>
+                <label id="pass"><h6 id="titleliste" style="font-weight: bold;">Commentaire :</h6></label>
+                <label id="pass"><h6>{{comment}}</h6> </label></td>
+          </tr>
+</table><br>

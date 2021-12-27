@@ -1,0 +1,98 @@
+<div class="card mt-1" clickNoRightClick>
+        <div class="card-header text-center  info-color-dark font-weight-bold white-text p-0">Modifier compte</div><br><br>
+        <form #form="ngForm" [formGroup]="filterform" class="example-form" (ngSubmit)="onSubmit(form)">
+    
+            <div class="row">
+               <div class="col-3">
+           <label id="prof">Nom d'utilisateur</label> 
+               </div>
+               <div class="col-3">
+           <input type="text" formControlName="useName" class="form-control validation-field" [(ngModel)]="profile.useName" (keydown)="check($event)">
+               </div>  
+               </div>  <br><br>                  
+            <div class="row">
+               <div class="col-3">
+               <label id="prof">Email</label>
+               </div>
+               <div class="col-3">
+           <input type="text" formControlName="useEmail"  class="form-control validation-field" [(ngModel)]="profile.useEmail" (keydown)="check($event)">                      
+       </div>
+       </div> <br><br>
+       <div class="row">
+               <div class="col-3">
+       <label id="prof">Description</label>
+       </div>
+       <div class="col-3">
+        <textarea formControlName="useDescription" class="form-control validation-field" [(ngModel)]="profile.useDescription" (keydown)="check($event)"></textarea>                      
+     </div>
+   </div><br><br>
+   <div class="row">
+      <div class="col-3">
+<label id="prof">Login</label>
+</div>
+<div class="col-3">
+<input type="text" formControlName="useLogin"  class="form-control validation-field" [(ngModel)]="profile.useLogin" disabled>                      
+</div>
+</div><br><br>
+<div class="row">
+<div class="col-3">
+  
+  <label id="prof">* Votre mot de passe</label>
+  </div>
+  <div class="col-3">
+    <!-- <span class="red-text center error-message"> Saisissez votre mot de passe!</span> -->
+  <input type="text" formControlName="password" placeholder="Votre mot de passe" class="form-control validation-field" [type]="hide ? 'password' : 'text'" (keydown)="checkpassword($event)" >                  
+  </div>
+  </div>
+   </form><br>
+   <div id="error" *ngIf="isLoginError" class="red-text center error-message">
+    <i class="material-icons"> </i> Mot de passe incorrect!
+</div>
+<div id="error" *ngIf="empty" class="red-text center error-message">
+    <i class="material-icons"> </i> Saisissez votre mot de passe!
+</div>
+<br>
+   <div id="bttn" class="form-group">
+    <a href="javascript:history.go(-1)"><button id="bttn1" class="waves-light btn red-yellow float-right btn-sm" type="reset"><i class="fa fa-times" aria-hidden="true"></i></button></a>
+      <button id="bttn1" [disabled]="(!change || !psw)" class="waves-light btn red-yellow float-right btn-sm" type="submit" (click)="onSubmit(form)"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+   </div><br><br><br><br>
+  </div>
+
+<!--affichage with label-->
+
+        <!-- <div class="row">
+            <div class="col-4">
+              <span id="title">Nom</span>
+            </div>
+            <div class="col-4">
+              <label>{{profile.useName}}</label>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-4">
+              <span id="title">Email</span>
+            </div>
+            <div class="col-4">
+              <label>{{profile.useEmail}}</label>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-4">
+              <span id="title">Description</span>
+            </div>
+            <div class="col-4">
+              <label>{{profile.useDescription}}</label>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-4">
+              <span id="title">Login</span>
+            </div>
+            <div class="col-4">
+              <label>{{profile.useLogin}}</label>
+            </div>
+        </div> <br><br> 
+        <button mdbBtn type="button" class="waves-light btn blue-grey float-right btn-sm" mdbWavesEffect (click)="Modifier()"> Modifier </button>
+                  <br><br> <br><br>     -->
+
+                 

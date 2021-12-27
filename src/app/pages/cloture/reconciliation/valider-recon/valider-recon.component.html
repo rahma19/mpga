@@ -1,0 +1,19 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div class="card text-center" [hidden]="loading " clickNoRightClick>
+    <div  class="card-header font-weight-bold black-text p-0"> Valider réconciliation
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"   title='minimize' (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title='maximize' (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+    </div></div><br>
+    <div class="card-body" [hidden]="!isOpened">
+        <div id="message">
+          <h5 style="font-weight: bold;">  Confirmer la validation ?</h5>
+        </div>
+      </div><br>
+          <div id="bott" class="form-group" [hidden]="!isOpened">
+              <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+              <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="submit" (click)="valider()"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>  
+           </div>
+</div>

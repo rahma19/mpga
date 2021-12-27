@@ -1,0 +1,40 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div id="dialogg" [hidden]="loading ">
+<div class="card text-center"  clickNoRightClick>
+    <div  class="card-header font-weight-bold black-text p-0"> {{'Cloture' | translate}}
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"   title='minimize' (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title='maximize' (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+    </div></div><br>
+    
+    <div class="form-inline" [hidden]="!isOpened">
+    <div id="dateclot" style="font-size: 10px">
+        <mat-form-field id="partinput" appearance="outline">
+            <mat-label>Date</mat-label>
+          <input id="datestyle" matInput [(ngModel)]="date" autocomplete="off" [matDatepicker]="picker2"  placeholder="">
+          <mat-datepicker-toggle class="float-right" matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div style="font-size: 3px; margin-left: 30px;">
+        <mat-form-field style="width: 200px;" appearance="outline">
+            <mat-label>Observation</mat-label>
+          <input style="width: 100%;" id="datestyle" autocomplete="off" matInput class="form-control col-12" [(ngModel)]="observ" maxlength="30">
+        </mat-form-field>
+      </div>
+    </div>
+      <div id="fixedmanuelle" class="form-group" clickNoRightClick [hidden]="!isOpened">
+        <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times"></i></span></button>
+        <button id="bbt" [disabled]="!date || !observ" class="waves-light btn red-yellow float-right btn-sm" type="submit" (click)="onSubmit(date,observ)"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+      </div>
+    </div>
+</div>
+
+    <div *ngIf="loading" clickNoRightClick >
+      <div class="spinner-imgage">
+        <!-- <img src="../../../../assets/aziza-logo.jpg" alt=""> -->
+      </div>
+      <h5 id="titreload">Chargement en cours ....</h5>
+    </div>

@@ -1,0 +1,18 @@
+
+<div class="card text-center">
+    <div  class="card-header font-weight-bold black-text p-0"><span *ngIf="etat==1"> Désactiver TPE </span><span *ngIf="etat==2"> Activer TPE </span>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+    </div></div><br>
+  <div class="card-body">
+    <div id="message" class="row">
+      <h5 *ngIf="etat==1">  Confirmer la désactivation ?</h5>
+      <h5 *ngIf="etat==2">  Confirmer l'activation ?</h5>
+    </div>
+  </div>
+      <div id="bott" class="form-group">
+          <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+          <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="submit" (click)="changer()"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>  
+       </div>
+  

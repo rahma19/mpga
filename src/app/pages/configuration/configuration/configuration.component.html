@@ -1,0 +1,296 @@
+
+
+<div  [hidden]="loading ">
+<mat-tab-group>
+    <mat-tab label="Structure QR Code"> 
+    <div class="row col-12">
+        <div class="col-3">
+            <div class="card-header font-weight-bold black-text p-0" ><span
+                style="text-align:center;display: block;">Liste Emetteur</span>
+            </div>
+            <div class="scrollbar  scrollbar-ripe-malinka" id="emetteur"> 
+                <mat-table class="mat-elevation-z8" [dataSource]="dataSourceemetteur" matSort id="emetteurtab">
+                    <ng-container matColumnDef="libelle"> 
+                        <td mat-cell *matCellDef="let element" (click)="dataobjectaffect(element)" > {{element.libelle}} </td>
+                      </ng-container> 
+                      <ng-container matColumnDef="buttonsubmit" >
+     
+                        <mat-cell *matCellDef="let buttonsubmit; let i = index;"  
+                           >
+                        
+                    
+                     <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="submit" (click)="affecter()"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+                      </mat-cell> 
+                    
+                
+                  
+                    </ng-container>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsemetteur;"></tr>
+                </mat-table>
+                </div>
+        </div>
+        <div class="col-5">
+            
+            <div class="card-header font-weight-bold black-text p-0" ><span 
+                style="text-align:center;display: block;">ID Data Object Root</span>
+                
+            </div>
+            <div class="scrollbar  scrollbar-ripe-malinka"  > 
+                <mat-table class="mat-elevation-z8" [dataSource]="dataSourceobject" matSort id="objecttab">
+                    <ng-container matColumnDef="idDataObject">
+                        <th mat-header-cell *matHeaderCellDef>  </th>
+        
+                        <td mat-cell *matCellDef="let element" ><input type="checkbox" *ngIf="visible" 
+                            
+                             [checked]="inputChecked(element)" [value]="element.idDataObject" 
+                             (change)="CheckboxSelect(element.idDataObject,$event,element.flagTemplate)"
+                             [disabled]="element.flagPresence==true"
+                            
+                            
+                            > </td>
+                      </ng-container>
+                    <ng-container matColumnDef="codeId">
+
+                        <th mat-header-cell *matHeaderCellDef> ID </th>
+        
+                        <td mat-cell *matCellDef="let element"> {{element.codeId}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="designation">
+                        <th mat-header-cell *matHeaderCellDef> Désignation</th>
+                        <td mat-cell *matCellDef="let element"  (click)="opensousid(element.idDataObject,$event,element.flagTemplate)"> {{element.designation}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="valeur">
+                        <th mat-header-cell *matHeaderCellDef> Valeur </th>
+                        <td mat-cell *matCellDef="let element"> {{element.valeur}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="commentaire">
+                        <th mat-header-cell *matHeaderCellDef> Commentaire </th>
+                        <td mat-cell *matCellDef="let element"><button  (click)="affichcommentaire(element)"><i class="fa fa-info-circle"></i></button> </td>
+                      </ng-container>
+
+
+
+
+                      <tr mat-header-row *matHeaderRowDef="displayedColumndataobject"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumndataobject;"></tr>
+                </mat-table>
+                </div>
+        </div>
+
+        <div class="col-4" *ngIf="affich">
+            
+            <div class="card-header font-weight-bold black-text p-0" ><span 
+                style="text-align:center;display: block;">Sous ID Data Object Root</span>
+                
+            </div>
+            <div class="scrollbar profiles scrollbar-ripe-malinka" > 
+                <mat-table class="mat-elevation-z8" [dataSource]="dataSourcesousobject" matSort id="sousobjecttab">
+                    <ng-container matColumnDef="idDataObject">
+                        <th mat-header-cell *matHeaderCellDef>  </th>
+        
+                        <td mat-cell *matCellDef="let element"><input type="checkbox" 
+                            
+                             [checked]="sousinputChecked(element)" [value]="element.idDataObject" 
+                             (change)="sousidCheckboxSelect(element.idDataObject,$event,element.flagTemplate,element.flagPresence)"
+                            
+                             [disabled]="element.flagPresence==true"
+                            
+                            > </td>
+                      </ng-container>
+                    <ng-container matColumnDef="codeId">
+
+                        <th mat-header-cell *matHeaderCellDef> ID </th>
+        
+                        <td mat-cell *matCellDef="let element"> {{element.codeId}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="designation">
+                        <th mat-header-cell *matHeaderCellDef> Désignation</th>
+                        <td mat-cell *matCellDef="let element"> {{element.designation}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="valeur">
+                        <th mat-header-cell *matHeaderCellDef> Valeur </th>
+                        <td mat-cell *matCellDef="let element"> {{element.valeur}} </td>
+                      </ng-container>
+                     
+                      <tr mat-header-row *matHeaderRowDef="displayedColumnsousdataobject"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsousdataobject;"></tr>
+                </mat-table>
+                </div>
+        </div>
+
+
+
+        
+    </div>
+    
+    
+    
+    
+    </mat-tab>
+    <mat-tab label="Simulation QR Code">  
+       <div class="row col-12">
+         <div class="col-4">
+           <form [formGroup]="simulation" #form="ngForm"  >
+<div class="input-group">
+  <div style="font-size: 10px">
+           
+    <mat-form-field id="addupinput" appearance="outline">
+      <mat-label >Emetteur</mat-label>
+      <mat-select  formControlName="idProduitFinancier" [(ngModel)]="emet"  id="datestyle" required>
+        <mat-option *ngFor="let emetteur of emetteurs" [value]="emetteur.idProduitFinancier">
+          {{emetteur.libelle}}
+        </mat-option>
+      </mat-select>
+      <mat-error style="font-size: 13px;" *ngIf="!simulation.controls['idProduitFinancier'].valid && simulation.controls['idProduitFinancier'].touched">Champ Obligatoire</mat-error>
+    </mat-form-field>
+  
+
+   
+  </div>
+</div>
+<div class="input-group">
+  <div style="font-size: 10px">
+           
+    <mat-form-field id="addupinput" appearance="outline">
+      <mat-label >Magasin</mat-label>
+      <mat-select  formControlName="nomMagasin" [(ngModel)]="maga"  id="datestyle" (selectionChange)="checkValuemagasin(maga)" required >
+        <mat-option *ngFor="let magasin of magasins" [value]="magasin">
+          {{magasin.libelle}}
+        </mat-option>
+      </mat-select>
+      <mat-error style="font-size: 13px;" *ngIf="!simulation.controls['nomMagasin'].valid && simulation.controls['nomMagasin'].touched">Champ Obligatoire</mat-error>
+    </mat-form-field>
+  
+
+   
+  </div>
+</div>
+<div class="input-group">
+  <div style="font-size: 10px">
+           
+    <mat-form-field id="addupinput" appearance="outline">
+      <mat-label >Caisse</mat-label>
+      <mat-select  formControlName="codeCaisse" [(ngModel)]="cdcaisse"  id="datestyle" required >
+        <mat-option *ngFor="let caisse of caisses" [value]="caisse.code">
+          {{caisse.libelleCaisse}}
+        </mat-option>
+      </mat-select>
+      <mat-error style="font-size: 13px;" *ngIf="!simulation.controls['codeCaisse'].valid && simulation.controls['codeCaisse'].touched">Champ Obligatoire</mat-error>
+    </mat-form-field>
+  
+
+   
+  </div>
+</div>
+<div class="input-group">
+  <div style="font-size: 10px">
+           
+    <mat-form-field id="addupinput" appearance="outline">
+      <mat-label >Ville</mat-label>
+      
+      <input id="datestyle" matInput formControlName="nomVille" [(ngModel)]="ville" >
+    </mat-form-field>
+  
+
+   
+  </div>
+  <div style="font-size: 10px">
+           
+    <mat-form-field id="addupinput" appearance="outline">
+      <mat-label >Code Postal</mat-label>
+      
+      <input id="datestyle" matInput  formControlName="codePostal" [(ngModel)]="codepostal">
+    </mat-form-field>
+  
+
+   
+  </div>
+  
+</div>
+<div class="input-group">
+  <div style="font-size: 10px">
+           
+    <mat-form-field id="addupinput" appearance="outline">
+      <mat-label >Montant</mat-label>
+      
+      <input id="datestyle" matInput  formControlName="montant" [(ngModel)]="mont" required  (blur)="updatmontant()">
+      <mat-error style="font-size: 13px;" *ngIf="!simulation.controls['montant'].valid && simulation.controls['montant'].touched">{{erreurmontant()}}</mat-error>
+    </mat-form-field>
+  
+
+   
+  </div>
+</div>
+
+<div class="input-group">
+  <div style="font-size: 10px">
+           
+    <mat-form-field id="addupinput" appearance="outline">
+      <mat-label >Affiliation</mat-label>
+      
+      <input id="datestyle" matInput  formControlName="affiliationMonetique" [(ngModel)]="aff" required minlength="15" maxlength="15">
+      <mat-error style="font-size: 13px;" *ngIf="!simulation.controls['affiliationMonetique'].valid && simulation.controls['affiliationMonetique'].touched">{{erreuraffiliation()}}</mat-error>
+    </mat-form-field>
+  
+
+   
+  </div>
+</div>
+<div class="input-group">
+  <div style="font-size: 10px">
+           
+    <mat-form-field id="addupinput" appearance="outline">
+      <mat-label >Ref_MPGA</mat-label>
+      
+      <input id="datestyle" matInput  formControlName="refMPGA" [(ngModel)]="ref"  required minlength="20" maxlength="20">
+      <mat-error style="font-size: 13px;" *ngIf="!simulation.controls['refMPGA'].valid && simulation.controls['refMPGA'].touched">{{erreurref()}}</mat-error>
+    </mat-form-field>
+  
+
+   
+  </div>
+</div>
+           </form>
+<div style="text-align: center;">
+           <button id="bbt" class="waves-light btn red-yellow  btn-sm" type="submit" (click)="onSubmit()"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+          </div>
+          </div>
+         <div class="col-8">
+   <div>
+
+    <textarea [(ngModel)] = "resultat"  id="area" ></textarea>
+   </div>
+         
+    <div style="text-align: center;">
+      <button id="simulbbt" class="waves-light btn red-yellow  btn-sm" type="submit" (click)="valider(value)"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+         
+    </div> 
+    <div style="text-align: center;">
+                  <ngx-qrcode *ngIf="open"
+                  
+                  [value]="resultat"
+                  alt="Demo QR Code"
+                  cssClass="bshadow"></ngx-qrcode>
+         </div>
+        </div>
+       </div>
+    
+         
+     
+        </mat-tab>
+  
+
+  
+
+  </mat-tab-group>
+</div>
+<div *ngIf="loading" clickNoRightClick >
+               
+      
+    <div class="spinner-img">
+    
+      <!-- <img src="../../../../assets/aziza-logo.jpg" alt=""> -->
+    </div>
+    <h3 id="titreload">Chargement en cours ....</h3>
+   
+  </div>

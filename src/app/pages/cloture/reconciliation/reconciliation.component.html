@@ -1,0 +1,284 @@
+<div id="affichreconsi" *ngIf="isConnectionAvailableR" clickNoRightClick>
+<div class="card">
+  <div  class="card-header font-weight-bold black-text p-0" [hidden]="loading "><span style="margin-left: 42%;" >{{'recon.headercard' | translate}}</span>
+    <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="show()">
+      <i class="fa fa-bars"></i>
+    </button>
+    <button *ngIf="filter" type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect 
+      (click)="Rechercher(filterform.value)"> <i class="fa fa-search"></i></button>
+    <!-- <button *ngIf="filter" type="button" class="float-right waves-light btn blue-grey p-0 pl-3 pr-3" (click)="exportAsXLSX()"> <i class="fa fa-file-excel-o fa-lg"></i></button> -->
+    <button *ngIf="filter" type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3"[disabled]=" nbr_ligne==0" (click)="Print()"> <i class="fa fa-print"></i></button>
+  </div>
+
+  <div class="card-body" *ngIf="filter" [hidden]="loading ">
+    <div class="container-fluid">
+        <div class="row" >
+            <div class="col-9" id="ligne_horizon">
+      <form [formGroup]="filterform" class="form-inline">
+        <div style="font-size: 10px">
+          <mat-form-field id="partinput" appearance="outline">
+              <mat-label>{{'modifierEtablissement.column0' | translate}}</mat-label>
+              <mat-select  formControlName="idwallet"  [(ngModel)]="idwall" placeholder="" >
+                  <mat-option [value]="''">Tous</mat-option> 
+                <mat-option *ngFor="let wallet of wallets" [value]="wallet.idProduitFinancier">
+                  {{wallet.nomProduitFinancier}}</mat-option>
+                      </mat-select>
+                      </mat-form-field>
+  
+        </div> 
+
+
+        <div style="font-size: 10px">
+          <mat-form-field id="partinput" appearance="outline">
+              <mat-label>{{'transaction.attribute.n10' | translate}}</mat-label>
+              <input id="dateinputstyle" autocomplete="off"  matInput [(ngModel)]="dd" formControlName="Date_D" [matDatepicker]="picker1" [max]="maxDate"
+                placeholder="">
+              <mat-datepicker-toggle class="float-right" matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+      </div>
+      <div style="font-size: 10px">
+        <mat-form-field id="partinput" appearance="outline">
+            <mat-label>{{'transaction.attribute.n11' | translate}}</mat-label>
+          <input id="datestyle" matInput autocomplete="off"  [(ngModel)]="df" [min]="dd" formControlName="Date_F" [matDatepicker]="picker2" [max]="maxDate"
+            placeholder="">
+          <mat-datepicker-toggle class="float-right" matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <!-- <div style="font-size: 10px;margin-top:8px">
+        <mat-form-field id="partinput" appearance="outline">
+            <mat-label>Etat nul</mat-label>
+            <mat-select  formControlName="etat_nul" [(ngModel)]="etatnul" placeholder="" > 
+              <mat-option [value]="1">OUI </mat-option>
+              <mat-option [value]="2">NON </mat-option>
+                    </mat-select>
+                    </mat-form-field>
+          </div> -->
+      </form>
+     
+      </div>
+      <div class="col-3" style="text-align: left;" >
+          <div id="ligne_verticale" style="font-size: 10px">
+            <mat-form-field id="partinput" appearance="outline">
+             
+                <mat-label>{{'transaction.recap.group' | translate}} </mat-label>
+                <mat-select   [(ngModel)]="groupe" placeholder="" (selectionChange)="groupage(groupe)">
+                  <mat-option *ngFor="let groupe of groupeby" [value]="groupe.value">
+                        {{groupe.name}} </mat-option>
+                </mat-select>
+              </mat-form-field>
+         </div>
+         <h5 style="color:  #e22d2c;font-weight: bold;">{{'transaction.recap.title' | translate}} : </h5>
+         <label style="font-weight: bold;">{{'transaction.recap.nbr_ligne' | translate}} : {{nbr_ligne}}</label><br>
+         <label style="font-weight: bold;">{{'transaction.recap.nbr_ecart' | translate}} : {{nbr_ecart}}</label><br>
+      </div>
+        </div>
+    </div>
+</div>
+ </div>
+
+ <div  class="card mt-1" [hidden]="loading ">
+  <div class="card-header  font-weight-bold black-text p-0" ><span style="margin-left: 42%;" >{{title}}</span>
+  <span id="spanecart" class="float-right waves-light red-yellow p-0 pl-3 pr-3" *ngIf=" groupe==1"><input id="checkboxecart" type="checkbox" [checked]="check" (change)="showecart($event)" style="zoom:1;background-color:black"> {{'ecart.ecart' | translate}} "0" </span>
+  <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3"  mdbWavesEffect (click)="cloture()" title='cloture manuelle'><i class="fa fa-archive"></i></button>
+  <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="scroll_bol" mdbWavesEffect (click)="scroll()" title='scrolling'><i class="fa fa-arrows-v" aria-hidden="true"></i></button>
+  <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="page_bol" mdbWavesEffect (click)="page()" title='pagination'><i class="fa fa-files-o" aria-hidden="true"></i></button>
+  <input *ngIf="scroll_bol" class="float-right waves-light p-0 pl-3 pr-3" id="nbrligne" [(ngModel)]="row_nbr" min="1" (keyup)="getrow_nbr()">
+</div>
+<div class="row" [hidden]="loading ">
+    <div class="table-responsive"  >
+      <table style="width: 100%;" mat-table matSort [dataSource]="source" class="mat-elevation-z8">
+        <!-- Item Column -->
+        <ng-container  matColumnDef="dateCloture">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-right: 20px;"> {{'recon.dateCloture' | translate}} </th>
+          <td mat-cell *matCellDef="let row" style="padding-right: 20px;"> {{row.dateCloture}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="produitFinancier">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: left;padding-right: 30px;">{{'recon.produitF' | translate}} </th>
+          <td mat-cell *matCellDef="let row" (contextmenu)="menuRecons($event,row)" style="text-align: left;padding-right: 30px;"> {{row.produitFinancier}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header >{{'transaction.column_nbr' | translate}} </th>
+          <td mat-cell *matCellDef="let row" (contextmenu)="menuRecons($event,row)" > {{row.nombre}} </td>
+        </ng-container>
+
+        <ng-container  matColumnDef="nombreMagasinReseau">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: right;padding-right: 30px;"> {{'recon.nbrMagasin' | translate}} </th>
+          <td mat-cell  *matCellDef="let row" (contextmenu)="menuRecons($event,row)" style="text-align: right;padding-right: 30px;width: 10%;">  {{row.nombreMagasinReseau}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombreMagasinActif">
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header style="text-align: right;padding-right: 30px;"> {{'recon.nbrMagActif' | translate}} </th>
+          <td mat-cell (contextmenu)="menuRecons($event,row)"  *matCellDef="let row" style="text-align: right;padding-right: 30px;width: 10%;"> {{row.nombreMagasinActif}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombreTransactionReconcilie">
+          <th  mat-header-cell  *matHeaderCellDef mat-sort-header style="text-align: right;padding-right: 30px;"> {{'recon.nbrTransa' | translate}} </th>
+          <td mat-cell (contextmenu)="menuRecons($event,row)"  *matCellDef="let row" style="text-align: right;padding-right: 30px;width: 10%;">  {{row.nombreTransactionReconcilie }}  </td><!--| formatNumber-->
+        </ng-container>
+
+        <ng-container matColumnDef="montantTransactionReconcilie">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header  style="text-align: right;padding-right: 30px;"> {{'recon.montantTransa' | translate}} </th>
+          <td mat-cell (contextmenu)="menuRecons($event,row)" *matCellDef="let row" style="text-align: right;padding-right: 30px;width: 10%;">  {{row.montantTransactionReconcilie |formatNumber}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombreTransactionMpga">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: right;padding-right: 30px;"> {{'recon.nbrTransaMPGA' | translate}} </th>
+          <td mat-cell (contextmenu)="menuRecons($event,row)"  *matCellDef="let row" style="text-align: right;padding-right: 30px;width: 10%;">  {{row.nombreTransactionMpga}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="montantTransactionMpga">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: right;padding-right: 30px;"> {{'recon.montantTransaMPGA' | translate}} </th>
+          <td mat-cell (contextmenu)="menuRecons($event,row)"  *matCellDef="let row" style="text-align: right;padding-right: 30px;width: 10%;">  {{row.montantTransactionMpga |formatNumber}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombreTransactionWallet">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: right;padding-right: 30px;"> {{'recon.nbrTransaWallet' | translate}} </th>
+          <td mat-cell (contextmenu)="menuRecons($event,row)" *matCellDef="let row" style="text-align: right;padding-right: 30px;width: 10%;">  {{row.nombreTransactionWallet}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="montantTransactionWallet">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: right;padding-right: 30px;"> {{'recon.montantTransaWallet' | translate}} </th>
+          <td mat-cell (contextmenu)="menuRecons($event,row)" *matCellDef="let row" style="text-align: right;padding-right: 30px;width: 10%;">  {{row.montantTransactionWallet |formatNumber}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombreEcart">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: right;padding-right: 30px;"> {{'recon.nbrEcart' | translate}} </th>
+          <td mat-cell (contextmenu)="menuRecons($event,row)" *matCellDef="let row" style="text-align: right;padding-right: 30px;">  {{row.nombreEcart}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="etatClotureJournee">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header > {{'recon.etatCloture' | translate}} </th>
+          <td mat-cell (contextmenu)="menuRecons($event,row)" *matCellDef="let row" >  {{row.etatClotureJournee}}  </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsReconc" id="mat-table"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsReconc;"
+          style="background-color: rgb(238, 200, 119);"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td colspan="12">
+            <h4 class="text-center"> {{'ReconsVide' | translate}}</h4>
+          </td>
+        </tr>
+      </table>
+      <mat-paginator [pageSize]="row_nbr" hidePageSize showFirstLastButtons></mat-paginator>
+      <div style="visibility: hidden; position: fixed" 
+      [style.left]="contextMenuPosition.a"
+      [style.top]="contextMenuPosition.b"
+      [matMenuTriggerFor]="contextMenu"
+      [matMenuTriggerData]="{liste:liste}">
+      </div>
+         <mat-menu #contextMenu="matMenu">
+            <ng-template matMenuContent let-liste="liste" let-i="i">
+              <button  (click)="detailRecons()" mat-menu-item><i class="fa fa-info-circle"> {{'rightClick3'| translate}}</i></button>
+            </ng-template>
+          </mat-menu>
+    </div>
+      </div>
+</div>
+</div>
+<div *ngIf="!isConnectionAvailableR" clickNoRightClick>
+  <img id="wifi" src="../assets/nowifi.png" alt="logo" class="col-3"/>
+  <p id="verifconx">{{'prob' | translate}}</p>
+</div>
+
+<div *ngIf="loading && isConnectionAvailableR" clickNoRightClick >
+  <div class="spinner-img">
+    <!-- <img src="../../../../assets/aziza-logo.jpg" alt=""> -->
+  </div>
+  <h3 id="titreload">{{ "spinner" | translate }}</h3>
+</div>
+
+<div id="printreconsi" clickNoRightClick>
+  
+  <!-- <div class="row">
+    <img id="logreco" src="../assets/aziza.png" alt="logo" class="col-3"/>
+<div class=" font-weight-normal text-dark" id="adressmag">
+<label id="labreco">{{adresse}}</label><br> <label id="labreco">{{code}}</label> <label id="labadressvilrecon">{{ville}}</label> <br>
+<label style="font-size: 20px; padding-right: 10px;">Tel : </label><label id="labreco">{{tel}}</label><br>
+<label style="font-size: 20px; padding-right: 10px;">RNE : </label><label id="labreco">{{rne}}</label><br>
+</div>
+  </div> -->
+ 
+ 
+  <!-- <table id="reconglob">
+    <thead>
+  
+      <h5 id="dateprintreco">Edité le : {{ date}}</h5>
+      <h2 id="titreprintrecon">Réconciliation 
+        <span id="recst">(suite)</span>
+      </h2>
+    </thead>
+    <div class="row" id="colrecap">
+      <div class="col-7">
+    
+    <div>
+      <label  id="labelfiltrereconprint">Date début :</label>
+      <label id="filtrereconprint">{{db}}</label>
+      <label  id="labelfiltrereconprint">Date fin :</label>
+      <label id="filtrereconprint">{{dfin}}</label><br>
+     
+    </div> 
+    </div>
+    
+      <div class="col-4" >
+      <table id="recapreconprint">
+        <tr>
+          <td id="labelrecapreconprint">Nb lignes :</td>
+          <td id="filtrereconprint"> {{nbr_ligne}}</td>
+        </tr>
+        <tr>
+          <td id="labelrecapreconprint">Nb ecarts :</td>
+          <td id="filtrereconprint">{{nbr_ecart}}</td>
+        </tr>
+       
+      </table>
+      
+      </div>
+    
+    </div>
+   
+      
+    <table id="tableprintrecon">
+      
+      <thead class="report-header">
+      <tr>
+        <th>
+          Date
+        </th>
+        <th>Nb Mag Réseau</th>
+        <th>Nb Mag Actif</th>
+        <th>NB Trans.MPGA</th>
+        <th>Montant Trans.MPGA</th>
+        <th>NB Trans.D17</th>
+        <th>Montant Trans.D17</th>
+        <th>Nb écart</th>
+        
+      </tr>
+    </thead>
+    
+    
+   
+    
+    <tbody id="corps">
+    <tr *ngFor=" let reconsi of resultat">
+      <td>{{reconsi.dateCloture}}</td>
+      <td>{{reconsi.nombreMagasinReseau}}</td>
+      <td>{{reconsi.nombreMagasinActif}}</td>
+      <td>{{reconsi.nombreTransactionMpga}}</td>
+      <td id="montrecon">{{reconsi.montantTransactionMpga}}</td>
+      <td>{{reconsi.nombreTransactionD17}}</td>
+      <td id="montrecon">{{reconsi.montantTrannsactionD17_formate}}</td>
+      <td>{{reconsi.nombreEcart}}</td>
+     
+    </tr>
+    </tbody>
+  
+    </table>
+ 
+  </table> -->
+
+</div>

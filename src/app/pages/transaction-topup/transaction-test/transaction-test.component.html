@@ -1,0 +1,335 @@
+<div id="affichconsultationtranse" *ngIf="isConnectionAvailable" clickNoRightClick>
+  
+  <div class="card-body" [hidden]="loading ">
+    <div class="container-fluid">
+        <div class="row" >
+            <div class="col-8">
+      <form [formGroup]="filterform" class="form-inline">
+          <div style="font-size: 10px">
+              <mat-form-field id="partinput" appearance="outline">
+                  <mat-label>{{'transaction.attribute.n12' | translate}}</mat-label>
+              <mat-select  formControlName="critere_rech"  [(ngModel)]="critere" placeholder=""> 
+                  <mat-option [value]="0">Ref MPGA</mat-option>
+                  <mat-option [value]="1">Autorisation</mat-option>
+              </mat-select>
+              </mat-form-field>
+          </div>
+          
+            <div style="font-size: 10px">
+                    <mat-form-field id="ident_critere" appearance="outline">
+                      <mat-label>{{'transaction.attribute.n13' | translate}}</mat-label>
+                      <input id="datestyle" autocomplete="off" matInput formControlName="ident_critere" [(ngModel)]="identifiant">
+                    </mat-form-field>
+              </div>
+              
+              <button id="bout" [disabled]="!filterform.valid" type="button" class="waves-light btn red-yellow f btn-sm" mdbWavesEffect 
+              (click)="Rechercher(filterform.value)"> <i class="fa fa-search"></i></button>
+      </form>
+      </div>
+        </div>
+    </div>
+</div>
+
+<div id="cardheight"  [hidden]="loading ">
+  <!-- <div class="card-header text-center  font-weight-bold black-text p-0">{{'transaction.detail' | translate}}
+    <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Print()" title='impression'><i class="fa fa-files-o" aria-hidden="true"></i></button>
+</div> -->
+<!-- <div class="card-body">
+        <table id="detailtransaction" *ngIf="data">
+          <tr>
+            <td>
+                <span id="bdg" class="badge badge-secondary"> <label><h5>Date/Heure :</h5></label></span>
+                <span *ngIf="dateTransaction" id="bdggg" class="badge badge-secondary"> <label><h6>{{dateTransaction}}</h6> </label></span></td>
+                <td> <span id="bdg" class="badge badge-secondary"> <label><h5>Etat :</h5></label></span>
+                  <span *ngIf="etatTransaction" id="bdggg" class="badge badge-secondary"><label><h6>{{etatTransaction}}</h6></label>  </span>
+                </td>
+                <td> <span id="bdg" class="badge badge-secondary">  <label><h5>Montant :</h5></label> </span>
+                  <span *ngIf="montant" id="bdggg" class="badge badge-secondary"> <label><h6>{{montant}}</h6></label> </span> 
+                </td>
+                
+          </tr>
+       <tr> 
+          <td>
+              <span id="bdg" class="badge badge-secondary">  <label><h5>Magasin :</h5></label> </span>
+              <span *ngIf="libelleMagasin" id="bdggg" class="badge badge-secondary"> <label><h6>{{libelleMagasin}}</h6></label></span></td>
+            <td> <span id="bdg" class="badge badge-secondary"> <label><h5>Etab.fin :</h5></label></span>
+              <span *ngIf="libelleEtablissementFinancier" id="bdggg" class="badge badge-secondary">  <label><h6>{{libelleEtablissementFinancier}}</h6></label></span></td> 
+              <td> <span id="bdg" class="badge badge-secondary"> <label><h5>Wallet :</h5></label></span>
+                <span *ngIf="libelleWallet" id="bdggg" class="badge badge-secondary"> <label><h6>{{libelleWallet}}</h6></label></span></td> 
+              
+       </tr> 
+       <tr>
+          <td>
+              <span id="bdg" class="badge badge-secondary">  <label><h5>Ref_MPGA :</h5></label></span>
+              <span *ngIf="refMpga" id="bdggg" class="badge badge-secondary">  <label><h6>{{refMpga}}</h6></label></span></td>
+            <td> <span id="bdg" class="badge badge-secondary"> <label><h5>Autorisation :</h5></label></span>
+              <span *ngIf="autorisation" id="bdggg" class="badge badge-secondary"> <label><h6>{{autorisation}}</h6></label></span></td> 
+            <td> <span id="bdg" class="badge badge-secondary"> <label><h5>Caisse :</h5></label></span>
+              <span *ngIf="codeCaisse" id="bdggg" class="badge badge-secondary">  <label><h6>{{codeCaisse}}</h6></label></span></td> 
+              
+      </tr> 
+        <tr>
+            <td>
+                <span id="bdg" class="badge badge-secondary">   <label><h5>Caissier :</h5></label></span>
+                <span *ngIf="libelleCaissier" id="bdggg" class="badge badge-secondary">  <label><h6>{{libelleCaissier}}</h6></label></span></td>
+              <td> <span id="bdg" class="badge badge-secondary"> <label><h5>Num ticket :</h5></label></span>
+                <span *ngIf="numeroTicket" id="bdggg" class="badge badge-secondary">  <label><h6>{{numeroTicket}}</h6></label></span></td> 
+            
+          </tr> 
+        </table>
+        <table id="detailtransaction" *ngIf="data">
+          <tr><td>
+              <span id="bdg" class="badge badge-secondary">  <label><h5>Transaction réconciliée le :</h5></label></span>
+              <span id="bdggg" class="badge badge-secondary" *ngIf="idreconciliation==2">  <label><h6>{{dateReconciliation}}</h6></label></span>
+              <span id="bdggg" class="badge badge-secondary" *ngIf="idreconciliation==1">  <label><h6>Non réconciliée</h6></label></span></td></tr>
+            <tr><td><span id="bdg" class="badge badge-secondary">  <label><h5>Transaction lettrée le :</h5></label></span>
+              <span id="bdggg" class="badge badge-secondary"  *ngIf="idlettrage==2">  <label><h6>{{dateLettrage}}</h6></label></span>
+              <span id="bdggg" class="badge badge-secondary"  *ngIf="idlettrage==1">  <label><h6>Non lettrée</h6></label></span></td> </tr>
+     
+      </table>
+      
+    
+
+</div> -->
+<div class="row" >
+  <div  class="col-6">
+      <div class="card" id="cardmagasin">
+        <!-- <div class="card-header-warning" >
+          <h4 class="card-title" style="text-align:center;color:maroon;margin-top: 2%;font-weight: bold;">Manager</h4>
+        </div> -->
+        <div class="card-content ">
+          <table id="detailtransac" style="margin-top: 2%;">
+            <tr>
+              <td>
+               <div class="form-inline"> <h5 id="paramtitle" >{{'transaction.column_date' | translate}} :</h5><h6 id="descrip">{{dateTransaction}}</h6></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="form-inline" *ngIf="idreconciliation=='-------------'">  <h5 id="paramtitle" >{{'transaction.column_Dte_Rec' | translate}} :</h5> <h6 id="descrip">{{dateReconciliation}}</h6></div>
+               <div class="form-inline" *ngIf="idreconciliation==1"> <h5 id="paramtitle" >{{'transaction.column_Dte_Rec' | translate}} :</h5> <h6 id="descrip">Non réconciliée</h6></div>
+               <div class="form-inline" *ngIf="idreconciliation==2"> <h5 id="paramtitle" >{{'transaction.column_Transa_Rec' | translate}} :</h5> <h6 id="descrip">{{dateReconciliation}}</h6></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+               <div class="form-inline" *ngIf="typerecons"> <h5 id="paramtitle" >{{'transaction.column_Type_Rec' | translate}} :</h5> <h6 id="descrip">{{typerecons}}</h6></div>
+              </td>
+            </tr>
+            <tr>
+              <td >
+                <div class="form-inline" *ngIf="idlettrage=='-------------'">  <h5 id="paramtitle" >{{'transaction.column_Dte_Lettre' | translate}} :</h5> <h6 id="descrip">{{dateLettrage}}</h6></div>
+              <div class="form-inline" *ngIf="idlettrage==1">  <h5 id="paramtitle" >{{'transaction.column_Dte_Lettre' | translate}} :</h5> <h6 id="descrip">Non lettrée</h6></div>
+               <div class="form-inline" *ngIf="idlettrage==2"> <h5 id="paramtitle" >{{'transaction.column_Transa_Letre' | translate}} :</h5><h6 id="descrip">{{dateLettrage}}</h6></div>
+              </td>
+            </tr>
+          </table>
+            </div>
+        </div>
+        </div>
+        </div>
+
+<div class="row" >
+  <div class="col-6">
+      <div class="card" id="cardmagasin">
+        <!-- <div class="card-header-warning" >
+          <h4 class="card-title" style="text-align:center;color:maroon;margin-top: 2%;font-weight: bold;">Manager</h4>
+        </div> -->
+        <div class="card-content ">
+          <table id="detailtransac" style="margin-top: 2%;">
+            <tr>
+              <td>
+                <div class="form-inline"><h5 id="paramtitle" >{{'transaction.attribute.n3' | translate}} :  </h5> <h6 id="descrip">{{libelleMagasin}}</h6></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="form-inline"><h5 id="paramtitle">{{'modifierEtablissement.column0' | translate}} :  </h5> <h6 id="descrip">{{libelleWallet}}</h6></div>
+              </td>
+            </tr>
+            <tr>
+              <td >
+                <div class="form-inline"><h5 id="paramtitle">{{'transaction.attribute.n1' | translate}} :  </h5><h6 id="descrip">{{libelleEtablissementFinancier}}</h6></div>
+              </td>
+            </tr>
+            <tr>
+              <td >
+               <div class="form-inline"><h5 id="paramtitle">{{'transaction.column_ref' | translate}} :  </h5><h6 id="descrip">{{refMpga}}</h6></div>
+              </td>
+            </tr>
+            <tr>
+              <td >
+                <div class="form-inline"> <h5 id="paramtitle">{{'transaction.column_autorisation' | translate}} :  </h5><h6 id="descrip">{{autorisation}}</h6></div>
+              </td>
+            </tr>
+          </table>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-6">
+          <div class="card" id="cardmagasin">
+            <!-- <div class="card-header-warning" >
+              <h4 class="card-title" style="text-align:center;color:maroon;margin-top: 2%;font-weight: bold;">Magasin</h4>
+            </div> -->
+            <div class="card-content ">
+              <table id="detailtransac" style="margin-top: 2%;">
+                <tr >
+                  <td >
+                   <div class="form-inline"> <h5 id="paramtitle" >{{'transaction.attribute.n6' | translate}} :</h5> <h6 id="descrip" >{{etatTransaction}}</h6></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                   <div class="form-inline"> <h5 id="paramtitle">{{'transaction.column_montant' | translate}} :</h5><h6 id="descrip">{{montant}}</h6></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td >
+                   <div class="form-inline"> <h5 id="paramtitle">{{'transaction.column_Caisse' | translate}} :</h5> <h6 id="descrip">{{codeCaisse}}</h6></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td >
+                    <div class="form-inline"><h5 id="paramtitle">{{'transaction.column_Caissier' | translate}} :</h5>  <h6 id="descrip">{{libelleCaissier}}</h6></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td >
+                   <div class="form-inline"> <h5 id="paramtitle">{{'transaction.column_Num_Ticket' | translate}} :</h5> <h6 id="descrip">{{numeroTicket}}</h6></div>
+                  </td>
+                </tr>
+              </table>
+                </div>
+            </div>
+            </div>
+
+        </div>
+        
+</div>
+</div>
+
+<div *ngIf="!isConnectionAvailable" clickNoRightClick>
+  <img id="wifi" src="../assets/nowifi.png" alt="logo" class="col-3"/>
+  <p id="verifconx">{{'prob' | translate}}</p>
+</div>
+
+<div *ngIf="loading && isConnectionAvailable" clickNoRightClick>
+  <div class="spinner-img">  
+    <!-- <img src="../../../../assets/aziza-logo.jpg" alt=""> -->
+  </div>
+  <h3 id="titreload">Chargement en cours ....</h3>
+
+</div>
+<!-- <div id="printconsultationtrans" clickNoRightClick>
+  <div class="row">
+    <img id="logconsulttrans" src="../assets/aziza.png" alt="logo" class="col-3"/>
+
+<div class=" font-weight-normal text-dark" id="adressconsulttrans">
+<label id=labadressconsult>{{adresse}}</label><br> <label id=labadressconsult>{{code}}</label> <label id=labadressvilconsult>{{ville}}</label> <br>
+<label style="font-size: 20px; padding-right: 10px;">Tel : </label><label id=labadressconsult>{{tel}}</label><br>
+<label style="font-size: 20px; padding-right: 10px;">RNE : </label><label id=labadressconsult>{{rne}}</label><br>
+
+</div><br>
+
+  </div>
+  <br><br>
+  <h5 id="dateprinttransconsult">Edité le : {{ date}}</h5>
+  <h2 id="titreprinttransactionconsult">Consultation Transaction
+  </h2>
+<br>
+ <div class="row">
+   <div class="col-6">
+     <label id="labelconsultprint">Ref_MPGA :</label>
+     <label id="consulttransprint">{{detail.refMpga}}</label>
+   </div>
+   <div class="col-6">
+     <label id="labelconsultprint">Autorisation :</label>
+     <label id="consulttransprint">{{detail.autorisation}}</label>
+    </div>
+   </div>
+ 
+ <div class="row">
+   <div class="col-6" >
+    <label id="labelconsultprint">Etablissement financier :</label>
+    <label id="consulttransprint">{{detail.libelleEtablissementFinancier}}</label>
+   </div>
+   <div class="col-6">
+    <label id="labelconsultprint">Wallet :</label>
+    <label id="consulttransprint">{{detail.libelleWallet}}</label>
+   </div>
+ </div>
+ 
+  <div class="row">
+    <div class="col-5">
+      <label id="labelconsultprint">Magasin :</label>
+      <label  id="consulttransprint">{{detail.libelleMagasin}}</label>
+    </div>
+    <div class="col-3">
+      <label id="labelconsultprint">Caisse :</label>
+      <label  id="consulttransprint">{{detail.codeCaisse}}</label>
+    </div>
+    <div class="col-4">
+      <label id="labelconsultprint">Caissier :</label>
+      <label  id="consulttransprint">{{detail.libelleCaissier}}</label>
+    </div>
+  </div>
+ 
+  <div class="row">
+    <div class="col-5">
+      <label id="labelconsultprint">Montant :</label>
+      <label  id="consulttransprint">{{detail.montant}}</label>
+    </div>
+    <div class="col-5">
+      <label id="labelconsultprint">Num Ticket :</label>
+      <label  id="consulttransprint">{{detail.numeroTicket}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <label id="labelconsultprint">Transaction :</label>
+      <label  id="consulttransprint">{{detail.etatTransaction}}</label>
+   
+      <label id="labelconsultprint">Le :</label>
+      <label  id="consulttransprint">{{detail.dateTransaction}}</label>
+    </div>
+  </div>
+  <br><br>
+  <table id="tabhistorique">
+    <tr>
+    <th>Etat</th>
+    <th>Date/heure</th>
+    <th>User</th>
+    <th>Commentaire</th>
+  </tr>
+  <tr *ngFor="let histo of detail.listHistoriques">
+<td>{{histo.etatTransaction}}</td>
+<td>{{histo.date}}</td>
+<td>{{histo.user}}</td>
+<td>{{histo.commentaire}}</td>
+  </tr>
+  </table>
+  <br><br>
+  <div class="row">
+    <div class="col-12" *ngIf="detail.idEtatReconciliation == 1">
+      <label id="labelconsultprint">Réconciliée  :</label>
+      <label  id="consulttransprint">Non Réconciliée</label>
+    </div>
+    <div class="col-12" *ngIf="detail.idEtatReconciliation == 2">
+      <label id="labelconsultprint">Réconciliée le :</label>
+      <label  id="consulttransprint">{{detail.dateReconciliation}}</label>
+    </div>
+  </div>
+
+ 
+  <div class="row">
+    <div class="col-12" *ngIf="detail.idEtatLettrage == 1">
+      <label id="labelconsultprint">Lettrée :</label>
+      <label  id="consulttransprint">Non Lettrée</label>
+    </div>
+    <div class="col-12" *ngIf="detail.idEtatLettrage == 2">
+      <label id="labelconsultprint">Lettrée le :</label>
+      <label  id="consulttransprint">{{detail.dateLettrage}}</label>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,143 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div class="card text-center" clickNoRightClick>
+    <div  class="card-header font-weight-bold black-text p-0" > {{'ajouterEtablissement.headercard'|translate}} 
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" title="{{'btn.btn1'| translate}}"
+       mdbWavesEffect (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"   title="{{'btn.btn15'| translate}}" (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title="{{'btn.btn16'| translate}}" (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+    </div></div><br [hidden]="!isOpened">
+
+    <form #form="ngForm" [formGroup]="etablissementform"  class="form-inline"  [hidden]="!isOpened">
+       
+        <div style="font-size: 10px;">
+            <mat-form-field id="magasininput" appearance="outline">
+                <mat-label id="labelobligatoir">{{'input.raison'|translate}}</mat-label>
+              <input (focus)="onFocus([Type_Message.LETTER_NUMBER],true)"
+              (blur)="onBlur()" autocomplete="off" id="datestyle" matInput  formControlName="raison_sociale" [(ngModel)]="raison" maxlength="100">
+              <!-- <mat-error style="font-size: 13px;" *ngIf="!etablissementform.controls['raison_sociale'].valid && etablissementform.controls['raison_sociale'].touched">{{geterrorraison()}}</mat-error> -->
+            </mat-form-field>
+          </div>
+          <div style="font-size: 10px;">
+            <mat-form-field id="magasininput" appearance="outline">
+                <mat-label id="labelobligatoir">{{'input.nomCommercial'|translate}}</mat-label>
+              <input (focus)="onFocus([Type_Message.LETTER_NUMBER],true)"
+              (blur)="onBlur()" autocomplete="off" id="datestyle" matInput  formControlName="nom_commercial" [(ngModel)]="commercial" maxlength="50">
+              <!-- <mat-error style="font-size: 13px;" *ngIf="!etablissementform.controls['nom_commercial'].valid && etablissementform.controls['nom_commercial'].touched">{{geterrornon()}}</mat-error> -->
+            </mat-form-field>
+          </div>
+
+          <div style="font-size: 10px;">
+            <mat-form-field id="magasininput" appearance="outline">
+                <mat-label id="labelobligatoir">{{'input.nomAbrege'|translate}}</mat-label>
+              <input (focus)="onFocus([Type_Message.NUMBER,Type_Message.CUSTOM_CAR],true,8)"
+              (blur)="onBlur()" autocomplete="off"  id="datestyle" matInput  formControlName="nom_abrege" [(ngModel)]="aberge" maxlength="8" minlength="8">
+              <!-- <mat-error style="font-size: 13px;" *ngIf="!etablissementform.controls['nom_abrege'].valid && etablissementform.controls['nom_abrege'].touched">{{geterrornonaberg()}}</mat-error> -->
+            </mat-form-field>
+          </div>
+          <div style="font-size: 10px">
+            <mat-form-field id="magasininput" appearance="outline">
+                <mat-label id="labelobligatoir">{{'input.typeIdenti'|translate}}</mat-label>
+                <mat-select (focus)="onFocus([],true)"
+                (blur)="onBlur()"  formControlName="id_type_identification"  [(ngModel)]="type" (selectionChange)="changetypeidentification(type)"> 
+                  <mat-option *ngFor="let type of types" [value]="type">
+                    {{type.designation}} </mat-option>
+                    </mat-select>
+                        <!-- <mat-error style="font-size: 13px;" *ngIf="!etablissementform.controls['id_type_identification'].valid && etablissementform.controls['id_type_identification'].touched">Champ Obligatoire</mat-error> -->
+                        </mat-form-field>
+          </div>
+          <div style="font-size: 10px;">
+            <mat-form-field id="magasininput" appearance="outline">
+                <mat-label id="labelobligatoir">{{'input.rne'|translate}}</mat-label>
+              <input (focus)="onFocus([Type_Message.NUMBER,Type_Message.CUSTOM_CAR],true,nonbrecart)"
+              (blur)="onBlur()" autocomplete="off" id="datestyle" matInput  formControlName="rne" [(ngModel)]="rne">
+              <!-- <mat-error style="font-size: 13px;" *ngIf="!etablissementform.controls['rne'].valid && etablissementform.controls['rne'].touched">{{geterreurrne()}}</mat-error> -->
+            </mat-form-field>
+          </div>
+
+
+          <div style="font-size: 10px">
+            <mat-form-field id="magasininput" appearance="outline">
+                <mat-label id="labelobligatoir">{{'input.categorie'|translate}}</mat-label>
+                <mat-select (focus)="onFocus([],true)"
+                (blur)="onBlur()" formControlName="id_categorie"  [(ngModel)]="cat"> 
+                  <mat-option *ngFor="let cat of categories" [value]="cat.idCategorieEtablissementFinancier">
+                    {{cat.designation}} </mat-option>
+                    </mat-select>
+                        <!-- <mat-error style="font-size: 13px;" *ngIf="!etablissementform.controls['id_categorie'].valid && etablissementform.controls['id_categorie'].touched">Champ Obligatoire</mat-error> -->
+                        </mat-form-field>
+          </div>
+          <div class="col-12">
+
+            <h4 style="font-weight: bold; text-align: center;">{{'ajouterEtablissement.headercard2'|translate}}</h4> 
+          </div>
+     <div  class="input-group">
+            <div style="font-size: 10px">
+              <mat-form-field id="adresseininput" appearance="outline">
+                  <mat-label id="labelobligatoir">{{'input.adr'|translate}} </mat-label>
+                <input (focus)="onFocus([],true)"
+                (blur)="onBlur()" autocomplete="off" id="datestyle" matInput  formControlName="rue" [(ngModel)]="rue" maxlength="50" >
+                <!-- <mat-error style="font-size: 13px;" *ngIf="!etablissementform.controls['rue'].valid && etablissementform.controls['rue'].touched">Champ Obligatoire</mat-error> -->
+              </mat-form-field>
+            </div>
+          </div>
+
+           
+          <!-- <div  class="input-group">
+            <div style="font-size: 10px;">
+              <mat-form-field id="adresseininput" appearance="outline">
+                  <mat-label>Adresse 2</mat-label>
+                <input id="datestyle" matInput  formControlName="adresse_">
+                <mat-error style="font-size: 13px;" *ngIf="!etablissementform.controls['adresse_'].valid && etablissementform.controls['adresse_'].touched">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </div>
+          </div> -->
+            <div style="font-size: 10px">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label id="labelobligatoir">{{'input.gouvernorat'|translate}}</mat-label>
+                    <mat-select (focus)="onFocus([],true)"
+                    (blur)="onBlur()" formControlName="id_gouvernourat" [(ngModel)]="gouv" (selectionChange)="changegouvernorat(gouv)"> 
+                      <mat-option *ngFor="let gouv of gouvernorats" [value]="gouv .idGouvernorat">
+                        {{gouv .nom}} </mat-option>
+                        </mat-select>
+                            <!-- <mat-error style="font-size: 13px;" *ngIf="!etablissementform.controls['id_gouvernourat'].valid && etablissementform.controls['id_gouvernourat'].touched">Champ obligatoire</mat-error> -->
+                            </mat-form-field>
+              </div>
+              <div style="font-size: 10px">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label id="labelobligatoir">{{'input.ville'|translate}}</mat-label>
+                    <mat-select (focus)="onFocus([],true)"
+                    (blur)="onBlur()" formControlName="id_ville" [(ngModel)]="vil" (selectionChange)="changeville(vil)"> 
+                      <mat-option *ngFor="let vil of villes" [value]="vil .idVille">
+                        {{vil .nom}} </mat-option>
+                        </mat-select>
+                            <!-- <mat-error style="font-size: 13px;" *ngIf="!etablissementform.controls['id_ville'].valid && etablissementform.controls['id_ville'].touched">Champ obligatoire</mat-error> -->
+                            </mat-form-field>
+              </div>
+              <div style="font-size: 10px;">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label>{{'input.cdePostal'|translate}}</mat-label>
+                   
+                  <input id="datestyle" matInput  formControlName="code_postal" [(ngModel)]='code'>
+                  <!-- <mat-error style="font-size: 13px;" *ngIf="!etablissementform.controls['code_postal'].valid && etablissementform.controls['code_postal'].touched">*Champ obligatoire</mat-error> -->
+                </mat-form-field>
+              </div>
+            </form><br [hidden]="!isOpened"><br [hidden]="!isOpened">
+            <div mat-dialog-actions align="end" class="footr mt-auto"  [hidden]="!isOpened">
+              <br>
+              <div class="d-left">
+                <ul style="list-style-type:none; " class="small text-left pl-4 m-3">
+                  <li *ngFor="let m of Messages" [ngStyle]="{'color': m.color}"><i style="margin-right: 10px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{m.message }}</li>
+               
+               <li>
+                <mat-error  *ngIf="err"><i style="margin-right: 10px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{msg}}</mat-error> 
+               </li> </ul>
+              </div>
+            <div class="form-group dialog-footer" [hidden]="!isOpened" >
+                <button [disabled]="disable" class="waves-light btn red-yellow float-right btn-sm" type="reset" title="{{'btn.btn1'| translate}}" (click)="Fermer()"><span id="sp"><i class="fa fa-times"></i></span></button>
+                <button [disabled]="disable" class="waves-light btn red-yellow float-right btn-sm" type="submit" title="{{'btn.btn3'| translate}}" (click)="onSubmit(form)"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+                <button [disabled]="disable" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="reset()" title="{{'btn.btn2'| translate}}"><span id="sp"><i class="fa fa-eraser" aria-hidden="true"></i></span></button>
+              </div>
+            </div>
+</div>

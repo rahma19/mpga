@@ -1,0 +1,36 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div class="card text-center" clickNoRightClick>
+    <div  class="card-header font-weight-bold white-text p-0"> Détails Agent 
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+    </div></div><br>
+    <table id="detailmagasin" clickNoRightClick>
+        <tr>
+          <td>
+                <label id="espagent"><h5 id="agentdetail">Matricule :</h5></label>
+                <label id="pass"><h6>{{matricule}}</h6> </label></td>
+              <td>  <label id="pass"><h5 id="agentdetail">Catégorie :</h5></label>
+                <label id="pass"><h6>{{categorieAgent}}</h6></label>  
+              </td>
+        </tr>
+     <tr>
+        <td>
+            <label id="espagent"><h5 id="agentdetail">Prénom :</h5></label>
+            <label id="pass"><h6>{{prenom}}</h6></label></td>
+          <td> <label id="pass"><h5 id="agentdetail">Nom :</h5></label>
+            <label id="pass"><h6>{{nom}}</h6></label></td> 
+     </tr> 
+     <tr>
+      <td>
+          <label id="espagent"><h5 id="agentdetail">Mobile :</h5></label>
+          <label id="pass"><h6>{{telephone}}</h6></label></td>
+        <td> <label id="pass"><h5 id="agentdetail">Email :</h5></label>
+          <label id="pass"><h6>{{email}}</h6></label></td> 
+    </tr> 
+    </table>
+<!-- <div id="" class="form-group">
+   <button id="bbt" class="waves-light btn blue-grey float-right btn-sm" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+        
+</div> -->
+</div>

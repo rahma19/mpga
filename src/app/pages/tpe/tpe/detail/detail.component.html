@@ -1,0 +1,43 @@
+
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div id="dettpe">
+    <div class="card text-center">
+      <div  class="card-header font-weight-bold black-text p-0"> Détails TPE
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+          <i class="fa fa-times"></i>
+        </button>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"   title='minimize' (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title='maximize' (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+      </div></div><br>
+      <div  [hidden]="!isOpened">
+          <table>
+              <tr>
+                
+                
+                    <td>  <label id="tepass"><h6 id="titleliste" style="font-weight: bold;">Numéro série :</h6></label>
+                      <label id="epass"><h6 id="labelliste">{{serie}}</h6></label>  
+                    </td>
+                    <td> <label id="tepass"><h6 id="titleliste" style="font-weight: bold;">Propriété :</h6></label>
+                      <label id="epass"><h6 id="labelliste">{{prop}}</h6></label></td> 
+              </tr>
+           <tr>
+            <td> <label id="tepass"><h6 id="titleliste" style="font-weight: bold;">Marque :</h6></label>
+              <label id="epass"><h6 id="labelliste">{{marque}}</h6></label></td> 
+                    <td>  <label id="tepass"><h6 id="titleliste" style="font-weight: bold;">Modèle :</h6></label>
+                      <label id="epass"><h6 id="labelliste">{{model}}</h6></label></td>
+                   
+           </tr>
+           <tr>
+             
+              
+                <td> <label id="tepass"><h6 id="titleliste"style="font-weight: bold;">Affectation :</h6></label>
+                  <label *ngIf="idetat==2" id="epass"><h6 id="labelliste">{{magasin}}</h6></label>
+                  <label *ngIf="idetat!=2" id="epass"><h6 id="labelliste">{{etat}}</h6></label></td> 
+                 <td> <label id="tepass"><h6 id="titleliste" style="font-weight: bold;">Application :</h6></label>
+                  <label id="epass"><h6 id="labelliste">{{application}}</h6></label></td>
+           </tr>         
+          </table>       
+    </div>
+         
+        </div>
+</div>

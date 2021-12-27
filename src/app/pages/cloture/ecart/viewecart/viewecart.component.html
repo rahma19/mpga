@@ -1,0 +1,48 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div class="card text-center" clickNoRightClick>
+    <div  class="card-header font-weight-bold black-text p-0"> Détails Ecart
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"   title='minimize' (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title='maximize' (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+    </div></div><br>
+    
+    <table id="detailrecon" [hidden]="!isOpened">
+      <tr><td> <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Date :</h6></label>
+        <label id="pass"><h6>{{date}}</h6></label></td>
+        <td>  <label id="pass"><h6 id="titleliste" style="font-weight: bold;">Etat :</h6></label>
+          <label id="pass"><h6>{{etat}}</h6></label>  
+        </td> </tr>
+        <tr><td> <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Type :</h6></label>
+            <label id="pass"><h6>{{type}}</h6></label></td>
+            <td>  <label id="pass"><h6 id="titleliste" style="font-weight: bold;">Code :</h6></label>
+              <label id="pass"><h6>{{code}}</h6></label>  
+            </td> </tr>
+      <tr><td> <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Code Magasin :</h6></label>
+        <label id="pass"><h6>{{mag}}</h6></label></td>
+        <td>  <label id="pass"><h6 id="titleliste" style="font-weight: bold;">Vcn :</h6></label>
+          <label id="pass"><h6>{{vcn}}</h6></label>  
+        </td> </tr>
+      <tr>
+        <td>
+              <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">RefMPGA :</h6></label>
+              <label id="pass"><h6>{{ref}}</h6> </label></td>
+            <td><label id="pass"><h6 id="titleliste" style="font-weight: bold;">Autorisation :</h6></label>
+              <label id="pass"><h6>{{autorisation}}</h6></label>  
+            </td>
+            <td><label id="pass"><h6 id="titleliste" style="font-weight: bold;">Montant :</h6></label>
+              <label id="pass"><h6>{{montant}}</h6></label>  
+            </td>
+      </tr>
+  
+  <tr><td> <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Historique Ecart :</h6></label></td></tr>
+  </table>
+    <div style="width: 100%;" class="table-responsive" id="tab" clickNoRightClick [hidden]="!isOpened">
+      <!-- <ng2-smart-table [settings]="settings" [source]="source" id="header">
+         
+      </ng2-smart-table> -->
+    </div>
+    <br>
+   
+</div>

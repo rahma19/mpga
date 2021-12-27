@@ -1,0 +1,15 @@
+#detailfile{
+    width: 99%;
+    margin:auto
+}
+#detailfile th{
+    border: 1px solid black;
+    font-size:17px;
+    font-weight: bold;
+    
+}
+#detailfile td{
+    border: 1px solid black;
+    font-size:17px;
+    
+}

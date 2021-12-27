@@ -1,0 +1,5 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<select [(ngModel)]="yourModelStore">
+    <option *ngFor="let item of listeImpre" [value]="item.qrCode">{{item.libelle}}</option>
+  </select>
+</div>

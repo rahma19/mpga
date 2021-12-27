@@ -1,0 +1,16 @@
+<div class="sidebar-outer">
+    <!-- <a class="logo d-flex align-items-center" routerLink="/" (click)="closeSubMenus()" *ngIf="settings.theme.sidebarIsFixed"> -->
+        <span class="start">
+                <img class="logo d-flex align-items-center " src="assets/aziza-logo.jpg">
+            <!-- <h5><font color=#02339e>ALLIANCE</font> <br> <font color=#3ea6fa>TECHNOLOGIE </font></h5>  -->
+        </span>
+    <!-- </a> -->
+<!-- <div *ngIf="level==-1 "> -->
+<app-vertical-menu [menuItems]="menuItems"></app-vertical-menu>
+<!-- </div>  -->
+<div *ngIf="level==1">
+<app-vertical-menu-part [menuItems]="menuItemsPart"></app-vertical-menu-part></div>
+<div *ngIf="level==2">
+<app-vertical-menu-aff [menuItems]="menuItemsAff"></app-vertical-menu-aff></div>
+<div *ngIf="level==3">
+<app-vertical-menu-vente [menuItems]="menuItemsVente"></app-vertical-menu-vente></div>

@@ -1,0 +1,28 @@
+<form class="example-form" clickNoRightClick>
+    <div id="tool">
+        <mat-toolbar>Modifier Profile</mat-toolbar>
+    </div><br>
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Nom" >
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Email" >
+    </mat-form-field><br>
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Description">
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput placeholder="Confirmer mot de passe">
+        </mat-form-field><br>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Login">
+    </mat-form-field>
+  </form><br>
+  <div class="row col-12" clickNoRightClick>
+      <div id="bttn" class="col-12">
+  <button id="btt" mat-raised-button color="primary">Ajouter</button>
+  <button id="btt" mat-raised-button color="warn" (click)="Fermer()">Fermer</button>
+  <!-- <button id="btt" mat-stroked-button>Ajouter</button> -->
+ <!-- <button id="btt" mat-stroked-button>Fermer</button> -->
+ </div>
+</div>

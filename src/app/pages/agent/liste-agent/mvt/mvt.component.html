@@ -1,0 +1,100 @@
+
+    <div class="card text-center" clickNoRightClick >
+        <div  class="card-header font-weight-bold black-text p-0" > Ajouter Mouvement Agent 
+          <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+            <i class="fa fa-times"></i>
+          </button>
+        </div></div><br>
+        <form #form="ngForm" [formGroup]="agentform"  class="form-inline"  clickNoRightClick>
+            <!-- <div style="font-size: 3px">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label>Code</mat-label>
+                  <input id="datestyle" matInput class="form-control col-12" formControlName="code">
+                </mat-form-field>
+              </div> -->
+              
+            <div style="font-size: 3px;">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label>Matricule</mat-label>
+                  <input style="font-weight: bold;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="matricule" formControlName="matricule">
+                </mat-form-field>
+              </div>
+              <div style="font-size: 3px;">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label>Nom</mat-label>
+                  <input style="font-weight: bold;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="nomAgent" formControlName="nom">
+                </mat-form-field>
+              </div>
+                  <div style="font-size: 10px;margin-top:8px">
+                    <mat-form-field id="typemvt" appearance="outline">
+                        <mat-label style="color: orangered;">Type mouvement *</mat-label>
+                        <mat-select  formControlName="type" [(ngModel)]="type" (selectionChange)="getvariable(type)"> 
+                          <mat-option  *ngFor="let mvt of mvts" [value]="mvt.idTypeMouvement" [disabled]="mvt.idTypeMouvement == valMvt">
+                            {{mvt.designation}} </mat-option>
+                                </mat-select>
+                                <mat-error style="font-size: 13px;" *ngIf="!agentform.controls['type'].valid && agentform.controls['type'].touched">*Champ obligatoire</mat-error>
+                                </mat-form-field>
+                  </div>
+                  <div class="form-inline" >
+                    <div style="font-size: 3px;" [hidden]="!mutation">
+                      <mat-form-field id="magasininput" appearance="outline">
+                          <mat-label>Magasin actuel</mat-label>
+                        <input style="font-weight: bold;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="magasin" formControlName="nommag">
+                      </mat-form-field>
+                    </div>
+                        <div style="font-size: 10px;margin-top:8px" [hidden]="!mutation && !affect">
+                          <mat-form-field id="magasininput" appearance="outline">
+                              <mat-label style="color: orangered;">Magasin *</mat-label>
+                              <mat-select  formControlName="magasin" > 
+                                  <mat-option *ngFor="let mag of magasins" [value]="mag.idMagasin">
+                                      {{mag.libelle}} </mat-option>
+                                      </mat-select>
+                                      <mat-error style="font-size: 13px;" *ngIf="!agentform.controls['magasin'].valid && agentform.controls['magasin'].touched">*Champ obligatoire</mat-error>
+                                      </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="form-inline" [hidden]="!changement">
+                        <div style="font-size: 3px;" >
+                          <mat-form-field id="magasininput" appearance="outline">
+                              <mat-label>Catégorie actuel</mat-label>
+                            <input style="font-weight: bold;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="categorie" formControlName="catmag">
+                          </mat-form-field>
+                        </div>
+                            <div style="font-size: 10px;margin-top:8px">
+                              <mat-form-field id="magasininput" appearance="outline">
+                                  <mat-label style="color: orangered;">Catégorie *</mat-label>
+                                  <mat-select  formControlName="categorie" > 
+                                    <mat-option *ngFor="let cat of categories" [value]="cat.idCategorieAgent">
+                                        {{cat.libelle}} </mat-option>
+                                          </mat-select>
+                                          <mat-error style="font-size: 13px;" *ngIf="!agentform.controls['categorie'].valid && agentform.controls['categorie'].touched">*Champ obligatoire</mat-error>
+                                          </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="form-inline" >
+                  <div style="font-size: 10px; margin-top: 5px">
+                    <mat-form-field id="magasininput" appearance="outline">
+                        <mat-label style="color: orangered;">Date effet *</mat-label>
+                        <input id="dateinputstyle" matInput [(ngModel)]="currentday" formControlName="Date" [matDatepicker]="picker1" >
+                        <mat-datepicker-toggle class="float-right" matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-error style="font-size: 13px;" *ngIf="!agentform.controls['Date'].valid && agentform.controls['Date'].touched">*Champ obligatoire</mat-error>
+                      </mat-form-field>
+                </div>
+                <div style="font-size: 3px;">
+                    <mat-form-field id="commentMvt" appearance="outline">
+                        <mat-label style="color: orangered;">Commentaire *</mat-label>
+                      <input style="width: 100%;" id="datestyle" matInput class="form-control col-12"  [(ngModel)]="comment" formControlName="comment">
+                      <mat-error style="font-size: 13px;" *ngIf="!agentform.controls['comment'].valid && agentform.controls['comment'].touched">*Champ obligatoire</mat-error>
+                    </mat-form-field>
+                  </div>
+                  </div>
+                </form><br><br>
+                <div class="form-group" clickNoRightClick>
+                    <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times"></i></span></button>
+                    <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="submit" (click)="onSubmit(form)"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+                    <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="reset()" title="Effacer"><span id="sp"><i class="fa fa-eraser" aria-hidden="true"></i></span></button>
+                  </div>
+                 
+
+

@@ -1,0 +1,239 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div class="card text-center" clickNoRightClick>
+  <div  class="card-header font-weight-bold black-text p-0"> {{'detailMagasin.headercard' | translate}}
+    <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" title="{{'btn.btn1'| translate}}" mdbWavesEffect (click)="Fermer()">
+      <i class="fa fa-times"></i>
+    </button>
+    <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"   title="{{'btn.btn15'| translate}}" (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+    <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title="{{'btn.btn16'| translate}}" (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+  </div></div><br [hidden]="!isOpened">
+  <table id="detailmagasin" clickNoRightClick [hidden]="!isOpened">
+    <tr>
+      <td>
+            <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">{{'detailMagasin.attribute.n1' | translate}} :</h6></label>
+            <label id="pass"><h6>{{libelle}}</h6> </label></td>
+          <td>  <label id="pass"><h6 id="titleliste" style="font-weight: bold;">{{'detailMagasin.attribute.n2' | translate}} :</h6></label>
+            <label id="pass"><h6>{{code}}</h6></label>  
+          </td>
+    </tr>
+ <!-- <tr>
+    <td>
+        <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Rue :</h6></label>
+        <label id="pass"><h6>{{rue}}</h6></label></td>
+      <td> <label id="pass"><h6 id="titleliste" style="font-weight: bold;">Ville :</h6></label>
+        <label id="pass"><h6>{{ville}}</h6></label></td> 
+        <td> <label id="pass"><h6 id="titleliste" style="font-weight: bold;">Code postal :</h6></label>
+          <label id="pass"><h6>{{codepostal}}</h6></label></td> 
+ </tr>  -->
+ <!-- <tr>
+  <td>
+      <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Gouvernorat :</h6></label>
+      <label id="pass"><h6>{{gouvernorat}}</h6></label></td>
+    <td> <label id="pass"><h6 id="titleliste" style="font-weight: bold;">Zone :</h6></label>
+      <label id="pass"><h6>{{zoneGeographique}}</h6></label></td> 
+</tr>  -->
+<!-- <tr>
+    <td>
+        <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Email :</h6></label>
+        <label id="pass"><h6>{{email}}</h6></label></td>
+      <td> <label id="pass"><h6 id="titleliste" style="font-weight: bold;">Téléphone :</h6></label>
+        <label id="pass"><h6>{{tel}}</h6></label></td> 
+        <td> <label id="pass"><h6 id="titleliste" style="font-weight: bold;">Fax :</h6></label>
+          <label id="pass"><h6>{{fax}}</h6></label></td> 
+  </tr>  -->
+  <tr>
+    <td>
+        <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">{{'detailMagasin.attribute.n3' | translate}} :</h6></label>
+        <label id="pass"><h6>{{etatMagsin}}</h6></label></td>
+        <td>  <label id="pass"><h6 id="titleliste" style="font-weight: bold;">{{'detailMagasin.attribute.n4' | translate}} :</h6></label>
+          <label id="pass"><h6>{{ref}}</h6></label>  
+        </td>
+  </tr> 
+</table>
+    <!-- <tr><td>
+    <label id="espleft"><h5>Nombre caisse :</h5></label>
+    <label id="pass"><h6>{{nombreCaisse}}</h6></label></td>
+  </tr>  -->
+  <!-- <tr><td>
+    <label id="espleft"><h5>Liste des caisses :</h5></label>
+  </tr>  -->
+  <span style="text-align: center" id="bdgmagasin" class="badge badge-secondary" clickNoRightClick [hidden]="!isOpened"> <h5  >{{'detailMagasin.attribute.n5' | translate}}</h5></span>
+
+<table id="tablemagasin" clickNoRightClick [hidden]="!isOpened">
+  <thead  class="head">
+      <tr>
+          <th><h6 id="titleliste" style="font-weight: bold;" >{{'detailMagasin.attribute.n6' | translate}}</h6></th>
+          <th><h6 id="titleliste" style="font-weight: bold;" >{{'detailMagasin.attribute.n7' | translate}}</h6></th>
+          <th><h6 id="titleliste" style="font-weight: bold;" >{{'detailMagasin.attribute.n8' | translate}}</h6></th>
+          <th><h6 id="titleliste" style="font-weight: bold;" >{{'detailMagasin.attribute.n9' | translate}}</h6></th>
+          <th><h6 id="titleliste" style="font-weight: bold;" >{{'detailMagasin.attribute.n3' | translate}}</h6></th>
+          <th><h6 id="titleliste" style="font-weight: bold;" > {{'detailMagasin.attribute.n10' | translate}}</h6></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let liste of resultat">
+          <td ><h6>{{liste.libelleCaisse }}</h6></td>
+          <td ><h6>{{liste.code }}</h6></td>
+          <td ><h6>{{liste.adresseIpCaisse }}</h6></td>
+          <td ><h6>{{liste.adresseIpTpe }}</h6></td>
+          <td ><h6>{{liste.etatCaisse }}</h6></td>
+          <td ><h6>{{liste.qrCode }}</h6></td>
+      </tr>
+      <!-- <tr>
+          <td *ngFor="let liste of listeoperateur"><h6>{{liste.solde2}} </h6></td>
+      </tr>
+      <tr>
+          <td *ngFor="let liste of listeoperateur"><h6>{{liste.nbr1}} </h6></td>
+      </tr>
+      <tr>
+          <td *ngFor="let liste of listeoperateur"><h6>{{liste.nbr2}} </h6></td>
+      </tr> -->
+  </tbody>
+</table>
+<!-- <span style="text-align: center" id="bdgmagasin" class="badge badge-secondary" clickNoRightClick> <h5  style="text-align: center">Liste des responsables</h5></span>
+<table id="tablemagasin" clickNoRightClick>
+  <thead  class="head">
+      <tr>
+          <th><h6 id="titleliste" style="font-weight: bold;" >Catégorie</h6></th>
+          <th><h6 id="titleliste" style="font-weight: bold;" >Nom Prénom</h6></th>
+          <th><h6 id="titleliste" style="font-weight: bold;" >Matricule</h6></th>
+          <th><h6 id="titleliste" style="font-weight: bold;" >Email</h6></th>
+          <th><h6 id="titleliste" style="font-weight: bold;" >Téléphone</h6></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let liste of agents">
+          <td ><h6>{{liste.categorieAgent }}</h6></td>
+          <td ><h6>{{liste.nom }} {{liste.prenom}}</h6></td>
+          <td ><h6>{{liste.matricule }}</h6></td>
+          <td ><h6>{{liste.email }}</h6></td>
+          <td ><h6>{{liste.mobile }}</h6></td>
+      </tr>
+  </tbody>
+</table> -->
+<span style="text-align: center" id="bdgmagasin" class="badge badge-secondary" [hidden]="!isOpened" clickNoRightClick> <h5  style="text-align: center">{{'detailMagasin.attribute.n11' | translate}}</h5></span>
+<table id="tablemagasin" clickNoRightClick [hidden]="!isOpened">
+  <thead  class="head">
+      <tr>
+          <th><h6 id="titleliste" style="font-weight: bold;" >{{'detailMagasin.attribute.n12' | translate}}</h6></th>
+          <th><h6 id="titleliste" style="font-weight: bold;" >{{'detailMagasin.attribute.n13' | translate}}</h6></th>
+          <th><h6 id="titleliste" style="font-weight: bold;" >{{'detailMagasin.attribute.n4' | translate}}</h6></th>
+          <th><h6 id="titleliste" style="font-weight: bold;" >{{'detailMagasin.attribute.n3' | translate}}</h6></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let liste of services">
+          <td ><h6>{{liste.nomWallet }}</h6></td>
+          <td ><h6>{{liste.affiliationMonetique }}</h6></td>
+          <td ><h6>{{liste.numeroRefMpga }}</h6></td>
+          <td ><h6>{{liste.etatWallet }}</h6></td>
+      </tr>
+  </tbody>
+</table>
+  <div id="bott" class="form-group" clickNoRightClick [hidden]="!isOpened">
+      <!-- <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times" aria-hidden="true"></i></span></button> -->
+      <!-- <button id="bbt" class="waves-light btn red-yellow float-right btn-sm"  (click)="Print()"><span id="sp">impression</span></button> -->
+  </div>
+  <!-- <div id="detmagasinprint" #printSection >
+    <div id="print-section" clickNoRightClick>
+  <div class="row">
+    <img id="botlogmag" src="../assets/aziza.png" alt="logo" class="col-3"/>
+  
+  <div class=" font-weight-normal text-dark" id="botadressmag">
+  <label id="botlabamag">{{adresse}}</label><br> <label id="botlabamag">{{code}}</label> <label id="botlabadressvilmg">{{ville}}</label> <br>
+  <label style="font-size: 20px; padding-right: 10px;">Tel : </label><label id="botlabamag">{{tel}}</label><br>
+  <label style="font-size: 20px; padding-right: 10px;">RNE : </label><label id="botlabamag">{{rne}}</label><br>
+  
+  </div>
+  
+  </div>
+  <h5 id="botdateprintmag">Edité le : {{ currentDate | date:'dd/MM/yyy'}}</h5>
+  <h2 style="text-align: center;">Magasin Num:° <span id="titmag">{{detailmag.code}}</span> </h2>
+    <table id="detailmagasin">
+      <tr>
+        <td>
+              <label id="espleft">Nom magasin :</label>
+              <label id="pass">{{detailmag.libelle}} </label></td>
+              <td>
+                <label id="espleft">Rue :</label>
+                <label id="pass">{{detailmag.code}}</label></td>
+      </tr>
+   <tr>
+      
+        <td> <label id="espleft">Ville :</label>
+          <label id="pass">{{detailmag.ville}}</label></td> 
+          <td>
+            <label id="espleft">Gouvernorat :</label>
+            <label id="pass">{{detailmag.gouvernorat}}</label></td>
+   </tr> 
+   <tr>
+   
+      <td> <label id="espleft">Zone :</label>
+        <label id="pass">{{detailmag.zoneGeographique}}</label></td> 
+        <td>
+          <label id="espleft">Email :</label>
+          <label id="pass">{{detailmag.email}}</label></td>
+  </tr> 
+  <tr>
+     
+        <td> <label id="espleft">Téléphone :</label>
+          <label id="pass">{{detailmag.telephone}}</label></td> 
+          <td>
+            <label id="espleft">Fax :</label>
+            <label id="pass">{{detailmag.fax}}</label></td>
+    </tr> 
+   
+  </table>
+    <br>
+    <span style="text-align: center" id="bdgmagasinprint" class="badge badge-secondary"> <h3  >Liste des caisses :</h3></span>
+  
+  <table id="tablemagasin" >
+    <thead  class="head">
+        <tr>
+            <th><h4 >Libelle</h4></th>
+            <th><h4 >Code</h4></th>
+            <th><h4 >@ IP Caisse</h4></th>
+            <th><h4 >@ IP Tpe</h4></th>
+            <th><h4 >Etat</h4></th>
+            <th><h4 > QR Code</h4></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let liste of resultat">
+            <td ><h5>{{liste.libelleCaisse }}</h5></td>
+            <td ><h5>{{liste.code }}</h5></td>
+            <td ><h5>{{liste.adresseIpCaisse }}</h5></td>
+            <td ><h5>{{liste.adresseIpTpe }}</h5></td>
+            <td ><h5>{{liste.etatCaisse }}</h5></td>
+            <td ><h5>{{liste.qrCode }}</h5></td>
+        </tr>
+     
+    </tbody>
+  </table>
+  <br>
+  <span style="text-align: center" id="bdgmagasinprint" class="badge badge-secondary"> <h3  style="text-align: center">Liste des résponsables :</h3></span>
+  <table id="tablemagasin" >
+    <thead  class="head">
+        <tr>
+            <th><h4 >Catégorie</h4></th>
+            <th><h4 >Nom Prénom</h4></th>
+            <th><h4 >Matricule</h4></th>
+            <th><h4 >Email</h4></th>
+            <th><h4 >Téléphone</h4></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let liste of agents">
+            <td ><h5>{{liste.categorieAgent }}</h5></td>
+            <td ><h5>{{liste.nom }} {{liste.prenom}}</h5></td>
+            <td ><h5>{{liste.matricule }}</h5></td>
+            <td ><h5>{{liste.email }}</h5></td>
+            <td ><h5>{{liste.mobile }}</h5></td>
+        </tr>
+      
+    </tbody>
+  </table>
+    
+  </div>
+  </div> -->
+</div>

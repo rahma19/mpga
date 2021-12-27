@@ -1,0 +1,44 @@
+<div class="card text-center" clickNoRightClick id="fixeente">
+    <div  class="card-header font-weight-bold black-text p-0" > Détails Agent 
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+    </div></div><br>
+      <table id="detailrecon">
+        <tr><td> <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Matricule :</h6></label>
+          <label id="pass"><h6>{{matricule}}</h6></label></td>
+          <td>  <label id="pass"><h6 id="titleliste" style="font-weight: bold;">Nom :</h6></label>
+            <label id="pass"><h6>{{nom}} {{prenom}}</h6></label>  
+          </td> 
+       
+          <td>
+                <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Mobile :</h6></label>
+                <label id="pass"><h6>{{mobile}}</h6> </label></td>
+              <td><label id="pass"><h6 id="titleliste" style="font-weight: bold;">Email :</h6></label>
+                <label id="pass"><h6>{{email}}</h6></label>  
+              </td>
+        </tr>
+        <tr>
+            <td>
+                  <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Magasin :</h6></label>
+                  <label id="pass"><h6>{{magasin}}</h6> </label></td>
+                <td><label id="pass"><h6 id="titleliste" style="font-weight: bold;">Catégorie :</h6></label>
+                  <label id="pass"><h6>{{categorie}}</h6></label>  
+                </td>
+          
+            <td>
+                  <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Zone :</h6></label>
+                  <label id="pass"><h6>{{zone}}</h6> </label></td>
+                <td><label id="pass"><h6 id="titleliste" style="font-weight: bold;">Etat :</h6></label>
+                  <label id="pass"><h6>{{etat}}</h6></label>  
+                </td>
+          </tr>
+          <br>
+    <tr><td> <label id="espleft"><h6 id="titleliste" style="font-weight: bold;">Historique mouvements :</h6></label></td></tr>
+    </table>
+      <div style="width: 100%;" class="table-responsive" id="tab" clickNoRightClick>
+        <!-- <ng2-smart-table [settings]="settings" [source]="source" id="header">
+           
+        </ng2-smart-table> -->
+      </div>
+      <br><br>

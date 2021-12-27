@@ -1,0 +1,66 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="card text-center" clickNoRightClick>
+    <div  class="card-header font-weight-bold black-text p-0" >  {{'ajouterCanal.headercard'|translate}}
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" 
+      title="{{'btn.btn1'| translate}}" mdbWavesEffect (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"  title="{{'btn.btn15'| translate}}" (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false " title="{{'btn.btn16'| translate}}" (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+    </div></div><br [hidden]="!isOpened">
+
+
+    <form #form="ngForm" [formGroup]="canalform"  class="form-inline"  [hidden]="!isOpened">
+  
+        <div style="font-size: 10px">
+          <mat-form-field id="magasininput" appearance="outline">
+              <mat-label id="labelobligatoir">{{'input.prodFinance'|translate}}</mat-label>
+              <mat-select (focus)="onFocus([],true)"
+              (blur)="onBlur()" formControlName="idProduitFinancier"  [(ngModel)]="produit" > 
+                <mat-option *ngFor="let prod of produits" [value]="prod.idProduitFinancier">
+                  {{prod.libelle}} </mat-option>
+                  </mat-select>
+                  <!-- <mat-error style="font-size: 13px;" *ngIf="!canalform.controls['idProduitFinancier'].valid && canalform.controls['idProduitFinancier'].touched">Champ Obligatoire</mat-error> -->
+                      </mat-form-field>
+        </div>
+     
+        <div style="font-size: 10px">
+          <mat-form-field id="magasininput" appearance="outline">
+              <mat-label id="labelobligatoir">{{'input.canalPaiement'|translate}}</mat-label>
+              <mat-select (focus)="onFocus([],true)"
+              (blur)="onBlur()" formControlName="idCanalPaiement"  [(ngModel)]="canal" (selectionChange)="changecanal(canal)" > 
+                <mat-option *ngFor="let canal of canals" [value]="canal.idCanalPaiement">
+                  {{canal.designation}} </mat-option>
+                  </mat-select>
+                  <!-- <mat-error style="font-size: 13px;" *ngIf="!canalform.controls['idCanalPaiement'].valid && canalform.controls['idCanalPaiement'].touched">Champ Obligatoire</mat-error> -->
+                      </mat-form-field>
+        </div>
+     
+ 
+         
+         <mat-checkbox formControlName="flagEmission" [(ngModel)]="emission"></mat-checkbox> 
+         <mat-label style="margin:10px">{{'input.emission'|translate}}</mat-label>
+          
+         <mat-checkbox formControlName="flagAcquisition" [(ngModel)]="acquisition"></mat-checkbox> 
+         <mat-label  >{{'input.acquisition'|translate}} </mat-label>
+            
+      
+          </form><br [hidden]="!isOpened"><br [hidden]="!isOpened">
+
+          <div mat-dialog-actions align="end" class="footr mt-auto"  [hidden]="!isOpened">
+            <br>
+            <div class="d-left">
+              <ul style="list-style-type:none; " class="small text-left pl-4 m-3">
+                <li *ngFor="let m of Messages" [ngStyle]="{'color': m.color}"><i style="margin-right: 10px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{m.message }}</li>
+             
+             <li>
+              <mat-error  *ngIf="err"><i style="margin-right: 10px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{msg}}</mat-error> 
+             </li> </ul>
+            </div>
+          <div class="form-group dialog-footer" [hidden]="!isOpened" >
+        <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" title="{{'btn.btn1'| translate}}" (click)="Fermer()"><span id="sp"><i class="fa fa-times"></i></span></button>
+        <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="submit" title="{{'btn.btn3'| translate}}" (click)="onSubmit(form)"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+        <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="reset()" title="{{'btn.btn2'| translate}}"><span id="sp"><i class="fa fa-eraser" aria-hidden="true"></i></span></button>
+      </div>
+          </div>
+</div>

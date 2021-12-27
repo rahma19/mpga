@@ -1,0 +1,32 @@
+<div class="card text-center" clickNoRightClick>
+    <div  class="card-header font-weight-bold black-text p-0"> Détails Paramètre
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+    </div></div><br>
+    <table id="detailparam" clickNoRightClick>
+        <tr>
+          <td>
+                <label id="espleft"><h5 id="titleliste">Ctégorie :</h5></label>
+                <label id="pass"><h6>{{categ}}</h6> </label></td>
+              <td>  <label id="pass"><h5 id="titleliste">Code paramètre :</h5></label>
+                <label id="pass"><h6>{{code_param}}</h6></label> </td> 
+                <td>
+                <label id="pass"><h5 id="titleliste">Type :</h5></label>
+                <label id="pass"><h6>{{type_param}}</h6></label>
+              </td>
+              
+        </tr>
+     <tr>  
+        <td>
+            <label id="espleft"><h5 id="titleliste">Valeur défaut :</h5></label>
+            <label id="pass"><h6>{{valeur_param}}</h6></label>
+          </td>
+          <td> <label id="pass"><h5 id="titleliste">Description :</h5></label>
+            <label id="pass"><h6>{{description_param}}</h6></label></td> 
+     </tr> 
+     </table>
+    <!-- <div id="bott" class="form-group" clickNoRightClick>
+        <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+        
+    </div> -->

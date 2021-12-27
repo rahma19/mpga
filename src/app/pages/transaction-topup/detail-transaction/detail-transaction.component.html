@@ -1,0 +1,123 @@
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="card text-center" [hidden]="loading " clickNoRightClick>
+      <div class="card-header font-weight-bold black-text p-0"> {{'transaction.detail' | translate}}
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect
+          (click)="Fermer()">
+          <i class="fa fa-times"></i>
+        </button>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"
+          title='minimize' (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true"></i></button>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "
+          title='maximize' (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+      </div>
+    </div><br>
+  
+    <table id="detailrecon" [hidden]="!isOpened">
+      <tr>
+        <td> <label id="espleft">
+            <h6 id="titleliste" style="font-weight: bold;">{{'transaction.attribute.n0' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{date}}</h6>
+          </label>
+        </td>
+        <td> <label id="pass">
+            <h6 id="titleliste" style="font-weight: bold;">{{'transaction.attribute.n6' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{etatTransaction}}</h6>
+          </label>
+        </td>
+      </tr>
+  
+      <tr>
+        <td> <label id="espleft">
+            <h6 id="titleliste" style="font-weight: bold;">{{'magasin.attribute.n7' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{libelleMagasin}}</h6>
+          </label>
+        </td>
+        <td> <label id="pass">
+            <h6 id="titleliste" style="font-weight: bold;">{{'ecart.montant' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{montant}}</h6>
+          </label>
+        </td>
+      </tr>
+  
+      <tr>
+        <td>
+          <label id="espleft">
+            <h6 id="titleliste" style="font-weight: bold;">{{'ecart.refmpga' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{refMPGA}}</h6>
+          </label>
+        </td>
+        <td>
+          <label id="pass">
+            <h6 id="titleliste" style="font-weight: bold;">{{'magasin.recap.codeCaisse' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{codeCaisse}}</h6>
+          </label>
+        </td>
+      </tr>
+  
+      <tr>
+        <td><label id="espleft">
+            <h6 id="titleliste" style="font-weight: bold;">{{'transaction.recap.g3' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{etab}}</h6>
+          </label>
+        </td>
+        <td><label id="pass">
+            <h6 id="titleliste" style="font-weight: bold;">{{'modifierEtablissement.column0' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{libelleWallet}}</h6>
+          </label>
+        </td>
+      </tr>
+  
+      <tr>
+        <td>
+          <label id="espleft">
+            <h6 id="titleliste" style="font-weight: bold;">{{'ecart.autorisation' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{autorisation}}</h6>
+          </label>
+        </td>
+  
+        <td> <label id="pass">
+            <h6 id="titleliste" style="font-weight: bold;">{{'transaction.attribute.n8' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{etatLettrage}}</h6>
+          </label>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <label id="espleft">
+            <h6 id="titleliste" style="font-weight: bold;">{{'transaction.attribute.n7' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{etatReconciliation}}</h6>
+          </label>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+  
+  <div *ngIf="loading" clickNoRightClick>
+    <div class="spinner-imgage">
+    </div>
+    <h5 id="titreload">Chargement en cours ....</h5>
+  </div>

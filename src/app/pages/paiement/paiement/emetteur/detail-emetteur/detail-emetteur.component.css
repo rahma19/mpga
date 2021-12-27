@@ -1,0 +1,30 @@
+#tableqr{
+    width: 99%;
+    margin: auto;
+  }
+  #tableqr th{
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    border: 1px solid black
+  }
+  #tableqr td{
+    
+    font-size: 16px;
+    border: 1px solid black
+  }
+  #tablebin{
+    width: 99%;
+    margin: auto;
+  }
+  #tablebin th{
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    border: 1px solid black
+  }
+  #tablebin td{
+    
+    font-size: 16px;
+    border: 1px solid black
+  }

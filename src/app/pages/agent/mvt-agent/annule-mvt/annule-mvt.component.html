@@ -1,0 +1,17 @@
+<div id="changeet" clickNoRightClick>
+    <div class="card text-center">
+      <div  class="card-header font-weight-bold black-text p-0" ><span > Annuler Mouvement </span>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+          <i class="fa fa-times"></i>
+        </button>
+      </div></div><br>
+    <div class="card-body">
+      <div id="message" class="row">
+        <h5 style="font-weight: bold;">  Confirmer l'annulation ?</h5>
+      </div>
+    </div>
+        <div id="bott" class="form-group" >
+            <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+            <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="submit" (click)="changer()"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>  
+         </div>
+        </div>

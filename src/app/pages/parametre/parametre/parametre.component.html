@@ -1,0 +1,238 @@
+<mat-tab-group   clickNoRightClick>
+  <mat-tab label="Paramètres globaux" style="font-weight: bold;" >
+<div [hidden]="loading " > 
+  <div *ngIf="show==true">
+  <button id="bbt" style="background-color: maroon;" class="waves-light btn float-right btn-sm" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times" style="color: white;font-size: 15px;"></i></span></button>
+  <button [disabled]="!valid" id="bbt" style="background-color: maroon;" class="waves-light btn float-right btn-sm" type="submit" (click)="onSubmit()"><span id="sp"><i class="fa fa-check" aria-hidden="true" style="color: white;font-size: 15px;"></i></span></button>
+  <button id="bbt" style="background-color: maroon;" class="waves-light btn float-right btn-sm" type="reset" (click)="reset()" title="Effacer"><span id="sp"><i class="fa fa-eraser" aria-hidden="true" style="color: white;font-size: 15px;"></i></span></button>
+</div>  <br><br><br>
+  <div class="form-inline" >
+    <div class="col-4">
+        <div class="card" id="cardparam">
+          <div class="card-header-warning" >
+            <h4 class="card-title" style="text-align:center;color:maroon;margin-top: 2%;font-weight: bold;">Manager</h4>
+          </div>
+          <div class="card-content " (click)="modifier()">
+            <table id="parametreglo" >
+              <tr>
+                <td>
+                  <h5 id="paramtitle">Adresse :</h5>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h6 *ngIf="show==false">{{rue}}</h6>
+                  <input *ngIf="show==true" [(ngModel)]="rue" style="margin-bottom: 10px;" (keyup)="keyPress()">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                 <h6 *ngIf="show==false"> {{ville}} {{code_postal}}</h6>
+                 <div> <input *ngIf="show==true" [(ngModel)]="ville" style="margin-bottom: 10px;margin-right: 5px;" (keyup)="keyPress()"> <input *ngIf="show==true" [(ngModel)]="code_postal" style="margin-bottom: 10px;width: 100px;" (keyup)="keyPress()"></div>
+                </td>
+              </tr>
+              <tr>
+                <td >
+                  <h5 id="paramtitle">Téléphone :</h5>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h6 *ngIf="show==false">{{Tel}}</h6>
+                  <input *ngIf="show==true" [(ngModel)]="Tel" style="margin-bottom: 10px;" (keyup)="keyPress()">
+                </td>
+              </tr>
+              <tr>
+                <td >
+                  <h5 id="paramtitle">RNE :</h5>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h6 *ngIf="show==false">{{RNE}}</h6>
+                  <input *ngIf="show==true" [(ngModel)]="RNE" style="margin-bottom: 10px;" (keyup)="keyPress()">
+                </td>
+              </tr>
+            </table>
+              </div>
+          </div>
+          </div>
+          <div class="col-6">
+            <div class="card" id="cardparam">
+              <div class="card-header-warning" >
+                <h4 class="card-title" style="text-align:center;color:maroon;margin-top: 2%;font-weight: bold;">Magasin</h4>
+              </div>
+              <div class="card-content ">
+                <table id="parametreglo">
+                  <tr>
+                    <td>
+                      <span class="form-inline"><h5 id="paramtitle">Nbr max de caisse : </h5><h6 id="descrip">{{maxcaisse}}</h6></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="form-inline"> <h5 id="paramtitle">Nbr max de TPE : </h5><h6 id="descrip">{{maxtpe}}</h6></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td >
+                      <span class="form-inline"> <h5 id="paramtitle">Début plage adresse IP Caisse :</h5><h6 id="descrip"> {{debutplageC}}</h6></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td >
+                      <span class="form-inline"><h5 id="paramtitle">Début plage adresse IP TPE : </h5><h6 id="descrip">{{debutplageT}}</h6></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td >
+                      <span class="form-inline"> <h5 id="paramtitle">Dernier code magasin : </h5><h6 id="descrip">{{derniercode}}</h6></span>
+                    </td>
+                  </tr>
+                </table>
+                  </div>
+              </div>
+              </div>
+          </div>
+          <!-- <div style="visibility: hidden; position: fixed" 
+        [style.left]="contextMenuPosition.x"
+        [style.top]="contextMenuPosition.y"
+        [matMenuTriggerFor]="contextMenu"
+        [matMenuTriggerData]="" >
+    </div> -->
+           <!-- <mat-menu #contextMenu="matMenu">
+              <ng-template matMenuContent >
+                <button id="boutonmenu" mat-menu-item (click)="modifier()"><i class="fa fa-edit"></i><span id="spanmenu">Modifier</span></button>
+              </ng-template>
+            </mat-menu>  -->
+  </div>
+  <br>
+  </mat-tab>
+  <mat-tab label="Libellés Etats" >
+    <div class="form-inline" >
+      <div style="margin-left: 5%;" *ngFor="let liste of list_libelle; let i=index">
+        <div id="cardupdate" class="card" (click)=" liste.op==true && profile(liste,i)" >
+                 
+          <img id="imgcontact" src="assets/img/users/free.png" alt="user-img" class="user-img rounded-circle">
+          <div class="card-body">
+            <h4 style="color: black;margin-top: 5%;" class="card-title">{{liste.name}}</h4>
+           
+          </div>
+          <!-- <div style="visibility: hidden; position: fixed" #trigger="matMenuTrigger"
+          [style.left]="contextModelPosition.a"
+          [style.top]="contextModelPosition.b"
+          [matMenuTriggerFor]="contextModel"
+          [matMenuTriggerData]="{liste:liste,i:i}">
+      </div> -->
+             <!-- <mat-menu #contextModel="matMenu">
+                <ng-template matMenuContent let-liste="liste" let-i="i">
+                
+                 
+                      <button id="boutonmenu" mat-menu-item (click)="updateprofile(liste,i)"><i class="fa fa-edit"></i><span id="spanmenu">Modifier</span></button>
+                </ng-template>
+              </mat-menu> -->
+        </div>
+          </div>
+        </div>
+  </mat-tab> 
+
+
+  <br>
+   <mat-tab label="Libellés Autres" >
+    <div class="form-inline" >
+      <div style="margin-left: 5%;" *ngFor="let autre of list_Autres; let m=index">
+        <div id="cardupdate" class="card" (click)=" autre.op==true && profile(autre,j)" >
+                 
+          <img id="imgcontact" src="assets/img/users/free.png" alt="user-img" class="user-img rounded-circle">
+          <div class="card-body">
+            <h4 style="color: black;margin-top: 5%;" class="card-title">{{autre.name}}</h4>
+           
+          </div>
+          <!-- <div style="visibility: hidden; position: fixed" #autretrigger="matMenuTrigger"
+          [style.left]="contextAutrePosition.h"
+          [style.top]="contextAutrePosition.k"
+          [matMenuTriggerFor]="contextAutre"
+          [matMenuTriggerData]="{autre:autre,m:m}">
+      </div> -->
+            <!-- <mat-menu #contextAutre="matMenu">
+                <ng-template matMenuContent let-liste="autre" let-m="m">
+                
+                 
+                      <button id="boutonmenu" mat-menu-item (click)="updateprofile(autre,m)"><i class="fa fa-edit"></i><span id="spanmenu">Modifier</span></button>
+                </ng-template>
+              </mat-menu> -->
+        </div>
+          </div>
+        </div>
+  </mat-tab>
+  <br>
+
+  <mat-tab label="Produit Financier" >
+    <div class="form-inline" >
+      <div style="margin-left: 5%;" *ngFor="let finance of list_financier; let m=index">
+        <div id="cardupdate" class="card" (click)="finance.op==true && profile(finance,m)" >
+                 
+          <img id="imgcontact" src="assets/img/users/free.png" alt="user-img" class="user-img rounded-circle">
+          <div class="card-body">
+            <h4 style="color: black;margin-top: 5%;" class="card-title">{{finance.name}}</h4>
+           
+          </div>
+          <!-- <div style="visibility: hidden; position: fixed" #financiertrigger="matMenuTrigger"
+          [style.left]="contextfinancePosition.p"
+          [style.top]="contextfinancePosition.q"
+          [matMenuTriggerFor]="contextfinancier"
+          [matMenuTriggerData]="{finance:finance,m:m}">
+      </div> -->
+            <!-- <mat-menu #contextfinancier="matMenu">
+                <ng-template matMenuContent let-liste="finance" let-m="m">
+                
+                  
+                      <button id="boutonmenu" mat-menu-item (click)="updateprofile(finance,m)"><i class="fa fa-edit"></i><span id="spanmenu">Modifier</span></button>
+                </ng-template>
+              </mat-menu> -->
+        </div>
+          </div>
+        </div>
+
+
+  </mat-tab>
+  <mat-tab label="TPE" >
+    <div class="form-inline" >
+      <div style="margin-left: 5%;" *ngFor="let tpe of list_tpe; let m=index">
+        <div id="cardupdate" class="card" (click)=" tpe.op==true &&profile(tpe,m)">
+                 
+          <img id="imgcontact" src="assets/img/users/free.png" alt="user-img" class="user-img rounded-circle">
+          <div class="card-body">
+            <h4 style="color: black;margin-top: 5%;" class="card-title">{{tpe.name}}</h4>
+           
+          </div>
+          <!-- <div style="visibility: hidden; position: fixed" #tpetrigger="matMenuTrigger"
+          [style.left]="contexttpePosition.z"
+          [style.top]="contexttpePosition.x"
+          [matMenuTriggerFor]="contexttpe"
+          [matMenuTriggerData]="{tpe:tpe,m:m}">
+      </div> -->
+            <!-- <mat-menu #contexttpe="matMenu">
+                <ng-template matMenuContent let-liste="tpe" let-m="m">
+                
+                 
+                      <button id="boutonmenu" mat-menu-item (click)="updateprofile(tpe,m)"><i class="fa fa-edit"></i><span id="spanmenu">Modifier</span></button>
+                </ng-template>
+              </mat-menu> -->
+        </div>
+          </div>
+        </div>
+
+
+  </mat-tab>
+</mat-tab-group>
+  <div *ngIf="loading && isConnectionAvailableP" clickNoRightClick>
+           
+  
+    <div class="spinner-img">
+    
+       <!-- <img src="../../../../assets/aziza-logo.jpg" alt=""> -->
+    </div>
+    <h3 id="titreload">Chargement en cours ....</h3>
+   
+  </div>

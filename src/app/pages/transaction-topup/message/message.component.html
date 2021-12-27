@@ -1,0 +1,17 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div class="card text-center" clickNoRightClick>
+  <div  class="card-header info-color-dark font-weight-bold black-text p-0">
+    <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+      <i class="fa fa-times"></i>
+    </button>
+  </div>
+</div>
+    <div id="message" clickNoRightClick >
+      <!-- <h5 *ngIf="!message">  No data found !</h5> -->
+      <h5> {{aff}} </h5>
+    </div>
+  <!-- <div id="bott" class="form-group">
+    <button id="bbt" class="waves-light btn blue-grey float-right btn-sm" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+    
+</div> -->
+</div>

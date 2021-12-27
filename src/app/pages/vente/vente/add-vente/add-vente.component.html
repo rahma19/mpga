@@ -1,0 +1,253 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div id="addmag">
+<div class="card text-center" clickNoRightClick id="fixeente">
+    <div  class="card-header font-weight-bold black-text p-0" [hidden]="loading"> {{'ajouterMagasin.headercard' | translate}}
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect title="{{'btn.btn1'| translate}}" (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"    title="{{'btn.btn15'| translate}}" (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title="{{'btn.btn16'| translate}}" (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+    </div></div><br [hidden]="!isOpened">
+                   <!-- <ul class="nav nav-tabs col-12 p-0">
+                      <li class="nav-item p-0">
+                          <a class="nav-link activetab" (click)="tab('contact')" id="contact"><h6>Données générales</h6>
+                          </a>
+                        </li>
+                           <li class="nav-item p-0">
+                             <a class="nav-link" (click)="tab('caisse')" id="caisse"><h6>Caisse</h6>
+                             </a>
+                           </li>
+                           <li class="nav-item p-0">
+                             <a class="nav-link" (click)="tab('caissier')" id="caissier"><h6>Caissier </h6></a>
+                           </li>
+                           <li class="nav-item p-0">
+                            <a class="nav-link" (click)="tab('service')" id="service"><h6>Services </h6></a>
+                          </li>
+                    </ul> -->
+    <!-- <form #form1="ngForm" [formGroup]="caisseform" id="form1" class="form-inline">
+        <ng-template [ngIf]="activetab=='caisse'">
+            <div style="font-size: 3px">
+                <mat-form-field id="partinput" appearance="outline">
+                    <mat-label>Nombre caisse</mat-label>
+                  <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="nombrecaisse" formControlName="nbr_caisse">
+                </mat-form-field>
+              </div>
+              <div class="table-responsive" id="tab">
+                  <ng2-smart-table [settings]="settings" [source]="source" id="header">
+                     
+                  </ng2-smart-table>
+                </div>
+         </ng-template>
+    </form>
+    <form #form2="ngForm" [formGroup]="serviceform"  class="form-inline">
+        <ng-template [ngIf]="activetab=='service'">
+            <div class="table-responsive" id="tabservice">
+                <ng2-smart-table [settings]="settingsservice" [source]="data" id="header">
+                   
+                </ng2-smart-table>
+              </div>
+        </ng-template>
+    </form> -->
+    <form #form3="ngForm" [formGroup]="contactform"  class="form-inline"  clickNoRightClick [hidden]="!isOpened">
+            <div style="font-size: 3px;">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label  id="labelobligatoir">{{'input.cde' | translate}}</mat-label>
+                  <input (focus)="onFocus([Type_Message.NUMBER,Type_Message.CUSTOM_CAR],true,4)"
+                  (blur)="onBlur()" autocomplete="off" id="datestyle" matInput class="form-control col-12" formControlName="code" maxlength="4">
+                  <!-- <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['code'].valid && contactform.controls['code'].touched">{{getErrorCode()}}</mat-error> -->
+                </mat-form-field>
+              </div>
+            <div style="font-size: 3px; ">
+                <mat-form-field id="magasinname" appearance="outline">
+                    <mat-label  id="labelobligatoir">{{'input.nomMag' | translate}}</mat-label>
+                  <input (focus)="onFocus([Type_Message.LETTER_NUMBER],true)"
+                  (blur)="onBlur()" autocomplete="off" style="width: 100%;" id="datestyle" matInput class="form-control col-12" formControlName="nom_mg" maxlength="30">
+                  <!-- <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['nom_mg'].valid && contactform.controls['nom_mg'].touched">*Champ obligatoire</mat-error> -->
+                </mat-form-field>
+              </div>
+              
+              <!-- <div style="font-size: 10px;margin-top:8px">
+                  <mat-form-field id="magasininput" appearance="outline">
+                      <mat-label>Zone</mat-label>
+                      <mat-select  formControlName="zone_"  [(ngModel)]="zone" (selectionChange)="getresponsable(zone)" > 
+                        <mat-option *ngFor="let zzz of zones" [value]="zzz.idZoneGeographique">
+                              {{zzz.libelleZone}} </mat-option>
+                              </mat-select>
+                              <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['zone_'].valid && contactform.controls['zone_'].touched">*Champ obligatoire</mat-error>
+                              </mat-form-field>
+                </div> -->
+                <div style="font-size: 3px;">
+                  <mat-form-field id="magasininput" appearance="outline">
+                      <mat-label  id="labelobligatoir">{{'input.NbCaiss' | translate}}</mat-label>
+                    <input (focus)="onFocus([Type_Message.NUMBER],true)"
+                    (blur)="onBlur()" autocomplete="off" id="datestyle" matInput class="form-control col-12" formControlName="nombre_caisse" maxlength="1">
+                    <!-- <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['nombre_caisse'].valid && contactform.controls['nombre_caisse'].touched">*Champ obligatoire</mat-error> -->
+                  </mat-form-field>
+                </div>
+                <div style="font-size: 3px ; ">
+                  <mat-form-field id="magasininput" appearance="outline">
+                      <mat-label  id="labelobligatoir">{{'input.NbCaissier' | translate}}</mat-label>
+                    <input (focus)="onFocus([Type_Message.NUMBER],true)"
+                    (blur)="onBlur()" autocomplete="off" id="datestyle" matInput class="form-control col-12" formControlName="nombre_caissier">
+                    <!-- <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['nombre_caissier'].valid && contactform.controls['nombre_caissier'].touched">*Champ obligatoire</mat-error> -->
+                  </mat-form-field>
+                </div>
+                <div style="font-size: 3px">
+                  <mat-form-field id="magasininput" appearance="outline">
+                      <mat-label  id="labelobligatoir">{{'input.adrIpRac' | translate}}</mat-label>
+                    <input (focus)="onFocus([Type_Message.NUMBER],true)"
+                    (blur)="onBlur()"  autocomplete="off" id="datestyle" matInput class="form-control col-12" formControlName="adrIP" maxlength="25">
+                    <!-- <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['adrIP'].valid && contactform.controls['adrIP'].touched">{{getErrorIP()}}</mat-error> -->
+                    
+                  </mat-form-field>
+                </div>
+                <div style="font-size: 3px">
+                  <mat-form-field  id="magasininput" appearance="outline">
+                    <mat-label  id="labelobligatoir">{{'input.affiliation' | translate}}</mat-label>
+                      <input (focus)="onFocus([Type_Message.NUMBER,Type_Message.CUSTOM_CAR],true,5)"
+                      (blur)="onBlur()" autocomplete="off" id="datestyle" matInput class="form-control col-12" [(ngModel)]="affiliation" formControlName="affiliationd17" (blur)="calculLuhn(affiliation)" maxlength="5">
+                      <!-- <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['affiliationd17'].valid && contactform.controls['affiliationd17'].touched">{{getErroraffiliation()}}</mat-error> -->
+                </mat-form-field>
+                </div>
+                <!-- <div style="font-size: 3px">
+                  <mat-form-field id="magasininput" appearance="outline">
+                      <mat-label>Début plage adresse IP</mat-label>
+                    <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="debutplage" formControlName="debut_plage">
+                  </mat-form-field>
+                </div>
+                <div style="font-size: 3px">
+                  <mat-form-field id="magasininput" appearance="outline">
+                      <mat-label>Fin plage adresse IP</mat-label>
+                    <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="finplage" formControlName="fin_plage">
+                  </mat-form-field>
+                </div> -->
+                <br>
+                <!-- <fieldset >
+                    <legend ><h6 style="font-weight: bold;">Coordonnées : </h6></legend>
+                        <mat-form-field style="font-size: 3px" id="adresserue" appearance="outline">
+                            <mat-label>Rue</mat-label>
+                          <input style="width: 100%;" id="datestyle" matInput class="form-control " formControlName="rue_" maxlength="50">
+                          <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['rue_'].valid && contactform.controls['rue_'].touched">*Champ obligatoire</mat-error>
+                        </mat-form-field>
+                      <div class="your-class">
+                          <mat-form-field style="font-size: 10px" id="magasininput" appearance="outline">
+                              <mat-label>Gouvernorat</mat-label>
+                          <mat-select  formControlName="gouvernorat"  [(ngModel)]="gouver" placeholder="" (selectionChange)="getville(gouver)">
+                            <mat-option *ngFor="let gouvern of gouvernorats" [value]="gouvern.idGouvernorat">
+                            {{gouvern.nom}} </mat-option>
+                          </mat-select>
+                          <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['gouvernorat'].valid && contactform.controls['gouvernorat'].touched">*Champ obligatoire</mat-error>
+                          </mat-form-field>
+                      
+                          <mat-form-field style="font-size: 10px;" id="magasininput" appearance="outline">
+                            <mat-label>Ville</mat-label>
+                              <mat-select  formControlName="ville"  [(ngModel)]="villegouver" placeholder="" (selectionChange)="getpostal(villegouver)">
+                                <mat-option *ngFor="let vvv of villes" [value]="vvv.idVille">
+                                      {{vvv.nom}} </mat-option>
+                                      </mat-select>
+                                      <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['ville'].valid && contactform.controls['ville'].touched">*Champ obligatoire</mat-error>
+                                      </mat-form-field>
+              
+                      <mat-form-field style="font-size: 3px" id="magasininput" appearance="outline">
+                        <mat-label>Code postal</mat-label>
+                          <input style="font-weight: bold;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="codepos" formControlName="codepostal" disabled>
+                    </mat-form-field>
+                  </div>
+                    <mat-form-field style="font-size: 3px" id="magasininput" appearance="outline">
+                        <mat-label>Téléphone*</mat-label>
+                      <input id="datestyle" matInput class="form-control col-12" formControlName="tele" minLength="8" maxlength="8">
+                      <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['tele'].valid && contactform.controls['tele'].touched">{{getErrorTel()}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field style="font-size: 3px" id="magasininput" appearance="outline">
+                        <mat-label>Fax*</mat-label>
+                      <input id="datestyle" matInput class="form-control col-12" formControlName="fax_" maxlength="8">
+                      <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['fax_'].valid && contactform.controls['fax_'].touched">{{getErrorFax()}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field style="font-size: 3px" id="magasininput" appearance="outline">
+                        <mat-label>Email*</mat-label>
+                      <input id="datestyle" matInput placeholder="xxx@example.com" class="form-control col-12" formControlName="email_" required>
+                      <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['email_'].valid && contactform.controls['email_'].touched">{{getErrorMessage()}}</mat-error>
+                    </mat-form-field><br><br>
+                    </fieldset><br> -->
+                    <!-- <fieldset >
+                        <legend ><h6 style="font-weight: bold;">Résponsables : </h6></legend>
+                        
+                        <mat-form-field style="font-size: 10px;margin-top:10px" id="magasininput" appearance="outline">
+                            <mat-label>RM</mat-label>
+                            <mat-select  formControlName="RM"  [(ngModel)]="nomRM" >
+                            <mat-option *ngFor="let liste of listeRM" [value]="liste.idAgent">
+                                  {{liste.nomPrenom}} </mat-option>
+                                  </mat-select>
+                                  <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['RM'].valid && contactform.controls['RM'].touched">*Champ obligatoire</mat-error>
+                  </mat-form-field>
+                  <mat-form-field style="font-size: 10px;margin-top:10px" id="magasininput" appearance="outline">
+                    <mat-label>ARM</mat-label>
+                    <mat-select  formControlName="ARM"  [(ngModel)]="nomARM" >
+                    <mat-option *ngFor="let liste of listeARM" [value]="liste.idAgent">
+                          {{liste.nomPrenom}} </mat-option>
+                          </mat-select>
+                          <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['ARM'].valid && contactform.controls['ARM'].touched">*Champ obligatoire</mat-error>
+          </mat-form-field>
+          <mat-form-field style="font-size: 3px" id="magasininput" appearance="outline">
+            <mat-label>RZ</mat-label>
+            <input style="font-weight: bold;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="nomRZ" formControlName="RZ" disabled>
+  </mat-form-field>
+  <br>
+                        </fieldset><br> -->
+                        <!-- <fieldset >
+                            <legend ><h6 style="font-weight: bold;">Services : </h6></legend>
+                      
+                              <mat-form-field style="font-size: 3px" id="magasininput" appearance="outline">
+                                <mat-label>Affiliation D17*</mat-label>
+                                  <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="affiliation" formControlName="affiliationd17" (blur)="calculLuhn(affiliation)" maxlength="5">
+                                  <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['affiliationd17'].valid && contactform.controls['affiliationd17'].touched">{{getErroraffiliation()}}</mat-error>
+                            </mat-form-field><br><br>
+                            </fieldset> -->
+                            <!-- <fieldset >
+                                <legend ><h6>RZ : </h6></legend>
+                                
+                                <mat-form-field style="font-size: 10px" id="magasininput" appearance="outline">
+                                    <mat-label>Matricule</mat-label>
+                                    <input matInput formControlName="matRZ" [(ngModel)]="matriculeRZ" [formControl]="myControl" placeholder="" [matAutocomplete]="auto">
+                        <button mat-button *ngIf="matriculeRZ" matSuffix mat-icon-button aria-label="Clear" (click)="matriculeRZ=''">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </button>
+                        <mat-autocomplete #auto="matAutocomplete">
+                          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{ option }}
+                          </mat-option>
+                        </mat-autocomplete>
+                          </mat-form-field>
+                          
+                                  <mat-form-field style="font-size: 3px" id="magasininput" appearance="outline">
+                                    <mat-label>Nom</mat-label>
+                                      <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="Nom_RZ" formControlName="NomRZ">
+                                </mat-form-field>
+                                <mat-form-field style="font-size: 3px" id="magasininput" appearance="outline">
+                                    <mat-label>Mobile</mat-label>
+                                  <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="mobile_RZ" formControlName="mobileRZ">
+                                </mat-form-field>
+                                <mat-form-field style="font-size: 3px" id="magasininput" appearance="outline">
+                                    <mat-label>Email</mat-label>
+                                  <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="email_RZ" formControlName="emailRZ">
+                                </mat-form-field>
+                                </fieldset> -->
+     </form>
+     <div mat-dialog-actions align="end" class="footr mt-auto"  [hidden]="!isOpened">
+      <br>
+      <div class="d-left">
+        <ul style="list-style-type:none; " class="small text-left pl-4 m-3">
+          <li *ngFor="let m of Messages" [ngStyle]="{'color': m.color}"><i style="margin-right: 10px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{m.message }}</li>
+       
+       <li>
+        <mat-error  *ngIf="err"><i style="margin-right: 10px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{msg}}</mat-error> 
+       </li> </ul>
+      </div>
+    <div class="form-group dialog-footer" [hidden]="!isOpened" >
+      <button [disabled]="disable" id="bbt" class="waves-light btn red-yellow float-right btn-sm"  title="{{'btn.btn1'| translate}}" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times"></i></span></button>
+      <button [disabled]="disable" id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="submit" title="{{'btn.btn3'| translate}}" (click)="onSubmit(form3)"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+      <button [disabled]="disable" id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="reset(form3)" title="{{'btn.btn2'| translate}}"><span id="sp"><i class="fa fa-eraser" aria-hidden="true"></i></span></button>
+    </div>
+     </div>
+  </div>
+</div>

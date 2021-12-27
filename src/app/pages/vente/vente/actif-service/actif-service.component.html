@@ -1,0 +1,34 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div id="changeet" clickNoRightClick>
+    <div class="card text-center">
+      <div  class="card-header font-weight-bold black-text p-0" ><span *ngIf="idEtatwallet==1"> {{ "activer_Desactiver_service.headercard2" | translate }}</span><span *ngIf="idEtatwallet==2"> 
+        {{ "activer_Desactiver_service.headercard" | translate }} </span>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" title="{{'btn.btn1'| translate}}" mdbWavesEffect (click)="Fermer()">
+          <i class="fa fa-times"></i>
+        </button>
+        
+      </div></div><br>
+    <div class="card-body" [hidden]="!isOpened">
+      <div id="message" class="row">
+        <h5 style="font-weight: bold;" *ngIf="idEtatwallet==1">  {{ "activation.messagedesactivation" | translate }}</h5>
+        <h5 style="font-weight: bold;" *ngIf="idEtatwallet==2">  {{ "activation.messageactivation" | translate }}</h5>
+      </div>
+    </div>
+    <div mat-dialog-actions align="end" class="footr mt-auto" [hidden]="!isOpened">
+      <br>
+      <div class="d-left">
+        <ul style="list-style-type:none; " class="small text-left pl-4 m-3">
+        
+       
+       <li>
+        <mat-error  *ngIf="err"><i style="margin-right: 10px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{msg}}</mat-error> 
+       </li> </ul>
+      </div>
+    
+        <div id="bott" class="form-group dialog-footer" [hidden]="!isOpened">
+            <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" title="{{'btn.btn1'| translate}}" (click)="Fermer()"><span id="sp">{{'btn.btn24'| translate}}</span></button>
+            <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="submit" title="{{'btn.btn3'| translate}}" (click)="changer()"><span id="sp">{{'btn.btn23'| translate}}</span></button>  
+         </div>
+        </div>
+</div>
+</div>

@@ -1,0 +1,278 @@
+<div id="affichecart" *ngIf="isConnectionAvailableE" clickNoRightClick>
+<div class="card">
+  <div  class="card-header font-weight-bold black-text p-0" [hidden]="loading "><span style="margin-left: 44%;" >{{'ecart.headercard' | translate}}</span>
+    <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="show()">
+      <i class="fa fa-bars"></i>
+    </button>
+    <button *ngIf="filter" type="submit" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect 
+      (click)="Rechercher(filterform.value)"> <i class="fa fa-search"></i></button>
+      <button *ngIf="filter" type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3"[disabled]=" nbr_ligne==0" (click)="Print()"> <i class="fa fa-print"></i></button>
+  </div>
+
+  <div class="card-body" *ngIf="filter" [hidden]="loading ">
+    <div class="container-fluid">
+        <div class="row" >
+            <div class="col-9" id="ligne_horizon">
+      <form #form3="ngForm" [formGroup]="filterform" class="form-inline">
+          
+          <div style="font-size: 10px">
+              <mat-form-field id="newinput" appearance="outline">
+                  <mat-label>{{'transaction.attribute.n3' | translate}}</mat-label>
+                  <input id="datestyle" autocomplete="off"  matInput formControlName="magasin_" [(ngModel)]="magasin" [formControl]="myControl" placeholder="" [matAutocomplete]="auto">
+      <button mat-button *ngIf="magasin" matSuffix mat-icon-button aria-label="Clear" (click)="magasin=''">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </button>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+        </mat-form-field>
+          </div>
+
+          <div style="font-size: 10px">
+              <mat-form-field id="newinput" appearance="outline">
+                  <mat-label>{{'magasin.recap.g2' | translate}}</mat-label>
+              <mat-select  formControlName="gouvernorat"  [(ngModel)]="gouver" placeholder="" (selectionChange)="getville(gouver)"> 
+                  <mat-option [value]="''">Tous</mat-option>
+                  <mat-option *ngFor="let gouvern of gouvernorats" [value]="gouvern.idGouvernorat">
+                      {{gouvern.nom}} </mat-option>
+              </mat-select>
+              </mat-form-field>
+          </div>
+          
+            <div style="font-size: 10px">
+                    <mat-form-field id="newinput" appearance="outline">
+                      <mat-label>{{'magasin.recap.g3' | translate}}</mat-label>
+                        <mat-select  formControlName="ville"  [(ngModel)]="villegouver" placeholder="" >
+                            <mat-option [value]="''">Tous</mat-option>
+                            <mat-option *ngFor="let vvv of villes" [value]="vvv.idVille">
+                                {{vvv.nom}} </mat-option>
+                                </mat-select>
+                                </mat-form-field>
+              </div>
+
+          <div style="font-size: 10px">
+              <mat-form-field id="newinput" appearance="outline">
+                  <mat-label>{{'magasin.recap.g4' | translate}}</mat-label>
+                  <mat-select  formControlName="zone_"  [(ngModel)]="zone" placeholder="" > 
+                      <mat-option [value]="''">Tous</mat-option>
+                    <mat-option *ngFor="let zzz of zones" [value]="zzz.idZoneGeographique">
+                          {{zzz.libelleZone}} </mat-option>
+                          </mat-select>
+                          </mat-form-field>
+                </div>
+
+                <div style="font-size: 10px">
+                    <mat-form-field id="newinput" appearance="outline">
+                        <mat-label>Date</mat-label>
+                        <input id="dateinputstyle" autocomplete="off"  matInput [(ngModel)]="date"  formControlName="Date_" [matDatepicker]="picker1">
+                        <mat-datepicker-toggle class="float-right" matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>
+                </div>
+               
+      </form>
+     
+      </div>
+      <div class="col-3" style="text-align: left;">
+          <div id="ligne_verticale" style="font-size: 10px">
+            <mat-form-field id="newinput" appearance="outline">
+              <mat-label>{{'transaction.recap.group' | translate}}</mat-label>
+              <mat-select   [(ngModel)]="groupe" (selectionChange)="groupage(groupe)">
+                <mat-option *ngFor="let groupe of groupeby" [value]="groupe.value">
+                      {{groupe.name}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+         </div>
+         <h5 style="color:  #e22d2c;font-weight: bold;">{{'transaction.recap.title' | translate}} : </h5>
+         <label style="font-weight: bold;">{{'transaction.recap.nbr_ligne' | translate}} : {{nbr_ligne}}</label><br>
+      </div>
+
+        </div>
+    </div>
+</div>
+ </div>
+
+ <div class="card mt-1" [hidden]="loading ">
+  <div class="card-header  font-weight-bold black-text p-0"><span style="margin-left: 44%;" >{{title}}</span>
+    <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="scroll_bol" mdbWavesEffect (click)="scroll()" title='scrolling'><i class="fa fa-arrows-v" aria-hidden="true"></i></button>
+    <!-- <mat-slide-toggle class="float-right p-0 pl-3 pr-3" (change)="change()" [(ngModel)]="flag" [disabled]="checked"></mat-slide-toggle>   -->
+    <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="page_bol" mdbWavesEffect (click)="page()" title='pagination'><i class="fa fa-files-o" aria-hidden="true"></i></button>
+    <input *ngIf="scroll_bol" class="float-right waves-light p-0 pl-3 pr-3" id="nbrligne" [(ngModel)]="row_nbr" min="1" (keyup)="getrow_nbr()">
+</div>
+
+<div class="row" [hidden]="loading ">
+      <div class="table-responsive" id="tab" clickNoRightClick>
+            <table style="width: 100%;" mat-table matSort [dataSource]="source" id="mat-table">
+              <!-- Item Column -->
+              <ng-container  matColumnDef="libelleMagasin">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: left;"> {{'magasin.attribute.n7' | translate}} </th>
+                <td mat-cell *matCellDef="let row" style="text-align: left;width: 20%;"> {{row.libelleMagasin}} </td>
+              </ng-container>
+
+              <ng-container  matColumnDef="nbr">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: left;padding-left: 30px;"> Nbr </th>
+                <td mat-cell *matCellDef="let row" style="text-align: left;padding-left: 30px;width: 20%;"> {{row.nbr}} </td>
+              </ng-container>
+
+              <ng-container  matColumnDef="ville">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: left;padding-left: 30px;"> {{'magasin.recap.g3' | translate}} </th>
+                <td mat-cell *matCellDef="let row" style="text-align: left;padding-left: 30px;width: 20%;"> {{row.ville}} </td>
+              </ng-container>
+
+              <ng-container  matColumnDef="zone">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: left;padding-left: 30px;"> {{'magasin.recap.g4' | translate}} </th>
+                <td mat-cell *matCellDef="let row" style="text-align: left;padding-left: 30px;width: 20%;"> {{row.zone}} </td>
+              </ng-container>
+
+              <ng-container  matColumnDef="gouvernorat">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: left;padding-left: 30px;"> {{'magasin.recap.g2' | translate}} </th>
+                <td mat-cell *matCellDef="let row" style="text-align: left;padding-left: 30px;width: 20%;"> {{row.gouvernorat}} </td>
+              </ng-container>
+    
+              <ng-container matColumnDef="vcn">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: left;padding-left: 30px;">{{'magasin.attribute.n8' | translate}} </th>
+                <td mat-cell *matCellDef="let row" style="text-align: left;padding-left: 30px;width: 20%;"> {{row.vcn}} </td>
+              </ng-container>
+    
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: left;padding-right:40px;">{{'transaction.attribute.n0' | translate}} </th>
+                <td mat-cell *matCellDef="let row" style="text-align: left;padding-right:40px;"> {{row.date}} </td>
+              </ng-container>
+    
+              <ng-container  matColumnDef="montant">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: right;padding-right: 30px;"> {{'transaction.column_montant' | translate}} </th>
+                <td mat-cell  *matCellDef="let row" style="text-align: right;padding-right: 30px;width: 20%;">  {{row.montant |formatNumber}}  </td>
+              </ng-container>
+
+              <ng-container  matColumnDef="refmpga">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: left;padding-right: 30px;"> {{'transaction.column_ref' | translate}} </th>
+                <td mat-cell  *matCellDef="let row" style="text-align: left;padding-right: 30px;width: 20%;">  {{row.refmpga}}  </td>
+              </ng-container>
+
+              <ng-container  matColumnDef="autorisation">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: left;"> {{'transaction.column_autorisation' | translate}} </th>
+                <td mat-cell  *matCellDef="let row" style="text-align: left;padding-right: 30px;">  {{row.autorisation}}  </td>
+              </ng-container>
+
+              <ng-container  matColumnDef="ecart">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: left;padding-left: 30px;"> {{'ecart.ecart' | translate}} </th>
+                <td mat-cell  *matCellDef="let row" style="text-align: left;width: 30%;padding-left: 30px;">  {{row.ecart}}  </td>
+              </ng-container>
+    
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsEcart" id="mat-table"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsEcart;"
+                style="background-color: rgb(238, 200, 119);"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td colspan="9">
+                  <h4 class="text-center"> {{'EcartVide' | translate}}</h4>
+                </td>
+              </tr>
+              
+            </table>
+            <mat-paginator  [pageSize]="row_nbr" hidePageSize showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+</div>
+
+</div>
+
+<div *ngIf="!isConnectionAvailableE" clickNoRightClick>
+  <img id="wifi" src="../assets/nowifi.png" alt="logo" class="col-3"/>
+  <p id="verifconx">{{'prob' | translate}}</p>
+</div>
+
+<div *ngIf="loading && isConnectionAvailableE" clickNoRightClick >
+  <div class="spinner-img">
+    <!-- <img src="../../../../assets/aziza-logo.jpg" alt=""> -->
+  </div>
+  <h3 id="titreload">{{ "spinner" | translate }}</h3>
+</div>
+
+<!-- <div id="printecart" clickNoRightClick>
+  <div class="row">
+    <img id="logecart" src="../assets/aziza.png" alt="logo" class="col-3"/>
+<div class=" font-weight-normal text-dark" id="adressecart">
+<label id="labadressecart">{{adresse}}</label><br> <label id="labadressecart">{{code}}</label> <label id="labadressvilecart">{{ville}}</label> <br>
+<label style="font-size: 20px; padding-right: 10px;">Tel : </label><label id="labadressecart">{{tel}}</label><br>
+<label style="font-size: 20px; padding-right: 10px;">RNE : </label><label id="labadressecart">{{rne}}</label><br>
+</div><br>
+  </div>
+
+  <br><br>
+  <h5 id="dateprintecart">Edité le : {{ current}}</h5>
+  <h2 id="titreprintecart">Liste des ecarts
+  </h2>
+  <div class="row">
+    <div class="col-8">
+
+  <div>
+    <label  id="labelfiltreecartprint">Magasin :</label>
+    <label id="filtretrecartprint">{{mg}}</label><br>
+    <label  id="labelfiltreecartprint">Gouvernorat :</label>
+    <label id="filtretrecartprint">{{gouv}}</label><br>
+    <label  id="labelfiltreecartprint">Ville :</label>
+    <label id="filtretrecartprint">{{vil}}</label><br>
+  </div> 
+</div>
+  
+    <div class="col-4">
+    <table id="recapecartprint">
+      <tr>
+        <td>
+          <label id="labelrecapecartprint">Nb lignes :</label> 
+        <label id="filtretrecartprint"> {{nbr_ligne}}</label> 
+        </td>
+        
+        <!-- <td id="filtretrecartprint"> {{nbr_ligne}}</td> --
+      </tr>
+      
+    </table>
+    </div>
+  
+  </div>
+  <div class="row" id="ecartfil">
+    <div class="col-6">
+    <label  id="labelfiltreecartprint">Zone :</label>
+    <label id="filtretrecartprint">{{emplacement}}</label>
+    </div>
+    <div class="col-6">
+    <label  id="labelfiltreecartprint">Date :</label>
+    <label id="filtretrecartprint">{{dateecart}}</label>
+    </div>
+  </div>
+  <table id="tableprintecart">
+    <thead class="report-header">
+    <tr>
+      <th>
+        Magasin
+      </th>
+      <th>VCN</th>
+      <th>	
+        Heure</th>
+      
+      <th>Montant</th>
+      <th>Ref_MPGA</th>
+      <th>Autorisation</th>
+      <th>Ecart</th>
+    </tr>
+  </thead>
+  
+ 
+  
+  
+  <tbody id="corps">
+  <tr *ngFor=" let ecart of data">
+    <td>{{ecart.codeMagasin}}</td>
+    <td>{{ecart.vcn}}</td>
+    <td>{{ecart.date_formate}}</td>
+    <td id="montanteca">{{ecart.montant_formate}}</td>
+    <td>{{ecart.refmpga}}</td>
+    <td>{{ecart.autorisation}}</td>
+    <td>{{ecart.ecart}}</td>
+  </tr>
+</tbody>
+  
+  </table>
+</div> -->

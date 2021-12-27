@@ -1,0 +1,23 @@
+<div class="card mt-1" id="cardmt" [hidden]="loading ">
+        <div  class="card-header  font-weight-bold black-text p-0"><span style="margin-left: 43%;" >Liste Mouvement Agent</span>
+            <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Add()" title='Add'>
+                <i class="fa fa-plus-square"></i>
+              </button>
+              <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" (click)="Print()" title='Print'> <i class="fa fa-print"></i></button>
+    <!-- <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="scroll_bol" mdbWavesEffect (click)="scroll()" title='scrolling'><i class="fa fa-arrows-v" aria-hidden="true"></i></button> -->
+    <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="page_bol" mdbWavesEffect (click)="page()" title='pagination'><i class="fa fa-files-o" aria-hidden="true"></i></button>
+    <input *ngIf="scroll_bol" class="float-right waves-light p-0 pl-3 pr-3" id="nbrligne" [(ngModel)]="row_nbr" (keyup)="getrow_nbr()">  
+    </div>
+    <div  class="col-12" >
+      <div class="table-responsive">
+          <!-- <ng2-smart-table [settings]="settings" [source]="source">
+             
+          </ng2-smart-table> -->
+        </div>
+    </div>
+    </div>
+    <div *ngIf="loading" clickNoRightClick >
+    <div class="spinner-img">
+    </div>
+    <h3 id="titreload">Loading ...</h3>
+    </div>

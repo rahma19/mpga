@@ -1,0 +1,17 @@
+#tableemetteur{
+    width: 99%;
+    margin: auto;
+  }
+  #tableemetteur th{
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    border: 1px solid black
+  }
+  #tableemetteur td{
+    
+    font-size: 16px;
+    border: 1px solid black
+  }
+
+  

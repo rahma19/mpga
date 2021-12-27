@@ -1,0 +1,76 @@
+
+    <div class="card text-center" clickNoRightClick>
+        <div  class="card-header font-weight-bold black-text p-0" > Modifier Agent 
+          <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+            <i class="fa fa-times"></i>
+          </button>
+        </div></div><br>
+        <form #form="ngForm" [formGroup]="agentform"  class="form-inline"  clickNoRightClick>
+            <!-- <div style="font-size: 3px">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label>Code</mat-label>
+                  <input id="datestyle" matInput class="form-control col-12" formControlName="code">
+                </mat-form-field>
+              </div> -->
+            <div style="font-size: 3px;">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label>Matricule</mat-label>
+                  <input style="width: 100%;font-weight: bold;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="matricule" formControlName="matricule" maxlength="20">
+                  <mat-error style="font-size: 13px;" *ngIf="!agentform.controls['matricule'].valid && agentform.controls['matricule'].touched">*Champ obligatoire</mat-error>
+                </mat-form-field>
+              </div>
+              <div style="font-size: 3px;">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label>Nom</mat-label>
+                  <input style="width: 100%;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="nom" formControlName="nom" >
+                  <mat-error style="font-size: 13px;" *ngIf="!agentform.controls['nom'].valid && agentform.controls['nom'].touched">*Champ obligatoire</mat-error>
+                </mat-form-field>
+              </div>
+              <div style="font-size: 3px;">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label>Prénom</mat-label>
+                  <input style="width: 100%;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="prenom" formControlName="prenom">
+                  <mat-error style="font-size: 13px;" *ngIf="!agentform.controls['prenom'].valid && agentform.controls['prenom'].touched">*Champ obligatoire</mat-error>
+                </mat-form-field>
+              </div>
+              
+                <div style="font-size: 3px">
+                  <mat-form-field id="magasininput" appearance="outline">
+                      <mat-label>Mobile</mat-label>
+                    <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="mobile" formControlName="mobile" maxlength="8">
+                    <mat-error style="font-size: 13px;" *ngIf="!agentform.controls['mobile'].valid && agentform.controls['mobile'].touched">{{getErrorTel()}}</mat-error>
+                  </mat-form-field>
+                </div>
+                <div style="font-size: 3px;">
+                  <mat-form-field id="magasininput" appearance="outline">
+                      <mat-label>Email</mat-label>
+                    <input id="datestyle" matInput placeholder="xxx@example.com" class="form-control col-12" [(ngModel)]="email" formControlName="email_">
+                    <mat-error style="font-size: 13px;" *ngIf="!agentform.controls['email_'].valid && agentform.controls['email_'].touched">{{getErrorMessage()}}</mat-error>
+                  </mat-form-field>
+                </div>
+                <div style="font-size: 10px;margin-top:8px">
+                    <mat-form-field id="magasininput" appearance="outline">
+                        <mat-label>Catégorie</mat-label>
+                        <mat-select  style="font-weight: bold;" formControlName="categorie" [(ngModel)]="categorie"> 
+                          <mat-option *ngFor="let cat of categories" [value]="cat.idCategorieAgent">
+                            {{cat.libelle}} </mat-option>
+                                </mat-select>
+                                <mat-error style="font-size: 13px;" *ngIf="!agentform.controls['categorie'].valid && agentform.controls['categorie'].touched">*Champ obligatoire</mat-error>
+                                </mat-form-field>
+                  </div>
+                  <div style="font-size: 10px;margin-top:8px">
+                    <mat-form-field id="magasininput" appearance="outline">
+                        <mat-label>Magasin</mat-label>
+                        <mat-select  style="font-weight: bold;" formControlName="magasin" [(ngModel)]="magasin"> 
+                          <mat-option *ngFor="let mag of magasins" [value]="mag.idMagasin">
+                            {{mag.libelle}} </mat-option>
+                                </mat-select>
+                                </mat-form-field>
+                  </div>
+                </form><br><br>
+                <div class="form-group" clickNoRightClick>
+                    <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times"></i></span></button>
+                    <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="submit" (click)="onSubmit(form)"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+                    <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="reset()" title="Effacer"><span id="sp"><i class="fa fa-eraser" aria-hidden="true"></i></span></button>
+                  </div>
+                  

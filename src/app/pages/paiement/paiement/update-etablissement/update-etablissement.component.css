@@ -1,0 +1,41 @@
+#magasininput{
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    width: 150px;
+  }
+ 
+  #adresseininput{
+    margin-left: 10px;
+    margin-top: 10px;
+    /* margin-bottom: 10px; */
+    margin-right: 20px;
+    width: 510px;
+  }
+  #tabproduit{
+    width: 90%;
+    margin: auto;
+  }
+  #tabproduit th{
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    border: 1px solid black
+  }
+  #tabproduit td{
+    
+    font-size: 16px;
+    border: 1px solid black
+  }
+  #fixebtnetabli{
+    position: absolute;
+    top: 500px;
+    right: 10px;
+  }
+  #etablissement{
+    position: relative;
+  }
+  .mat-dialog-content.addetabli{
+    height: 55vh !important;
+  }

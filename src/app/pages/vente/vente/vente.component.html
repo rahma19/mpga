@@ -1,0 +1,331 @@
+<div id="affichmagasin" *ngIf="isConnectionAvailableM" clickNoRightClick  >
+ 
+<div class="card" [hidden]="loading ">
+  <div  class="card-header font-weight-bold black-text p-0" [hidden]="loading " clickNoRightClick><span style="margin-left: 43%;" >{{'magasin.headercard' | translate}}</span>
+    <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="show()"  title="{{ 'btn.btn0' | translate }}">
+      <i class="fa fa-bars"></i>
+    </button>
+    <button  type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect 
+      (click)="Rechercher(filterform.value)" > <i class="fa fa-search"  title="{{ 'btn.btn4' | translate }}"></i></button>
+    <!-- <button *ngIf="filter" type="button" class="float-right waves-light btn blue-grey p-0 pl-3 pr-3" (click)="exportAsXLSX()"> <i class="fa fa-file-excel-o fa-lg"></i></button> -->
+    <!-- <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3"[disabled]="nbr_ligne==0" (click)="Print()"
+    title="{{ 'btn.btn5' | translate }}"> <i class="fa fa-print"></i></button> -->
+  </div>
+
+  <div class="card-body" *ngIf="filter" [hidden]="loading ">
+
+    
+    <div class="container-fluid">
+        <div class="row" >
+            <div class="col-9" id="ligne_horizon">
+      <form [formGroup]="filterform" class="form-inline">
+          <div style="font-size: 10px">
+              <mat-form-field id="newinput" appearance="outline">
+                  <mat-label>{{'magasin.attribute.n1' | translate}}</mat-label>
+                  <input  matInput formControlName="cdmagasin" autocomplete="off">
+                  <!-- <input
+                  matInput
+                  formControlName="cdmagasin"
+                  [formControl]="myControl"
+                 
+                  [matAutocomplete]="auto"
+                  style="font-size: 13px"
+                />
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option
+                    *ngFor="let option of terminalOptions | async"
+                    [value]="option"
+                  >
+                    {{ option }}
+                  </mat-option>
+                </mat-autocomplete> -->
+              </mat-form-field>
+          </div>
+          
+            <!-- <div style="font-size: 10px">
+                    <mat-form-field id="newinput" appearance="outline">
+                      <mat-label>{{'magasin.attribute.n2' | translate}}</mat-label>
+                        <mat-select  formControlName="ville"  [(ngModel)]="villegouver" placeholder="" >
+                            <mat-option [value]="-1">Tous</mat-option>
+                            <mat-option *ngFor="let vvv of villes" [value]="vvv.idVille">
+                                {{vvv.nom}} </mat-option>
+                                </mat-select>
+                                </mat-form-field>
+        
+              </div> -->
+              <div style="font-size: 10px">
+                <mat-form-field id="newinput" appearance="outline">
+                  <mat-label>{{'magasin.attribute.n3' | translate}}</mat-label>
+                    <mat-select  formControlName="service_magasin"  [(ngModel)]="service" placeholder="" >
+                        <mat-option [value]="''">{{'input.tous' | translate}}</mat-option>
+                      <mat-option *ngFor="let wallet of wallets" [value]="wallet.idProduitFinancier">
+                            {{wallet.nomProduitFinancier}} </mat-option>
+                            </mat-select>
+                            </mat-form-field>
+    
+          </div>
+          <!-- <div style="font-size: 10px">
+              <mat-form-field id="newinput" appearance="outline">
+                  <mat-label>{{'magasin.attribute.n4' | translate}}</mat-label>
+                  <mat-select  formControlName="zone_"  [(ngModel)]="zone" placeholder="" > 
+                      <mat-option [value]="-1">Tous</mat-option>
+                    <mat-option *ngFor="let zzz of zones" [value]="zzz.idZoneGeographique">
+                          {{zzz.libelleZone}} </mat-option>
+                          </mat-select>
+                          </mat-form-field>
+                </div> -->
+               <div style="font-size: 10px">
+                  <mat-form-field id="newinput" appearance="outline">
+                      <mat-label>{{'magasin.attribute.n5' | translate}}</mat-label>
+                      <mat-select  formControlName="etat_magasin"  [(ngModel)]="etat" placeholder="" >
+                          <mat-option [value]="''">{{'input.tous' | translate}}</mat-option> 
+                        <mat-option *ngFor="let etatm of etats" [value]="etatm.idEtatMagasin">
+                          {{etatm.designation}}</mat-option>
+                              </mat-select>
+                              </mat-form-field>
+          
+                </div> 
+      </form>
+     
+      <!-- <button mdbBtn type="button" class="waves-light btn blue-grey float-right btn-sm" mdbWavesEffect 
+            (click)="Rechercher(filterform.value)"> <i class="fa fa-search"></i></button>
+          <button mdbBtn type="button" class="waves-light btn blue-grey float-right btn-sm" (click)="exportAsXLSX()"> <i class="fa fa-file-excel-o fa-lg"></i></button> -->
+      </div>
+      <div class="col-3" style="text-align: center;">
+          <!-- <div id="ligne_verticale" style="font-size: 10px">
+            <mat-form-field id="newinput" appearance="outline">
+              <mat-label>{{'magasin.recap.group' | translate}}</mat-label>
+              <mat-select   [(ngModel)]="groupe" placeholder="" (selectionChange)="groupage(groupe)">
+                <mat-option *ngFor="let groupe of groupeby" [value]="groupe.value">
+                      {{groupe.name}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+         </div> -->
+         <h5 style="color:  #e22d2c;font-weight: bold;">{{'magasin.recap.title' | translate}}  : </h5>
+         <!-- <label style="font-weight: bold;">{{'magasin.recap.nbr_ligne' | translate}} : {{nbr_ligne}}</label><br> -->
+         <label style="font-weight: bold;">{{'magasin.recap.nbr_mag' | translate}} : {{statistique.nbligne}}</label><br>
+         <label style="font-weight: bold;">{{'magasin.recap.caisse' | translate}} : {{statistique.nbcaisse}}</label><br><br>
+      </div>
+        </div>
+    </div>
+</div>
+ <!-- </div> -->
+ <!-- <div id="cardmt" class="card mt-1" [hidden]="loading "> -->
+  <div  class="card-header  font-weight-bold black-text p-0"><span style="margin-left: 43%;" >{{'magasin.bodycard' | translate}}</span>
+  <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Add()"  title="{{ 'btn.btn6' | translate }}"
+  [disabled]="addmag==false">
+    <i class="fa fa-plus-square"></i>
+  </button>
+  <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="scroll_bol" mdbWavesEffect (click)="scroll()" title="{{ 'btn.btn14' | translate }}"><i class="fa fa-arrows-v" aria-hidden="true"></i></button>
+  <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="page_bol" mdbWavesEffect (click)="page()"  title="{{ 'btn.btn13' | translate }}"><i class="fa fa-files-o" aria-hidden="true"></i></button>
+  <input autocomplete="off" *ngIf="scroll_bol && statistique.nbligne>18" class="float-right waves-light p-0 pl-3 pr-3" id="nbrligne" [(ngModel)]="row_nbr" min="1" (keyup)="getrow_nbr()">
+  <!-- <mat-slide-toggle id="slidebascule" class="float-right p-0 pl-3 pr-3" (change)="change()" [(ngModel)]="flag" [disabled]="checked"></mat-slide-toggle>  -->
+</div>
+<!-- <div  > -->
+    <div class="table-responsive" >
+        
+        <table mat-table matSort
+        [dataSource]="dataSource" class="mat-elevation-z8" 
+      >
+      
+        <ng-container matColumnDef="code">
+          <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'magasin.column0' | translate}} </th>
+          <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtat" (contextmenu)="onRightClick($event, element)"> {{element.code}} </td>
+        </ng-container>
+          <ng-container matColumnDef="libelle">
+            <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'magasin.column1' | translate}} </th>
+            <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtat" (contextmenu)="onRightClick($event, element)"> {{element.libelle}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="nombreCaisse">
+            <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'magasin.column2' | translate}} </th>
+            <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtat" (contextmenu)="onRightClick($event, element)"><div  style="margin-right: 70%;text-align:right;"> {{element.nombreCaisse}}</div> </td>
+          </ng-container>
+         
+          <ng-container matColumnDef="nombreCaissier">
+            <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'magasin.column3' | translate}} </th>
+            <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtat" (contextmenu)="onRightClick($event, element)"><div  style="margin-right: 70%;text-align:right;"> {{element.nombreCaissier}}</div> </td>
+          </ng-container>
+          <ng-container matColumnDef="etatMagsin">
+            <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'magasin.column4' | translate}} </th>
+            <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtat" (contextmenu)="onRightClick($event, element)"><div  style="margin-right: 10%;text-align:center;">{{element.etatMagsin}} </div></td>
+          </ng-container>
+         
+         
+          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+  
+  
+        <div style="visibility: hidden; position: fixed" 
+        [style.left]="contextMenuPosition.a"
+        [style.top]="contextMenuPosition.b"
+        [matMenuTriggerFor]="contextMenu"
+        [matMenuTriggerData]="{liste:element,i:i}">
+        
+        </div>
+           <mat-menu #contextMenu="matMenu">
+              <ng-template matMenuContent let-liste="element" let-i="i">
+                <button  (click)="detail(element)" mat-menu-item ><i class="fa fa-info-circle"> {{'btn.btn10' | translate}}</i></button>  
+             
+                <button
+                (click)="modifier(element)"
+                mat-menu-item
+               
+              >
+                <i class="fa fa-edit"> {{ "btn.btn7" | translate }}</i>
+              </button> 
+              <button *ngIf="idetat==2"
+              (click)="changer()"
+              mat-menu-item
+             
+            >
+              <i class="fa fa-unlock"> {{ "btn.btn0" | translate }}</i>
+            </button> 
+            <button 
+            (click)="changer()" *ngIf="idetat==1"
+            mat-menu-item
+           
+          >
+            <i class="fa fa-lock"> {{ "btn.btn1" | translate }}</i>
+          </button> 
+          
+                </ng-template>
+                
+            </mat-menu>
+      </div>
+      <mat-paginator *ngIf="scroll_bol&& statistique.nbligne>18" [pageSize]="row_nbr" hidePageSize showFirstLastButtons></mat-paginator>
+<!-- </div> -->
+</div>
+
+
+</div>
+<div *ngIf="!isConnectionAvailableM" clickNoRightClick>
+  <img id="wifi" src="../assets/nowifi.png" alt="logo" class="col-3"/>
+  <p id="verifconx">{{ "connexion" | translate }}</p>
+</div>
+<!-- <div id="verifconx" *ngIf="!isserverAvailable">
+  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+  <p >Erreur</p>
+</div> -->
+<div *ngIf="loading && isConnectionAvailableM" clickNoRightClick >
+           
+  
+  <div class="spinner-img">
+  
+    <!-- <img src="../../../../assets/aziza-logo.jpg" alt=""> -->
+  </div>
+  <h3 id="titreload">{{ "spinner" | translate }}</h3>
+ 
+</div>
+<!-- <div id="printmagasin" >
+  <div class="row">
+    <img id="logmag" src="../assets/aziza.png" alt="logo" class="col-3"/>
+
+<div class=" font-weight-normal text-dark" id="adressmag">
+<label id="labamag">{{adresse}}</label><br> <label id="labamag">{{code}}</label> <label id="labadressvilmg">{{ville}}</label> <br>
+<label style="font-size: 20px; padding-right: 10px;">Tel : </label><label id="labamag">{{tel}}</label><br>
+<label style="font-size: 20px; padding-right: 10px;">RNE : </label><label id="labamag">{{rne}}</label><br>
+
+</div>
+
+  </div>
+
+ 
+  <table id="globmag">
+  
+    <thead>
+      <h5 id="dateprintmag">Edité le : {{ date}}</h5>
+      
+     
+  <h2 id="titreprintmag">Liste des magasins 
+     <span id="st">(suite)</span>
+  </h2>
+  
+    </thead>
+    
+    <div class="row">
+      <div class="col-8">
+   
+    <div>
+      <label  id="labelfiltremgprint">Gouvernorat :</label>
+      <label id="filtremgprint">{{gou}}</label><br>
+      <label  id="labelfiltremgprint">Ville :</label>
+      <label id="filtremgprint">{{vil}}</label><br>
+      <label  id="labelfiltremgprint">Service :</label>
+      <label id="filtremgprint">{{ser}}</label><br>
+    </div> 
+  </div>
+    
+      <div class="col-4">
+      <table id="recapmgprint">
+        <tr>
+          <td id="labelrecapmgprint">Nb lignes :</td>
+          <td id="filtremgprint"> {{nbr_ligne}}</td>
+        </tr>
+        <tr>
+          <td id="labelrecapmgprint">Nb magasins :</td>
+          <td id="filtremgprint">{{nbr_magasin}}</td>
+        </tr>
+        <tr>
+          <td id="labelrecapmgprint">Nb caisses :</td>
+          <td id="filtremgprint"> {{nbr_caisse}}</td>
+        </tr>
+      </table>
+      </div>
+    
+    </div>
+    <div class="row" id="topmg">
+      <div class="col-6">
+      <label  id="labelfiltremgprint">Zone :</label>
+      <label id="filtremgprint">{{emplacement}}</label>
+      </div>
+      <div class="col-6">
+      <label  id="labelfiltremgprint">Etat :</label>
+      <label id="filtremgprint">{{et}}</label>
+      </div>
+    </div>
+   
+    
+
+    <table id="tableprintmg" >
+      <thead>
+      <tr>
+        <th>
+          Code
+        </th>
+        <th>Nom</th>
+        <th>Zone</th>
+        <th>Nom RM</th>
+        <th>Gouvernorat</th>
+        <th>Ville</th>
+        <th>Nb Caisses</th>
+        <th>Nb Caissiers</th>
+        <th>Etat</th>
+      </tr>
+    </thead>
+    
+   
+    
+    
+    <tbody>
+    <tr *ngFor=" let mg of data">
+      <td>{{mg.code}}</td>
+      <td>{{mg.libelle}}</td>
+      <td>{{mg.zoneGeographique}}</td>
+      <td>{{mg.responsablemagasin}}</td>
+      <td >{{mg.gouvernorat}}</td>
+      <td>{{mg.ville}}</td>
+      <td id="nb">{{mg.nombreCaisse}}</td>
+      <td id="nb">{{mg.nombreCaissier}}</td>
+      <td id="etmg">{{mg.etatMagsin}}</td>
+    </tr>
+  </tbody>
+    
+    </table>
+ 
+  </table>
+
+
+ 
+</div> -->

@@ -1,0 +1,32 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div class="card text-center">
+    <div  class="card-header font-weight-bold black-text p-0">{{'supprimerBin.headercard'|translate}}
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+      <!-- <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"   title='minimize' (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title='maximize' (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button> -->
+    </div></div><br>
+  <div class="card-body"[hidden]="!isOpened" >
+    <div  class="row">
+      <h5 id="deltbin" > {{'supprimerBin.messageactivation'|translate}}</h5>
+     
+    </div>
+  </div>
+  <div mat-dialog-actions align="end" class="footr mt-auto" [hidden]="!isOpened">
+    <br>
+    <div class="d-left">
+      <ul style="list-style-type:none; " class="small text-left pl-4 m-3">
+      
+     
+     <li>
+      <mat-error  *ngIf="err"><i style="margin-right: 10px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{msg}}</mat-error> 
+     </li> </ul>
+    </div>
+  
+      <div id="bott" class="form-group dialog-footer" [hidden]="!isOpened">
+          <button [disabled]="disable" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Fermer()"><span id="sp">{{'btn.btn24'| translate}}</span></button>
+          <button [disabled]="disable" class="waves-light btn red-yellow float-right btn-sm" type="submit" (click)="Supprimer()"><span id="sp">{{'btn.btn23'| translate}}</span></button>  
+       </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div class="card text-center">
+    <div  class="card-header font-weight-bold black-text p-0"> {{'modifierBin.headercard' | translate}}
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" title="{{'btn.btn1'| translate}}"  mdbWavesEffect (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"   title="{{'btn.btn15'| translate}}" (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title="{{'btn.btn16'| translate}}" (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+    </div></div><br [hidden]="!isOpened">
+
+    <form #form1="ngForm" [formGroup]="binform" class="form-inline" [hidden]="!isOpened" ><br>
+      <div style="font-size: 10px"
+      hidden>
+        <mat-form-field id="forminput" appearance="outline">
+            <mat-label >Fin Plage</mat-label>
+            <input formControlName="idBin" [(ngModel)]="detail.idBin" matInput placeholder="" id="inputstyle" >
+               
+        </mat-form-field>
+       </div>
+      <div style="font-size: 10px">
+        <mat-form-field id="forminput" appearance="outline">
+            <mat-label id="labelobligatoir">{{'input.nomBin'|translate}}</mat-label>
+            <input (focus)="onFocus([Type_Message.LETTER_NUMBER],true)"
+            (blur)="onBlur()" autocomplete="off" formControlName="nomPlageBin" [(ngModel)]="detail.nomPlageBin" matInput placeholder="" id="inputstyle" required maxlength="50">
+            <!-- <mat-error  style="font-size: 13px;" *ngIf="!binform.controls['nomPlageBin'].valid && binform.controls['nomPlageBin'].touched">{{geterrornom()}}</mat-error> -->
+          </mat-form-field>
+ </div>
+        <div style="font-size: 10px">
+                <mat-form-field id="forminput" appearance="outline">
+                    <mat-label id="labelobligatoir">{{'input.debPlage'|translate}}</mat-label>
+                    <input (focus)="onFocus([Type_Message.NUMBER,Type_Message.CUSTOM_CAR],true,6)"
+                    (blur)="onBlur()" autocomplete="off" formControlName="debutPlageBin" [(ngModel)]="detail.debutPlageBin" matInput placeholder="" id="inputstyle" required maxlength="6" minlength="6">
+                    <!-- <mat-error  style="font-size: 13px;" *ngIf="!binform.controls['debutPlageBin'].valid && binform.controls['debutPlageBin'].touched">{{geterrorlr()}}</mat-error> -->
+                  </mat-form-field>
+         </div>
+         <div style="font-size: 10px">
+          <mat-form-field id="forminput" appearance="outline">
+              <mat-label id="labelobligatoir">{{'input.finPlage'|translate}}</mat-label>
+              <input (focus)="onFocus([Type_Message.NUMBER,Type_Message.CUSTOM_CAR],true,6)"
+              (blur)="onBlur()" autocomplete="off" formControlName="finPlageBin" [(ngModel)]="detail.finPlageBin" matInput placeholder="" id="inputstyle" required maxlength="6" minlength="6">
+                 <!-- <mat-error  style="font-size: 13px;" *ngIf="!binform.controls['finPlageBin'].valid && binform.controls['finPlageBin'].touched">{{ geterrorhr()}}</mat-error> -->
+          </mat-form-field>
+         </div>
+         <div style="font-size: 10px">
+            <mat-form-field id="forminput" appearance="outline">
+              <mat-label id="labelobligatoir">{{'input.emetteur'|translate}}</mat-label>
+              <mat-select (focus)="onFocus([],true)"
+              (blur)="onBlur()" formControlName="idEmetteur" [(ngModel)]="detail.idEmetteur" required>
+                <mat-option *ngFor="let issuer of etablissements" [value]="issuer.idEtablissementFinancier">
+                  {{issuer.nomCommercial}}
+                </mat-option>
+              </mat-select>
+             
+              <!-- <mat-error  style="font-size: 13px;" *ngIf="!binform.controls['idEmetteur'].valid && binform.controls['idEmetteur'].touched">Champ Obligatoire</mat-error>  -->
+              </mat-form-field>
+             
+     </div>
+     <div style="font-size: 10px">
+      <mat-form-field id="forminput" appearance="outline">
+        <mat-label id="labelobligatoir">{{'input.acquereur'|translate}}</mat-label>
+        <mat-select (focus)="onFocus([],true)"
+        (blur)="onBlur()"  formControlName="idAcquereur" [(ngModel)]="detail.idAcquereur" required>
+          <mat-option *ngFor="let issuer of etablissements" [value]="issuer.idEtablissementFinancier">
+            {{issuer.nomCommercial}}
+          </mat-option>
+        </mat-select>
+       
+        <!-- <mat-error  style="font-size: 13px;" *ngIf="!binform.controls['idAcquereur'].valid && binform.controls['idAcquereur'].touched">Champ Obligatoire</mat-error>  -->
+        </mat-form-field>
+       
+</div>
+    </form>
+
+    <br [hidden]="!isOpened"><br [hidden]="!isOpened"><br [hidden]="!isOpened"><br [hidden]="!isOpened">
+    <div mat-dialog-actions align="end" class="footr mt-auto"  [hidden]="!isOpened">
+      <br>
+      <div class="d-left">
+        <ul style="list-style-type:none; " class="small text-left pl-4 m-3">
+          <li *ngFor="let m of Messages" [ngStyle]="{'color': m.color}"><i style="margin-right: 10px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{m.message }}</li>
+       
+       <li>
+        <mat-error  *ngIf="err"><i style="margin-right: 10px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{msg}}</mat-error> 
+       </li> </ul>
+      </div>
+    <div class="form-group dialog-footer" [hidden]="!isOpened" >
+        <button [disabled]="disable" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Fermer()" title="{{'btn.btn1'| translate}}"><span id="sp"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+        <button [disabled]="disable"  class="waves-light btn red-yellow float-right btn-sm" type="submit" (click)="onSubmit(form1)" title="{{'btn.btn3'| translate}}" ><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+        <button [disabled]="disable" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Reset()" title="{{'btn.btn2'| translate}}"><span id="sp"><i class="fa fa-eraser" aria-hidden="true"></i></span></button>
+        
+     </div>
+    </div>
+</div>

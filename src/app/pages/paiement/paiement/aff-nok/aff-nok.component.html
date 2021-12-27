@@ -1,0 +1,85 @@
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="card text-center" clickNoRightClick>
+      <div class="card-header font-weight-bold black-text p-0"> {{'affiliation.bodyDetail' | translate}}
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect
+          (click)="Fermer()">
+          <i class="fa fa-times"></i>
+        </button>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"
+          title='minimize' (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true"></i></button>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "
+          title='maximize' (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+      </div>
+    </div><br>
+    
+    <table  [hidden]="loading " id="detailrecon">
+        <tr>
+          <td> <label id="espleft">
+              <h6 id="titleliste" style="font-weight: bold;">{{'affiliation.EtabPai' | translate}} :</h6>
+            </label>
+            <label id="pass">
+              <h6>{{data.etablissement}}</h6>
+            </label>
+          </td>
+          <td> <label id="espleft">
+            <h6 id="titleliste" style="font-weight: bold;">{{'affiliation.column0' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{data.produitFinancier}}</h6>
+          </label>
+        </td>
+        </tr>
+    
+        <tr>
+            <td> <label id="espleft">
+                <h6 id="titleliste" style="font-weight: bold;">{{'affiliation.nbMag' | translate}} :</h6>
+              </label>
+              <label id="pass">
+                <h6>{{data.nbr_affiliation_NonOk}}</h6>
+              </label>
+            </td>
+        </tr>
+  
+      </table>
+
+      <div  [hidden]="loading ">
+        <div class="table-responsive ">
+          <table mat-table matSort [dataSource]="source"  >
+            <ng-container  matColumnDef="codemagasin">
+              <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header> {{'ecart.codeMag' | translate}} </th>
+              <td style="width: 25%;"  mat-cell *matCellDef="let row"> {{row.codemagasin}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="nommagasin">
+              <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header mat-sort-header>{{'input.nomMag' | translate}} </th>
+              <td style="width: 40%;" mat-cell *matCellDef="let row"> {{row.nommagasin}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="Affiliation">
+              <th cdkDrag mat-header-cell *matHeaderCellDef>{{'input.aff' | translate}} </th>
+              <td style="width: 60%;" mat-cell *matCellDef="let row">
+                <i *ngIf="check==false"  class="fa fa-edit fa-2x" style="color: red;" (click)="show()"></i>
+                <div  *ngIf="check">
+                <input style="margin-right: 5%;width: 72%;" [(ngModel)]="row.aff" placeholder="Affiliation..."/> <i class="fa fa-check fa-2x" style="color: green;" (click)="submit(row)"></i><i style="color: red;" class="fa fa-times fa-2x" (click)="show()"></i>
+                </div>
+            </td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsAff" id="mat-table"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsAff;"
+            style="background-color: rgb(238, 200, 119);"></tr>
+            <tr class="mat-row" *matNoDataRow>
+              <td colspan="5">
+                <h4 class="text-center"> {{'affiliation.AffVide' | translate}}</h4>
+              </td>
+            </tr>
+          </table>
+          <mat-paginator [pageSize]="row_nbrAff" hidePageSize showFirstLastButtons></mat-paginator>   
+  </div>
+</div>
+
+  <div *ngIf="loading" >
+    <div class="spinner-img">
+    </div>
+    <h3 id="titreload">{{ "spinner" | translate }}</h3>
+  </div> 

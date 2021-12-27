@@ -1,0 +1,369 @@
+{ 
+    "affiliation":{
+        "headerDetail":"List of affiliations",
+        "bodyDetail":"Listf of affiliations NOk",
+    "etabFin":"Financial institution",
+    "Canal":"Payment channel",
+    "prodFin":"Financial product",
+    "AffOk":"Aff Ok",
+"AffNOk":"Aff NOK",
+"AffVide":"No Affiliation",
+"EtabPai":"Payment institution",
+"CanalPai":"Payment channel",
+"column0":"Financial product",
+"nbMag":"Number of store"
+},
+    "magasin":{
+        "recap":{"NbMagOuvert":"number of stores open",
+        "NbMagFerme":"number of stores closed",
+        "NbEtabPai":"Number of payment institutions",
+        "NbCaissPai":"Number of Payment cashiers",
+        "NbProdFin":"Number of Financial products"
+    }
+    },
+    "transaction": {
+        "headercard": "Transaction Search",
+        "bodycard": "List of transactions",
+        "detail": "Transaction Details",
+        "groupbymagasin": "Grouping by store",
+        "groupbydate": "Grouping by date",
+        "groupbyetab": "Grouping by financial institution",
+        "groupbywallet": "Grouping by wallet",
+        "groupebyetat":"Grouping by state",
+        "groupebycanal":"Grouping by Channel",
+        "message": "No transaction",
+        "recap": {
+            "title": "Recapitulation",
+            "group": "Grouping by",
+            "groupeZone":"Grouping by zone",
+            "groupeGouv":"Grouping by governorate",
+            "groupeVille":"Groupage by city",
+            "groupeMag":"Consolidation by store",
+            "g1": "NO",
+            "g2": "Store",
+            "g3": "Financial Institution",
+            "g4": "Wallet",
+            "nbr_ligne": "Row Nb",
+            "nbr_ecart":"Deviation Nb",
+            "nbr_trans": "Transaction Nb",
+            "montant": "Amount",
+            "typeClotureJour":"Closing day type",
+            "nombreMagEcart":"Number Store Gap",
+            "nombreMagNonReconcilie":"number Store Not Reconciled"
+        },
+        "attribute": {
+            "n0":"Date",
+            "n1": "Financial Institution",
+            "n2": "Wallet",
+            "n3": "Store",
+            "n4": "Min Amount",
+            "n5": "Max Amount",
+            "n6": "Trans State",
+            "n7": "Reconciliation State",
+            "n8": "Lettering State",
+            "n9": "Zone",
+            "n10": "Start Date",
+            "n11": "End Date",
+            "n12": "Criterion",
+            "n13": "Criterion identifier"
+        },
+        "column_Oui":"YES",
+        "column_Non":"NO",
+        "column_date": "Date/Hour",
+        "column_nbr": "Number",
+        "column_ref": "Ref-MPGA",
+        "column_magasin": "Store",
+        "column_autorisation": "authorization",
+        "column_montant": "Amount",
+        "column_etab": "Fin.estab",
+        "column_wallet": "Wallet",
+        "column_reconcilie": "Reconciled",
+        "column_lettre": "Literate",
+        "column_Dte_Lettre": "Date lettering",
+        "column_Dte_Rec": "Reconciliation date",
+        "column_Transa_Rec": "Transaction reconciled on",
+        "column_Type_Rec": "Reconciliation type",
+        "column_Transa_Letre": "Transaction lettered on",
+        "column_Caisse": "cash register",
+        "column_Caissier": "Cashier",
+        "column_Num_Ticket": "Ticket number",
+        "column_Desi":"Designation",
+    "column0":"Coded",
+    "column1":"Name",
+    "column2":"Nb Boxes",
+    "column3":"Nb Cashiers",
+    "column4":"Status"
+},
+"detailMagasin": {
+    "headercard": "Details Store ",
+    "attribute": {
+        "n1": "Store name",
+        "n2": "Store code",
+        "n3": "Status",
+        "n4": "Ref number MPGA",
+        "n5": "List of funds",
+        "n6": "Wording",
+        "n7": "Coded",
+        "n8": "@ IP Cashier",
+        "n9": "@ IP POS",
+        "n10": "QR Code",
+        "n11": "List of services",
+        "n12": "Wallet",
+        "n13":"Affiliation"
+       
+    }
+},
+"ajouterMagasin": {
+    "headercard": "Add Store"
+    
+},
+"activer_Desactiver_magasin": {
+    "headercard": "Activate Store",
+    "headercard2": "Deactivate Store"
+    
+},
+"activation": {
+    "messageactivation": "Confirm activation ?",
+    "messagedesactivation": "Confirm deactivation ?"
+},
+
+"modifierMagasin": {
+    "headercard": "Update Store",
+    "ongletName": {
+        "ongl0": "General data",
+        "ongl1": "Crates",
+        "ongl2":"Services"
+    },
+    "column0":"Wallet",
+    "column1":"Affiliation",
+    "column2":"Num Ref MPGA",
+    "column3":"Status",
+    "column4":"Coded",
+    "column5":"Wording",
+    "column6":"IP @",
+    "column7":"POS IP @",
+    "column8":"QR Code"
+},
+"modifierCaisse": {
+    "headercard": "Update Checkout"
+},
+  "modifierService": {
+    "headercard": "Update Service"
+    
+},
+"activer_Desactiver_service": {
+    "headercard": "Activate Service",
+    "headercard2": "Deactivate Service"
+    
+},
+
+"supprimerBin": {
+    "headercard": "Delete BIN",
+    "messageactivation": "Confirm deletion ?"
+   
+},
+"detailBin": {
+    "headercard": "Details BIN",
+    "attribute": {
+        "n1": "BIN Name",
+        "n2": "Start Plage",
+        "n3": "End Plage",
+        "n4": "Transmitter",
+        "n5": "Purchaser"
+       
+       
+    }
+},
+"modifierBin": {
+    "headercard": "Update BIN"
+    
+},
+"ajouterBin": {
+    "headercard": "Add BIN"
+    
+},
+"bin":{
+    "headercard": "BIN Search",
+    "bodycard": "List of BIN",
+    "recap":{
+        "title":"Recapitulation",
+        "nbr_ligne":"Nb Line",
+        "nbr_bin":"Nb BIN"
+       
+    },
+    "attribute":{
+        "n1":"Transmitter",
+        "n2":"Purchaser"
+        
+    },
+    "groupage":{
+        "group":"Grouping by",
+        "g1":"None",
+        "g2":"Transmitter",
+        "g3":"Purchaser"
+        
+    },
+    "column0":"Nom BIN",
+    "column1":"Start Plage",
+    "column2":"End Plage",
+    "column3":"Transmitter",
+    "column4":"Purchaser",
+    "column5":"Number",
+    "column6":"Percentage"
+},
+"servicePaiement":{
+    "title0":"Monetic Affiliation",
+    "title1":"Financial Institutions",
+    "title2":"Transmitters",
+    "title3":"Purchasers",
+    "title4":"Table of BIN"
+        },
+        
+        "ajouterEtablissement":{
+            "headercard": "Add Financial Institution",
+            "headercard2": "Financial Institution Coordinates"
+          } ,
+          "modifierEtablissement":{
+            "headercard": "Financial Institution",
+            "headercard2": "Financial Institution Coordinates",
+            "onglet":{
+                "ongl1":"General Data",
+                "ongl2":"Financial Products"
+            },
+            "column0":"Financial Product",
+            "column1":"Payment Channel",
+            "column2":"Issue",
+            "column3":"Acquisition"
+            
+          } ,   
+          "ajouterCanal":{
+            "headercard": "Payment Channel"   
+          },       
+"input":{
+"tous":"All",
+"cde":"Coded",
+"nomMag":"Store name",
+"NbCaiss":"Number of cases",
+"NbCaissier":"Number of cashiers",
+"adrIpRac":"Root IP Address",
+"affiliation":"Affiliation D17",
+"libelle":"Wording",
+"qr":"QR Code",
+"nbCaisse":"Number box",
+"adrIpRacine":"Root IP Address",
+"aff":"Affiliation",
+"nomBin":"BIN Name",
+"debPlage":"Start Plage",
+"finPlage":"End Plage",
+"emetteur":"Transmitter",
+"acquereur":"Purchaser",
+"raison":"Raison Sociale",
+    "nomCommercial":"Trade name",
+    "nomAbrege":"Short Name",
+    "typeIdenti":"Type Identification",
+    "rne":"RNE",
+    "categorie":"Category",
+    "adr":"Address",
+    "gouvernorat":"Governorate",
+    "ville":"City",
+    "cdePostal":"Postal Code",
+    "prodFinance":"Financial Product",
+    "canalPaiement":"Payment Channel",
+    "acquisition":"Acquisition",
+    "emission":"Issue"
+
+},
+
+"btn": {
+    "btn0": "Filter",
+    "btn1": "Close",
+    "btn2": "Clear",
+    "btn3": "Validate",
+    "btn4": "Search",
+    "btn5": "Print",
+    "btn6": "Add",
+    "btn7": "Update",
+    "btn8": "Activate",
+    "btn9": "Deactivate",
+    "btn10": "View",
+    "btn11": "Remove",
+    "btn12": "Scrolling",
+    "btn13": "Pagination",
+    "btn14": "Scroll",
+    "btn15": "Minimize",
+    "btn16": "Maximize",
+    "btn17": "Assign POS",
+    "btn18": "Unassign POS",
+    "btn19": "Manual closure",
+    "btn20": "Products",
+    "btn21": "Account Managing",
+    "btn22": "Default factory values",
+    "btn23": "YES",
+    "btn24": "NO",
+    "btn25":"block",
+    "btn26":"Unblock",
+    "btn27":"Add Channel"
+},
+"toast": {
+    "connecter": "User logged in",
+    "deconnecter": "User logged out",
+    "ajouter": "Creation successfully completed",
+    "password": "Password successfully updated",
+    "affectProduit": "Product list successfully assigned",
+    "modifier": "Update successfully done",
+    "echec": "Server failure! Contact the administrator",
+    "echecContact": "Failed to add contact! Contact the administrator",
+    "statut": "Status successfully changed",
+    "ProfileAttache": "You cannot remove this profile",
+    "erreurCodeStation": "Internal station code is already in use! Try another",
+    "affectTpe": "POS successfully assigned",
+    "desaaffectTpe": "POS successfully unassigned",
+    "traitement": "Processing",
+    "affectationfcc": "FCC successfully assigned",
+    "priorite": "FCC priority already exists! Try another",
+    "serie": "FCC serial number already exists! Check your Serial Number.",
+    "validation": "Validation successfully completed",
+    "manuel": "Manual closure successfully done",
+    "nonAutorise": "Unauthorized user",
+    "code": "Code already used! Try another",
+    "nomclient": "Customer name already used! Try another",
+    "profilesupprimer": "Profile commission successfully deleted",
+    "designation": "Name already in use! Try another",
+    "numSerie": "Serial number already in use! Try another",
+    "commission": "Commission already in use! Try another",
+    "toast_limit": "Max open windows reach",
+    "listvide": "You must choose at least one product",
+    "dateeffet": "Effective date must be greater than current date",
+    "suppression":"Deletion successfully done",
+    "affectCanal":"Assignment successfully done"
+},
+"requirements": {
+    "required": "Required field",
+    "lettreChiffre": "Only letters and numbers allowed",
+    "chiffre": "Only numbers allowed!",
+    "lettre": "Only letters allowed !",
+    "maxchiffre": "il faut 8 chiffres ",
+    "maxlength":"The maximum length is 25",
+    "minlength": " At least 8 characters",
+    "special": "At least one special character",
+    "number_at_least": "At least one number",
+    "ip": "Four numbers (each between 0 and 255) separated by periods.",
+    "custom":"it is necessary ",
+    "custom1":"characters ",
+    "error":"Please verify your information"
+    
+},
+"connexion": "Check your connection",
+"spinner": "Loading in progress....",
+"recon":{
+    "headercard": "Reconciliation Search",
+    "bodycard": "List of Reconciliations"
+},
+"ecart":{
+    "headercard": "Difference Search",
+    "bodycard": "List of deviations"
+},
+"rightClick4":"Aff NOk List",  
+"rightClick5":"Add Aff/File"
+
+}

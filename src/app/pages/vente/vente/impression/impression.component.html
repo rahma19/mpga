@@ -1,0 +1,110 @@
+<div id="dialogprint">
+  <br>
+  <p id="printmgdet">Détail Magasin {{message}} .</p>
+  <p id="printmgdet">Souhaitez-vous l’imprimer ?</p>
+  <br><br>
+  <button  type="submit" class="waves-light btn blue-grey float-right btn-sm"   (click)="OnClose()" >NON</button>
+  <button  type="submit" class="waves-light btn blue-grey float-right btn-sm"   (click)="printrow()" >OUI</button>
+  </div>
+<div id="detmagasinprint" #printSection >
+  <div id="print-section" clickNoRightClick>
+<div class="row">
+  <img id="botlogmag" [src]="cheminImage" alt="logo" class="col-3"/>
+
+<div class=" font-weight-normal text-dark" id="botadressmag">
+<label id="botlabamag">{{adresse}}</label><br> <label id="botlabamag">{{code}}</label> <label id="botlabadressvilmg">{{ville}}</label> <br>
+<label style="font-size: 20px; padding-right: 10px;">Tel : </label><label id="botlabamag">{{tel}}</label><br>
+<label style="font-size: 20px; padding-right: 10px;">RNE : </label><label id="botlabamag">{{rne}}</label><br>
+
+</div>
+
+</div>
+<h5 id="botdateprintmag">Edité le : {{ currentDate | date:'dd/MM/yyy'}}</h5>
+<h2 style="text-align: center;">Magasin Num:° <span id="titmag">{{detailmag.code}}</span> </h2>
+  <table id="detailmagasin">
+    <tr>
+      <td>
+            <label id="espleft">Nom magasin :</label>
+            <label id="pass">{{detailmag.libelle}} </label></td>
+            <td>
+              <label id="espleft">Rue :</label>
+              <label id="pass">{{detailmag.code}}</label></td>
+    </tr>
+ <tr>
+    
+      <td> <label id="espleft">Ville :</label>
+        <label id="pass">{{detailmag.ville}}</label></td> 
+        <td>
+          <label id="espleft">Gouvernorat :</label>
+          <label id="pass">{{detailmag.gouvernorat}}</label></td>
+ </tr> 
+ <tr>
+ 
+    <td> <label id="espleft">Zone :</label>
+      <label id="pass">{{detailmag.zoneGeographique}}</label></td> 
+      <td>
+        <label id="espleft">Email :</label>
+        <label id="pass">{{detailmag.email}}</label></td>
+</tr> 
+<tr>
+   
+      <td> <label id="espleft">Téléphone :</label>
+        <label id="pass">{{detailmag.telephone}}</label></td> 
+        <td>
+          <label id="espleft">Fax :</label>
+          <label id="pass">{{detailmag.fax}}</label></td>
+  </tr> 
+ 
+</table>
+ 
+  <span style="text-align: center" id="bdgmagasinprint" class="badge badge-secondary"> <h3  >Liste des caisses :</h3></span>
+
+<table id="tablemagasin" >
+  <thead  class="head">
+      <tr>
+          <th><h4 >Libelle</h4></th>
+          <th><h4 >Code</h4></th>
+          <th><h4 >@ IP Caisse</h4></th>
+          <th><h4 >@ IP Tpe</h4></th>
+          <th><h4 >Etat</h4></th>
+          <th><h4 > QR Code</h4></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let liste of resultat">
+          <td ><h5>{{liste.libelleCaisse }}</h5></td>
+          <td ><h5>{{liste.code }}</h5></td>
+          <td ><h5>{{liste.adresseIpCaisse }}</h5></td>
+          <td ><h5>{{liste.adresseIpTpe }}</h5></td>
+          <td ><h5>{{liste.etatCaisse }}</h5></td>
+          <td ><h5>{{liste.qrCode }}</h5></td>
+      </tr>
+   
+  </tbody>
+</table>
+<br>
+<span style="text-align: center" id="bdgmagasinprint" class="badge badge-secondary"> <h3  style="text-align: center">Liste des résponsables :</h3></span>
+<table id="tablemagasin" >
+  <thead  class="head">
+      <tr>
+          <th><h4 >Catégorie</h4></th>
+          <th><h4 >Nom Prénom</h4></th>
+          <th><h4 >Matricule</h4></th>
+          <th><h4 >Email</h4></th>
+          <th><h4 >Téléphone</h4></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let liste of agents">
+          <td ><h5>{{liste.categorieAgent }}</h5></td>
+          <td ><h5>{{liste.nom }} {{liste.prenom}}</h5></td>
+          <td ><h5>{{liste.matricule }}</h5></td>
+          <td ><h5>{{liste.email }}</h5></td>
+          <td ><h5>{{liste.mobile }}</h5></td>
+      </tr>
+    
+  </tbody>
+</table>
+  
+</div>
+</div>

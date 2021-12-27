@@ -1,0 +1,26 @@
+.login-container{
+    position: absolute;
+    .card{
+        .card-header{
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            margin-top: -40px;
+            border-radius: 50%;
+            font-size: 36px;
+        }
+    }
+}
+#btnlogin{
+    background-color: #f5d202;
+}
+#conxbutt{
+    background-color: Transparent;
+    font-size: 15px;
+    font-weight: bold;
+    color:black;
+    
+}
+#iconconx{
+    background-color: black;
+}

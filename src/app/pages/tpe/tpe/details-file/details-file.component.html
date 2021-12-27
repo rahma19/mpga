@@ -1,0 +1,28 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+  <div class="card text-center">
+    <div  class="card-header font-weight-bold black-text p-0"> Details
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"   title='minimize' (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title='maximize' (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+    </div></div><br>
+<div [hidden]="!isOpened">
+    <table id="detailfile">
+        <tr>
+        <th>Num_série</th>
+        <th>Modèle TPE</th>
+        <th>Version Application</th>
+        <th>Propriété</th>
+        </tr>
+        <tr *ngFor="let det of data">
+            <td>{{det.numeroSerie}}</td>
+            <td>{{det.idModeleTpe}}</td>
+           
+            <td>{{det.versionApplication}}</td>
+            <td>{{det.idProprietaireTpe}}</td>
+           
+        </tr>
+    </table>
+</div>
+</div>

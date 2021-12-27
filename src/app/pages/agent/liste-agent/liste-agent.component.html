@@ -1,0 +1,219 @@
+<div id="affichmagasin">
+ 
+    <div class="card" >
+      <div  class="card-header font-weight-bold black-text p-0" [hidden]="loading " clickNoRightClick><span style="margin-left: 43%;" >Recherche Agent</span>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="show()">
+          <i class="fa fa-bars"></i>
+        </button>
+        <button *ngIf="filter" type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect 
+          (click)="Rechercher(filterform.value)" > <i class="fa fa-search"></i></button>
+        <!-- <button *ngIf="filter" type="button" class="float-right waves-light btn blue-grey p-0 pl-3 pr-3" (click)="exportAsXLSX()"> <i class="fa fa-file-excel-o fa-lg"></i></button> -->
+        <button *ngIf="filter" type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3"[disabled]="nbr_ligne==0" (click)="Print()"> <i class="fa fa-print"></i></button>
+      </div>
+    
+      <div class="card-body" *ngIf="filter" [hidden]="loading ">
+    
+        
+        <div class="container-fluid">
+            <div class="row" >
+                <div class="col-9" id="ligne_horizon">
+          <form [formGroup]="filterform" class="form-inline">
+              <div style="font-size: 10px">
+                  <mat-form-field id="newinput" appearance="outline">
+                      <mat-label>Magasin</mat-label>
+                  <mat-select  formControlName="magasin_"  [(ngModel)]="magasin" placeholder=""> 
+                      <mat-option [value]="-1">Tous</mat-option>
+                      <mat-option *ngFor="let mag of magasins" [value]="mag.idMagasin">
+                          {{mag.libelle}} </mat-option>
+                  </mat-select>
+                  </mat-form-field>
+              </div>
+              
+                <div style="font-size: 10px">
+                        <mat-form-field id="newinput" appearance="outline">
+                          <mat-label>Catégorie</mat-label>
+                            <mat-select  formControlName="categorie_"  [(ngModel)]="categorie" placeholder="" >
+                                <mat-option [value]="-1">Tous</mat-option>
+                                <mat-option *ngFor="let cat of categories" [value]="cat.idCategorieAgent">
+                                    {{cat.libelle}} </mat-option>
+                                    </mat-select>
+                                    </mat-form-field>
+            
+                  </div>
+                  <div style="font-size: 10px">
+                    <mat-form-field id="newinput" appearance="outline">
+                      <mat-label>Zone</mat-label>
+                        <mat-select  formControlName="zone_"  [(ngModel)]="zone" placeholder="" >
+                            <mat-option [value]="-1">Tous</mat-option>
+                          <mat-option *ngFor="let zone of zones" [value]="zone.idZoneGeographique">
+                                {{zone.libelleZone}} </mat-option>
+                                </mat-select>
+                                </mat-form-field>
+        
+              </div>
+          </form>
+         
+          <!-- <button mdbBtn type="button" class="waves-light btn blue-grey float-right btn-sm" mdbWavesEffect 
+                (click)="Rechercher(filterform.value)"> <i class="fa fa-search"></i></button>
+              <button mdbBtn type="button" class="waves-light btn blue-grey float-right btn-sm" (click)="exportAsXLSX()"> <i class="fa fa-file-excel-o fa-lg"></i></button> -->
+          </div>
+          <div class="col-3" style="text-align: center;">
+              <div id="ligne_verticale" style="font-size: 10px">
+                <mat-form-field id="newinput" appearance="outline">
+                  <mat-label>Groupage par</mat-label>
+                  <mat-select   [(ngModel)]="groupe" placeholder="" (selectionChange)="groupage(groupe)">
+                    <mat-option *ngFor="let groupe of groupeby" [value]="groupe.value">
+                          {{groupe.name}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+             </div>
+             <h5 style="color:  #e22d2c;font-weight: bold;">Récapitulation  : </h5>
+             <label style="font-weight: bold;">Nb Lignes : {{nbr_ligne}}</label><br>
+             <!-- <label style="font-weight: bold;">Nb d'agents : {{nb_agent}}</label><br> -->
+          </div>
+            </div>
+        </div>
+    </div>
+     </div>
+     <div id="cardmt" class="card mt-1" [hidden]="loading ">
+      <div  class="card-header  font-weight-bold black-text p-0"><span style="margin-left: 43%;" >{{title}}</span>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Add()" title='Ajouter Agent'>
+        <i class="fa fa-plus-square"></i>
+      </button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="scroll_bol" mdbWavesEffect (click)="scroll()" title='scrolling'><i class="fa fa-arrows-v" aria-hidden="true"></i></button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="page_bol" mdbWavesEffect (click)="page()" title='pagination'><i class="fa fa-files-o" aria-hidden="true"></i></button>
+      <input *ngIf="scroll_bol" class="float-right waves-light p-0 pl-3 pr-3" id="nbrligne" [(ngModel)]="row_nbr" min="1" (keyup)="getrow_nbr()">
+      <!-- <mat-slide-toggle id="slidebascule" class="float-right p-0 pl-3 pr-3" (change)="change()" [(ngModel)]="flag" [disabled]="checked"></mat-slide-toggle>  -->
+    </div>
+    <div  >
+        <div class="table-responsive" id="tab">
+            <!-- <ng2-smart-table [settings]="settings" [source]="source" id="headermag">
+               
+            </ng2-smart-table> -->
+          </div>
+    </div>
+    </div>
+    
+    
+    </div>
+    <div *ngIf="loading" clickNoRightClick >
+               
+      
+      <div class="spinner-img">
+      
+        <!-- <img src="../../../../assets/aziza-logo.jpg" alt=""> -->
+      </div>
+      <h3 id="titreload">Chargement en cours ....</h3>
+     
+    </div>
+    <!-- <div id="printmagasin" >
+      <div class="row">
+        <img id="logmag" src="../assets/aziza.png" alt="logo" class="col-3"/>
+    
+    <div class=" font-weight-normal text-dark" id="adressmag">
+    <label id="labamag">{{adresse}}</label><br> <label id="labamag">{{code}}</label> <label id="labadressvilmg">{{ville}}</label> <br>
+    <label style="font-size: 20px; padding-right: 10px;">Tel : </label><label id="labamag">{{tel}}</label><br>
+    <label style="font-size: 20px; padding-right: 10px;">RNE : </label><label id="labamag">{{rne}}</label><br>
+    
+    </div>
+    
+      </div>
+    
+     
+      <table id="globmag">
+      
+        <thead>
+          <h5 id="dateprintmag">Edité le : {{ date}}</h5>
+          
+         
+      <h2 id="titreprintmag">Liste des magasins 
+         <span id="st">(suite)</span>
+      </h2>
+      
+        </thead>
+        
+        <div class="row">
+          <div class="col-8">
+       
+        <div>
+          <label  id="labelfiltremgprint">Gouvernorat :</label>
+          <label id="filtremgprint">{{gou}}</label><br>
+          <label  id="labelfiltremgprint">Ville :</label>
+          <label id="filtremgprint">{{vil}}</label><br>
+          <label  id="labelfiltremgprint">Service :</label>
+          <label id="filtremgprint">{{ser}}</label><br>
+        </div> 
+      </div>
+        
+          <div class="col-4">
+          <table id="recapmgprint">
+            <tr>
+              <td id="labelrecapmgprint">Nb lignes :</td>
+              <td id="filtremgprint"> {{nbr_ligne}}</td>
+            </tr>
+            <tr>
+              <td id="labelrecapmgprint">Nb magasins :</td>
+              <td id="filtremgprint">{{nbr_magasin}}</td>
+            </tr>
+            <tr>
+              <td id="labelrecapmgprint">Nb caisses :</td>
+              <td id="filtremgprint"> {{nbr_caisse}}</td>
+            </tr>
+          </table>
+          </div>
+        
+        </div>
+        <div class="row" id="topmg">
+          <div class="col-6">
+          <label  id="labelfiltremgprint">Zone :</label>
+          <label id="filtremgprint">{{emplacement}}</label>
+          </div>
+          <div class="col-6">
+          <label  id="labelfiltremgprint">Etat :</label>
+          <label id="filtremgprint">{{et}}</label>
+          </div>
+        </div>
+       
+        
+    
+        <table id="tableprintmg" >
+          <thead>
+          <tr>
+            <th>
+              Code
+            </th>
+            <th>Nom</th>
+            <th>Zone</th>
+            <th>Nom RM</th>
+            <th>Gouvernorat</th>
+            <th>Ville</th>
+            <th>Nb Caisses</th>
+            <th>Nb Caissiers</th>
+            <th>Etat</th>
+          </tr>
+        </thead>
+        
+       
+        
+        
+        <tbody>
+        <tr *ngFor=" let mg of data">
+          <td>{{mg.code}}</td>
+          <td>{{mg.libelle}}</td>
+          <td>{{mg.zoneGeographique}}</td>
+          <td>{{mg.responsablemagasin}}</td>
+          <td >{{mg.gouvernorat}}</td>
+          <td>{{mg.ville}}</td>
+          <td id="nb">{{mg.nombreCaisse}}</td>
+          <td id="nb">{{mg.nombreCaissier}}</td>
+          <td id="etmg">{{mg.etatMagsin}}</td>
+        </tr>
+      </tbody>
+        
+        </table>
+     
+      </table>
+    
+    
+     
+    </div> -->

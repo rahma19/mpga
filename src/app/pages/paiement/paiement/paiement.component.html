@@ -1,0 +1,375 @@
+<mat-tab-group >
+  <mat-tab  label="{{ 'servicePaiement.title0' | translate }}"> 
+<ng-template matTabContent >
+    <table [hidden]="loading" id="detailrecon" style=" margin-top: 50px;">
+      <tr>
+        <td> <label id="espleft">
+            <h6 id="titleliste" style="font-weight: bold;">{{'magasin.recap.NbMagOuvert' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6> {{magOuvert}} </h6>
+          </label>
+        </td>
+        <td> <label id="espleft">
+            <h6 id="titleliste" style="font-weight: bold;">{{'magasin.recap.NbMagFerme' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{magFerme}}</h6>
+          </label>
+        </td>
+      </tr>
+  
+      <tr>
+        <td> <label id="espleft">
+            <h6 id="titleliste" style="font-weight: bold;">{{'magasin.recap.NbEtabPai' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{nbrEtab}}</h6>
+          </label>
+        </td>
+        <td>
+          <label id="espleft">
+            <h6 id="titleliste" style="font-weight: bold;">{{'magasin.recap.NbProdFin' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{nbrProduit}}</h6>
+          </label>
+        </td>
+        <!-- <td> <label id="pass">
+            <h6 id="titleliste" style="font-weight: bold;">{{'magasin.recap.NbCaissPai' | translate}} :</h6>
+          </label>
+          <label id="pass">
+            <h6>{{nbrEtab}}</h6>
+          </label>
+        </td> -->
+      </tr>
+
+    </table>
+
+    <div [hidden]="loading" class="card" >
+      <div [hidden]="loading" class="card-header  font-weight-bold black-text p-0"><span style="margin-left: 43%;"> {{'affiliation.headerDetail' | translate}}</span><!--{{'bin.bodycard' | translate}}-->
+         <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="scroll_bol" mdbWavesEffect (click)="scrollAff()" title="{{ 'btn.btn14' | translate }}"><i class="fa fa-arrows-v" aria-hidden="true"></i></button>
+          <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="page_bol" mdbWavesEffect (click)="pageAff()"  title="{{ 'btn.btn13' | translate }}"><i class="fa fa-files-o" aria-hidden="true"></i></button>
+          <input autocomplete="off" *ngIf="scroll_bol" class="float-right waves-light p-0 pl-3 pr-3" id="nbrligne" [(ngModel)]="row_nbrAff" (keyup)="getrow_nbrAff()">
+      </div>
+      <div [hidden]="loading" class="table-responsive ">
+        <table mat-table matSort [dataSource]="affsource"  >
+          <!-- Item Column -->
+          <ng-container  matColumnDef="etablissement">
+            <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header> {{'affiliation.etabFin' | translate}} </th>
+            <td (contextmenu)="menuAff($event,row)" mat-cell *matCellDef="let row" style="width: auto;"> {{row.etablissement}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="produitFinancier">
+            <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header >{{'affiliation.prodFin' | translate}} </th>
+            <td (contextmenu)="menuAff($event,row)" mat-cell *matCellDef="let row" style="width: auto;"> {{row.produitFinancier}} </td>
+          </ng-container>
+
+          <ng-container  matColumnDef="nbr_affiliation_Ok">
+            <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: right;padding-left: 5%;width: 20%;"> {{'affiliation.AffOk' | translate}} </th>
+            <td (contextmenu)="menuAff($event,row)" mat-cell  *matCellDef="let row" style="text-align: right;padding-right: 80px;width: 20%;"> {{row.nbr_affiliation_Ok}} </td>
+          </ng-container>
+
+          <ng-container  matColumnDef="nbr_affiliation_NonOk">
+            <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header  style="text-align: right;padding-left: 5%; width: 20%;"> {{'affiliation.AffNOk' | translate}} </th>
+            <td (contextmenu)="menuAff($event,row)" mat-cell *matCellDef="let row" style="text-align: right;padding-right: 80px;width: 20%;"> {{row.nbr_affiliation_NonOk}}  </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsAff" id="mat-table"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsAff;"
+          style="background-color: rgb(238, 200, 119);"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td colspan="5">
+              <h4 class="text-center"> {{'affiliation.AffVide' | translate}}</h4>
+            </td>
+          </tr>
+        </table>
+        <mat-paginator *ngIf="scroll_bol" [pageSize]="row_nbrAff" hidePageSize showFirstLastButtons></mat-paginator>
+        <div style="visibility: hidden; position: fixed" 
+        [style.left]="contextMenuBinPosition.a"
+        [style.top]="contextMenuBinPosition.b"
+        [matMenuTriggerFor]="contextMenu"
+        [matMenuTriggerData]="{liste:liste}">
+        </div>
+           <mat-menu #contextMenu="matMenu">
+              <ng-template matMenuContent let-liste="liste" let-i="i">
+                <button *ngIf="liste.nbr_affiliation_NonOk!=0" (click)="detailAff()" mat-menu-item><i class="fa fa-info-circle"> {{'rightClick4'| translate}}</i></button>
+                <button  mat-menu-item><i class="fa fa-file"> {{'rightClick5'| translate}}</i></button>
+              </ng-template>
+            </mat-menu>
+      </div>
+  </div>
+
+  <div *ngIf="loading" >
+    <div class="spinner-img">
+    </div>
+    <h3 id="titreload">{{ "spinner" | translate }}</h3>
+  </div>
+  </ng-template>
+</mat-tab>
+    <mat-tab label="{{ 'servicePaiement.title1' | translate }}"> 
+        
+        <div>
+            <button style="background-color:  #e22d2c;" class="waves-light btn float-right btn-sm" (click)="Addetablissement()" title="{{ 'btn.btn6' | translate }}"><span style="font-weight: bold;color: white;font-size: 10px;">
+              <i style="font-size: 13px;" class="fa fa-plus-circle"></i> {{ 'btn.btn6' | translate }}</span></button>
+            <br>
+            <div class="form-inline" >
+            <div style="margin-left: 5%;" *ngFor="let liste of etablissements; let i=index">
+                <div id="cardlistetabli" [ngStyle]="{'background-color': liste.couleurCategorieEtablissementFinancier}"
+                 class="card" (click)="viewprofile(liste)" (contextmenu)="onContextMenu($event,liste,i)">
+                   
+                    <img id="imgcontactetabli" src="assets/img/users/free.png" alt="user-img" class="user-img rounded-circle">
+                    <div class="card-body">
+                      <h3 style="color: black;font-weight: bold;" class="card-title">{{liste.nomCommercial}}</h3>
+                     
+                      <!-- <p  style="color: black;font-weight: bold;" class="card-text">Nb Affiliés : {{liste.nb_affilie}}</p> -->
+                     
+                     
+                    </div>
+                 
+                    <div style="visibility: hidden; position: fixed"
+                    [style.left]="contextMenuPosition.x"
+                    [style.top]="contextMenuPosition.y"
+                    [matMenuTriggerFor]="contextMenu"
+                    [matMenuTriggerData]="{liste:liste,i:i}">
+                </div>
+                      <mat-menu #contextMenu="matMenu">
+                          <ng-template matMenuContent let-liste="liste" let-i="i">
+                            
+                           
+                            <button id="boutonmenu" mat-menu-item (click)="ajouterCanal(liste)"><i class="fa fa-plus-circle"></i><span id="spanmenu"> {{ 'btn.btn27' | translate }}</span></button>
+                           
+                          </ng-template>
+                        </mat-menu>
+                  </div>
+                 
+                </div>
+              </div>
+              </div>
+    </mat-tab>
+    <mat-tab label="{{ 'servicePaiement.title2' | translate }}">
+      <div>
+        
+        <div class="form-inline" >
+        <div style="margin-left: 5%;" *ngFor="let liste of emetteurs; let i=index">
+         <div id="cardlistetabli" [ngStyle]="{'background-color': liste.couleurCategorieEtablissementFinancier}" class="card" (click)="viewemetteur(liste)" >
+               
+                <img id="imgcontactetabli" src="assets/img/users/free.png" alt="user-img" class="user-img rounded-circle">
+                <div class="card-body">
+                  <h3 style="color: black;font-weight: bold;" class="card-title">{{liste.nomCommercial}}</h3>
+                 
+                
+                 
+                 
+                </div>
+              </div>
+             
+            </div>
+          </div>
+          </div>
+    
+    
+    
+    
+    </mat-tab>
+    <mat-tab label="{{ 'servicePaiement.title3' | translate }}">
+      
+    
+      <div>
+        
+        <div class="form-inline" >
+        <div style="margin-left: 5%;" *ngFor="let liste of emetteurs; let i=index">
+         <div id="cardlistetabli" [ngStyle]="{'background-color': liste.couleurCategorieEtablissementFinancier}" class="card" (click)="viewemetteur(liste)" >
+               
+                <img id="imgcontactetabli" src="assets/img/users/free.png" alt="user-img" class="user-img rounded-circle">
+                <div class="card-body">
+                  <h3 style="color: black;font-weight: bold;" class="card-title">{{liste.nomCommercial}}</h3>
+                 
+                 
+                 
+                 
+                </div>
+              </div>
+             
+            </div>
+          </div>
+          </div>
+    
+    </mat-tab>
+    <mat-tab label="{{ 'servicePaiement.title4' | translate }}"> 
+      
+   
+        <div class="card">
+          <div  class="card-header font-weight-bold black-text p-0" [hidden]="loading "><span style="margin-left: 43%;">{{'bin.headercard' | translate}}</span>
+            <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="show()" title="{{ 'btn.btn0' | translate }}">
+              <i class="fa fa-bars"></i>
+            </button>
+            <button title="{{ 'btn.btn4' | translate }}"   mdbBtn type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect 
+                      (click)="Rechercher(filterform.value)"> <i class="fa fa-search"></i></button>
+                   
+          </div>
+        
+        
+          <div class="card-body" *ngIf="filter" [hidden]="loading ">
+              <div class="container-fluid">
+                <div class="row" >
+                  <div class="col-9" id="ligne_horizon">
+            <form [formGroup]="filterform" class="form-inline">
+               
+               
+                <div style="font-size: 10px">
+                    <mat-form-field id="partinput" appearance="outline">
+                      <mat-label>{{'bin.attribute.n1' | translate}}</mat-label>
+                      <mat-select  formControlName="emetteur_bin"  [(ngModel)]="emetteur" placeholder=""> 
+                        <mat-option [value]="''">Tous</mat-option>
+                      <mat-option *ngFor="let emetteur of etablissements" [value]="emetteur.idEtablissementFinancier">
+                      {{emetteur.nom}} </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div style="font-size: 10px">
+                    <mat-form-field id="partinput" appearance="outline">
+                        <mat-label>{{'bin.attribute.n2' | translate}}</mat-label>
+                    <mat-select  formControlName="acquereur_bin"  [(ngModel)]="acquereur" placeholder=""> 
+                        <mat-option [value]="''">Tous</mat-option>
+                      <mat-option *ngFor="let acquereur of etablissements" [value]="acquereur.idEtablissementFinancier">
+                      {{acquereur.nom}} </mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                    </div>
+                    
+                  
+    
+              
+              
+              </form>
+                  </div>
+                  <div class="col-3" style="text-align: left;">
+                    <div id="ligne_verticale" style="font-size: 10px">
+                      <mat-form-field id="partinput" appearance="outline">
+                        <mat-label>{{'bin.groupage.group' | translate}}</mat-label>
+                        <mat-select   [(ngModel)]="groupe" placeholder="" (selectionChange)="groupage(groupe)">
+                            <mat-option *ngFor="let groupe of groupeby" [value]="groupe.value">
+                                {{groupe.name| translate}} </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                   </div>
+                   <h5 style="color: blue">{{'bin.recap.title' | translate}} : </h5>
+                   <label style="font-weight: bold;">{{'bin.recap.nbr_ligne' | translate}} : {{statistique.nbligne}}</label><br>
+                   <label style="font-weight: bold;">{{'bin.recap.nbr_bin' | translate}} : {{statistique.nbbin}}</label><br>
+                  
+                </div>
+                </div>
+             
+            </div>
+         
+         </div>
+         <div class="card mt-1" [hidden]="loading ">
+          <div class="card-header  font-weight-bold black-text p-0"><span style="margin-left: 43%;">{{'bin.bodycard' | translate}}</span>
+          <button [disabled]="add==false" type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Add()" title="{{ 'btn.btn6' | translate }}">
+            <i class="fa fa-plus-square"></i>
+          </button>
+           <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="scroll_bol" mdbWavesEffect (click)="scroll()" title="{{ 'btn.btn14' | translate }}"><i class="fa fa-arrows-v" aria-hidden="true"></i></button>
+            <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="page_bol" mdbWavesEffect (click)="page()"  title="{{ 'btn.btn13' | translate }}"><i class="fa fa-files-o" aria-hidden="true"></i></button>
+            <input autocomplete="off" *ngIf="scroll_bol&& statistique.nbligne>18" class="float-right waves-light p-0 pl-3 pr-3" id="nbrligne" [(ngModel)]="row_nbr" (keyup)="getrow_nbr()">
+        </div>
+                  <div class="table-responsive" >
+                    <table mat-table matSort
+                    [dataSource]="dataSource" class="mat-elevation-z8" 
+                  >
+                  
+                    <ng-container matColumnDef="nomPlageBin">
+                      <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'bin.column0' | translate}}</th>
+                      <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtat" (contextmenu)="onRightClick($event, element)"> {{element.nomPlageBin}} </td>
+                    </ng-container>
+                      <ng-container matColumnDef="debutPlageBin">
+                        <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header>{{'bin.column1' | translate}} </th>
+                        <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtat" (contextmenu)="onRightClick($event, element)"> {{element.debutPlageBin}} </td>
+                      </ng-container>
+                    
+                      <ng-container matColumnDef="finPlageBin">
+                        <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'bin.column2' | translate}} </th>
+                        <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtat" (contextmenu)="onRightClick($event, element)"> {{element.finPlageBin}} </td>
+                      </ng-container>
+                     
+                      <ng-container matColumnDef="emetteur">
+                        <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'bin.column3' | translate}} </th>
+                        <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtat" (contextmenu)="onRightClick($event, element)"> {{element.emetteur}}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="acquereur">
+                        <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'bin.column4' | translate}}</th>
+                        <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtat" (contextmenu)="onRightClick($event, element)">{{element.acquereur}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="nombre">
+                        <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'bin.column5' | translate}} </th>
+                        <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtat" (contextmenu)="onRightClick($event, element)"> <div  style="margin-right: 85%;text-align:right;">{{element.nombre}}</div> </td>
+                      </ng-container>
+                      <ng-container matColumnDef="calcul">
+                        <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'bin.column6' | translate}}</th>
+                        <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtat" (contextmenu)="onRightClick($event, element)"><div  style="margin-right: 85%;text-align:right;">{{element.calcul}} %</div> </td>
+                      </ng-container>
+                     
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+              
+              
+                    <div style="visibility: hidden; position: fixed"   #triggerbin="matMenuTrigger"
+                    [style.left]="contextMenuBinPosition.a"
+                    [style.top]="contextMenuBinPosition.b"
+                    [matMenuTriggerFor]="contextMenuBin"
+                    [matMenuTriggerData]="{liste:liste}">
+                    
+                    </div>
+                       <mat-menu #contextMenuBin="matMenu">
+                          <ng-template matMenuContent let-liste="liste">
+                            <button  (click)="detail(element)" mat-menu-item ><i class="fa fa-info-circle"> {{'btn.btn10' | translate}}</i></button>  
+                         
+                            <button
+                            (click)="modifier(element)"
+                            mat-menu-item
+                           
+                          >
+                            <i class="fa fa-edit"> {{ "btn.btn7" | translate }}</i>
+                          </button> 
+                          <button 
+                          (click)="supprimer()"
+                          mat-menu-item
+                         
+                        >
+                          <i class="fa fa-trash"> {{ "btn.btn11" | translate }}</i>
+                        </button> 
+                       
+                      
+                            </ng-template>
+                            
+                        </mat-menu>
+                  </div>
+                  <mat-paginator *ngIf="scroll_bol&& statistique.nbligne>18" [pageSize]="row_nbr" hidePageSize showFirstLastButtons></mat-paginator>
+                   
+        </div>
+        </div>
+       
+     
+    
+    
+    
+    </mat-tab>
+  </mat-tab-group>
+
+  <div *ngIf="!isConnectionAvailable" >
+    <img id="wifi" src="../assets/nowifi.png" alt="logo" class="col-3"/>
+    <p id="verifconx">{{ "connexion" | translate }}</p>
+  </div>
+  
+  <div *ngIf="loading && isConnectionAvailable"  >
+             
+    
+    <div class="spinner-img">
+    </div>
+    <h3 id="titreload">{{ "spinner" | translate }}</h3>
+   
+  </div>
+
+
+  

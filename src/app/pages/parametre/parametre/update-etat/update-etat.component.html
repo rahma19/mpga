@@ -1,0 +1,322 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+
+<div class="card text-center" clickNoRightClick>
+    <div  class="card-header font-weight-bold black-text p-0">  {{name}}
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"   title='minimize' (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title='maximize' (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+    </div></div><br>
+
+    <div *ngIf="id==18">
+      <form #form1="ngForm" [formGroup]="mrqform" class="form-inline" id="forme"><br>
+          <div style="font-size: 10px; margin-left:5%">
+                  <mat-form-field  appearance="outline">
+                      <mat-label  style="color: orangered;">Désignation</mat-label>
+                      <input formControlName="designation" [(ngModel)]="ds" matInput placeholder="" id="inputstyle" required >
+                      <mat-error style="font-size: 13px;" *ngIf="!mrqform.controls['designation'].valid && mrqform.controls['designation'].touched">{{geterrordesig()}}</mat-error>
+                    </mat-form-field>
+           </div>
+           <div style="font-size: 10px; margin-left:5%">
+            <mat-form-field  appearance="outline">
+                <mat-label >Description</mat-label>
+                <input formControlName="commentaire" [(ngModel)]="descrip" matInput placeholder="" id="inputstyle"  >
+               
+              </mat-form-field>
+     </div>
+
+
+     <button (click)="add()" style="background:transparent;border:none" [disabled]="!mrqform.valid"><i style="font-size: 40px;margin-left: 35px;margin-bottom: 15px;" class="fa fa-plus-circle"></i></button>
+      </form>
+  </div>
+  <div *ngIf="id==19">
+    <form #form2="ngForm" [formGroup]="modlform" class="form-inline" id="forme"><br>
+      <div style="font-size: 10px;margin-left:5%;">
+              <mat-form-field  style=" margin-bottom: 10px;" appearance="outline">
+                  <mat-label style="color: orangered;">Désignation</mat-label>
+                  <input formControlName="designation" [(ngModel)]="dsmdl" matInput placeholder="" id="inputstyle" required >
+                  <mat-error style="font-size: 13px;" *ngIf="!modlform.controls['designation'].valid && modlform.controls['designation'].touched">{{ geterrordesigmodel()}}</mat-error>
+                </mat-form-field>
+       </div>
+       <div style="font-size: 10px; margin-left:5%">
+          <mat-form-field id="addupinput" appearance="outline">
+              <mat-label style="color: orangered;">Marque</mat-label>
+              <mat-select  formControlName="idMarqueTpe" [(ngModel)]="mrq" required>
+                  <mat-option *ngFor="let marque of marques" [value]="marque.idMarqueTpe">
+                    {{marque.designation}}
+                  </mat-option>
+                </mat-select>
+              <mat-error style="font-size: 13px;" *ngIf="!modlform.controls['idMarqueTpe'].valid && modlform.controls['idMarqueTpe'].touched">Champ Obligatoire</mat-error>
+            </mat-form-field>
+   </div>
+   <div style="font-size: 10px;margin-left:5%">
+      <mat-form-field id="addupinput" appearance="outline">
+          <mat-label  style="color: orangered;">Catégorie</mat-label>
+          <mat-select  formControlName="idCategorieTpe" [(ngModel)]="cat" required>
+              <mat-option *ngFor="let cat of categories" [value]="cat.idCategorieTpe">
+                {{cat.designation}}
+              </mat-option>
+            </mat-select>
+          <mat-error style="font-size: 13px;" *ngIf="!modlform.controls['idCategorieTpe'].valid && modlform.controls['idCategorieTpe'].touched">Champ Obligatoire</mat-error>
+        </mat-form-field>
+  </div>
+  <div style="font-size: 10px;margin-left:5%">
+  <mat-form-field id="addupinput" appearance="outline">
+      <mat-label style="color: orangered;">OS</mat-label>
+      <mat-select  formControlName="idOsTpe" [(ngModel)]="idos" required>
+          <mat-option *ngFor="let os of os" [value]="os.idOsTpe">
+            {{os.designation}}
+          </mat-option>
+        </mat-select>
+      <mat-error style="font-size: 13px;" *ngIf="!modlform.controls['idOsTpe'].valid && modlform.controls['idOsTpe'].touched">Champ Obligatoire</mat-error>
+    </mat-form-field>
+  </div>
+  <div style="font-size: 10px;margin-left:5%">
+  <mat-form-field id="addupinput" appearance="outline">
+  <mat-label  style="color: orangered;">Nombre de caractéres</mat-label>
+  <input formControlName="nombreCaractereNumeroSerie" [(ngModel)]="nb" matInput placeholder="" id="inputstyle" required (change)="nombrecaractere($event)" >
+  <mat-error style="font-size: 13px;" *ngIf="!modlform.controls['nombreCaractereNumeroSerie'].valid && modlform.controls['nombreCaractereNumeroSerie'].touched">{{geterronb()}}</mat-error>
+  </mat-form-field>
+  </div>
+  <div style="font-size: 10px;margin-left:5%">
+    <mat-form-field id="addupinput" appearance="outline">
+    <mat-label  style="color: orangered;">Format Num Serie</mat-label>
+    <input formControlName="formatNumeroSerie" [(ngModel)]="formatserie" matInput placeholder="" id="inputstyle" required (change)="seuilformatnumserie($event)">
+    <mat-error style="font-size: 13px;" [hidden]="errnbr" *ngIf="!modlform.controls['formatNumeroSerie'].valid && modlform.controls['formatNumeroSerie'].touched">{{geterrnumserie()}}</mat-error>
+   <mat-error style="font-size: 13px;" *ngIf="errnbr">longeur doit  égale au nbre caractére </mat-error>
+   </mat-form-field>
+    </div>
+  <div style="font-size: 10px;margin-left:5%">
+    <mat-form-field id="addupinput" appearance="outline">
+    <mat-label  style="color: orangered;">Frais Location Mensuel (en millime)</mat-label>
+    <input formControlName="fraisLocationMensuel" [(ngModel)]="frai" matInput placeholder="" id="inputstyle" required (blur)="Updatfrais()" >
+    <mat-error style="font-size: 13px;" *ngIf="!modlform.controls['fraisLocationMensuel'].valid && modlform.controls['fraisLocationMensuel'].touched">{{geterrfrai()}}</mat-error>
+    </mat-form-field>
+    </div>
+    <!-- <div style="font-size: 10px;margin-left:5%">
+      <mat-form-field style=" margin-bottom: 10px;"  appearance="outline">
+      <mat-label >Description</mat-label>
+      <input formControlName="commentaire" [(ngModel)]="com" matInput placeholder="" id="inputstyle" >
+      
+      </mat-form-field>
+      </div>  -->
+  <div style="font-size: 10px;margin-left:5%;margin-bottom: 20px;">
+  
+  <mat-label >Imprimante</mat-label>
+  <mat-checkbox formControlName="flagImprimante" [(ngModel)]="flagimp" id="imprim"></mat-checkbox>
+  </div>
+  <button (click)="add()" style="background:transparent;border:none" [disabled]="!modlform.valid"><i style="font-size: 40px;margin-left: 35px;margin-bottom: 20px;" class="fa fa-plus-circle"></i></button>
+  </form>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Default()" [hidden]="!isOpened">
+      <i class="fa fa-industry"></i>
+    </button>
+  
+    <div>
+      <br>
+      <div [hidden]="!isOpened">
+    <div *ngIf="id==1 || id==2 ||id==3 ||id==4 || id==6"> 
+    <table id="etatRE" clickNoRightClick>
+        <tr >
+          <td><h5 id="titreEtat">Libellé</h5></td>
+          <td><h5 id="titreEtat">Couleur</h5></td>
+          <td><h5 id="titreEtat">Commentaire</h5></td>
+        </tr>
+     <tr *ngFor="let liste of list; let i=index">  
+        <td><input style="font-weight: bold; margin:4px;width: 95%" [(ngModel)]="liste.libelle" (change)="show(liste)"></td> 
+        <td><input type="color" style="font-weight: bold; margin:4px;" [(ngModel)]="liste.couleur" (change)="show(liste)"></td> 
+        <td style="width: 60%;"><h6 style="font-weight: bold;">{{liste.commentaire}}</h6></td> 
+     </tr> 
+     </table>
+    </div>
+    <div *ngIf="id==7"> 
+        <table id="etatRE" clickNoRightClick>
+            <tr >
+              <td><h5 id="titreEtat">Code</h5></td>
+              <td><h5 id="titreEtat">Libellé</h5></td>
+              <td><h5 id="titreEtat">Nb Agents</h5></td>
+              <td><h5 id="titreEtat">Commentaire</h5></td>
+                  
+            </tr>
+         <tr *ngFor="let liste of list">  
+            <td><h6 style="font-weight: bold;">{{liste.codeCategorieAgent}}</h6></td> 
+            <td><input style="font-weight: bold; margin:4px;" [(ngModel)]="liste.libelle" (change)="show(liste)"></td> 
+           
+            <td><h6 style="font-weight: bold;">{{liste.nombreAgent}}</h6></td>
+            <td><h6 style="font-weight: bold;">{{liste.commentaire}}</h6></td> 
+         </tr> 
+         </table>
+        </div>
+        <div *ngIf="id==8"> 
+            <table id="etatRE" clickNoRightClick>
+                <tr >
+                  <td><h5 id="titreEtat">Catégorie</h5></td>
+                  <td><h5 id="titreEtat">Code</h5></td>
+                  <td><h5 id="titreEtat">Libellé</h5></td>
+                  <td><h5 id="titreEtat">Commentaire</h5></td>
+                      
+                </tr>
+             <tr *ngFor="let liste of list">  
+                <td><h6 style="font-weight: bold; width: 95%">{{liste.categorieErreur}}</h6></td> 
+                <td><h6 style="font-weight: bold;">{{liste.code}}</h6></td>
+                <td><input style="font-weight: bold; margin:4px;width: 95%" [(ngModel)]="liste.libelle" (change)="show(liste)"></td>  
+
+                <td><h6 style="font-weight: bold;">{{liste.commentaire}}</h6></td> 
+             </tr> 
+             </table>
+            </div>
+            <!-- <div *ngIf="id==9"> 
+                <table id="etatRE" clickNoRightClick>
+                    <tr >
+                      <td><h5 id="titreEtat">Code</h5></td>
+                      <td><h5 id="titreEtat">Libellé</h5></td>
+                      <td><h5 id="titreEtat">Nb magasins</h5></td>
+                      <td><h5 id="titreEtat">Commentaire</h5></td>
+                          
+                    </tr>
+                 <tr *ngFor="let liste of list">  
+                    <td><h6 style="font-weight: bold;">{{liste.code}}</h6></td> 
+                    <td><h6 style="font-weight: bold;">{{liste.libelle}}</h6></td> 
+                    <td><h6 style="font-weight: bold;">{{liste.nombremagasin}}</h6></td>
+                    <td><h6 style="font-weight: bold;">{{liste.commentaire}}</h6></td> 
+                 </tr> 
+                 </table>
+                </div> -->
+
+                <div *ngIf="id==5 || id==9|| id==10 || id==11|| id==12 ||id==23"> 
+                  <table id="etatRE" clickNoRightClick>
+                      <tr >
+                        
+                        <td><h5 id="titreEtat">Libellé</h5></td>
+                        <td><h5 id="titreEtat">Couleur</h5></td>
+                        <td><h5 id="titreEtat">Commentaire</h5></td>
+                            
+                      </tr>
+                   <tr *ngFor="let liste of list">  
+                    <td><input style="font-weight: bold; margin:4px;width: 95%" [(ngModel)]="liste.designation" (change)="show(liste)"></td> 
+                      <td><input type="color" style="font-weight: bold; margin:4px;" [(ngModel)]="liste.couleur" (change)="show(liste)"></td>
+                      <td><h6 style="font-weight: bold;">{{liste.commentaire}}</h6></td> 
+                   </tr> 
+                   </table>
+                  </div>
+                  <div *ngIf="id==13"> 
+                    <table id="etatRE" clickNoRightClick>
+                        <tr >
+                         
+                          <td><h5 id="titreEtat">Nom Utilisateur</h5></td>
+                          <td><h5 id="titreEtat">Code</h5></td>
+                          <td><h5 id="titreEtat">Commentaire</h5></td>
+                              
+                        </tr>
+                     <tr *ngFor="let liste of list">
+                      <!-- <td>{{liste.nomUtilisateur}}</td> -->
+                      <td><input style="font-weight: bold; margin:4px;width: 95%" [(ngModel)]="liste.nomUtilisateur" (change)="show(liste)"></td> 
+                      <td><h6 style="font-weight: bold;">{{liste.codeUtilisateur}}</h6></td>
+                        <td><h6 style="font-weight: bold;">{{liste.commentaire}}</h6></td> 
+                     </tr> 
+                     </table>
+                    </div>
+                   
+
+
+                    <div *ngIf=" id==14"> 
+                      <table id="etatRE" clickNoRightClick>
+                          <tr >
+                            <td><h5 id="titreEtat">Libellé</h5></td>
+                            <td><h5 id="titreEtat">Couleur</h5></td>
+                            <td><h5 id="titreEtat">Descriptif</h5></td>
+                          </tr>
+                       <tr *ngFor="let liste of list; let i=index">  
+                          <td><input style="font-weight: bold; margin:4px;width: 95%" [(ngModel)]="liste.designation"></td> 
+                          <td><input type="color" style="font-weight: bold; margin:4px;" [(ngModel)]="liste.couleur" ></td> 
+                          <td ><input style="font-weight: bold; margin:4px;width: 95%" [(ngModel)]="liste.commentaire" ></td> 
+                       </tr> 
+                       </table>
+                      </div>
+                    
+                      <div *ngIf="id==16||  id==15||id==18||id==21||id==22||id==20"> 
+                        <table id="etatRE" clickNoRightClick>
+                            <tr >
+                              <td><h5 id="titreEtat">Désignation</h5></td>
+                              <td><h5 id="titreEtat">Descriptif</h5></td>
+                            </tr>
+                         <tr *ngFor="let liste of list; let i=index">  
+                            <td><input style="font-weight: bold; margin:4px;width: 95%" [(ngModel)]="liste.designation" ></td> 
+                            <td ><input style="font-weight: bold; margin:4px;width: 95%" [(ngModel)]="liste.commentaire" ></td> 
+                         </tr> 
+                         </table>
+                        </div>
+
+                        <div *ngIf=" id==19"  > 
+                          <table id="modeletpe" clickNoRightClick class="table-responsive">
+                              <tr >
+                                <td><h5 id="titreEtat">Désignation</h5></td>
+                                <td><h5 id="titreEtat">Marque</h5></td>
+                                <td><h5 id="titreEtat">Catégorie</h5></td>
+                                <td><h5 id="titreEtat">OS</h5></td>
+                                <td><h5 id="titreEtat">Nb.Cara</h5></td>
+                                <td><h5 id="titreEtat">Format N/S</h5></td>
+                                <td><h5 id="titreEtat">Frais loc. Mens</h5></td>
+                                <td><h5 id="titreEtat">Imprimante</h5></td>
+                              </tr>
+                           <tr *ngFor="let liste of list; let i=index">  
+                              <td><input style="font-weight: bold; margin:4px;width: 95%" [(ngModel)]="liste.designation" ></td> 
+                              <td ><mat-select [(ngModel)]="liste.idMarqueTpe" placeholder=""  required  >
+                                <mat-option *ngFor="let marquetpe of marques" [value]="marquetpe.idMarqueTpe">
+                                  {{marquetpe.designation}}
+                                </mat-option>
+                              </mat-select></td> 
+                              <td>
+                                <mat-select [(ngModel)]="liste.idCategorieTpe" placeholder=""  required >
+                                  <mat-option *ngFor="let categorietpe of categories" [value]="categorietpe.idCategorieTpe">
+                                    {{categorietpe.designation}}
+                                  </mat-option>
+                                </mat-select>
+                              </td>
+                              <td>
+                                <mat-select  [(ngModel)]="liste.idOsTpe" placeholder=""  required >
+                                  <mat-option *ngFor="let ostpe of os" [value]="ostpe.idOsTpe">
+                                    {{ostpe.designation}}
+                                  </mat-option>
+                                </mat-select>
+                              </td>
+                              <td><input style="font-weight: bold; margin:4px;width: 95%"  [(ngModel)]="liste.nombreCaractereNumeroSerie" pattern="[1-9][0-9]*$" (change)="modifnombrecaract($event)" >
+                              
+                              </td> 
+                             
+                              <td><input style="font-weight: bold; margin:4px;width: 95%" [(ngModel)]="liste.formatNumeroSerie" pattern="[a-zA-Z0-9 ]*$" (change)="modifformatnumserie($event)"></td> 
+                              <td><input style="font-weight: bold; margin:4px;width: 95%" [(ngModel)]="liste.fraisLocationMensuel" pattern="[0-9]*$"></td> 
+                              <td>
+                                <mat-checkbox  [(ngModel)]="liste.flagImprimante"></mat-checkbox>
+                              </td> 
+                           </tr> 
+                           </table>
+                          </div>
+
+
+      </div>   
+     
+<br>
+                <div id="" class="form-group" [hidden]="!isOpened">
+                  <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+                  <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="submit" (click)="onSubmit()"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+                  <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="submit" (click)="reset()" title="Effacer" ><span id="sp"><i class="fa fa-eraser" aria-hidden="true"></i></span></button>
+                   
+              </div>
+            </div>
+
+          </div>

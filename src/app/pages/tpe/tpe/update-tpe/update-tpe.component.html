@@ -1,0 +1,66 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div id="updtpe">
+    <div class="card text-center">
+      <div  class="card-header font-weight-bold black-text p-0"> Modifier TPE 
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+          <i class="fa fa-times"></i>
+        </button>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"   title='minimize' (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title='maximize' (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+      </div></div><br>
+      <form #form1="ngForm" [formGroup]="tpeform" class="form-inline"  [hidden]="!isOpened"><br>
+        <div style="font-size: 10px">
+                <mat-form-field id="addupinput" appearance="outline">
+                    <mat-label>Numéro série</mat-label>
+                    <input formControlName="numeroSerie" [(ngModel)]="serie" matInput placeholder="" disabled id="inputstyle">
+                  </mat-form-field>
+         </div>
+         <div style="font-size: 10px">
+          <mat-form-field id="addupinput" appearance="outline">
+              <mat-label>Marque</mat-label>
+             
+                 <mat-select  formControlName="marque_tpe"  [(ngModel)]="marque"  placeholder=""  > 
+                  <mat-option *ngFor="let marque of marques" [value]="marque.idMarqueTpe">
+                    {{marque.designation}} </mat-option>
+                 </mat-select>
+               
+          </mat-form-field>
+         </div>
+         <div style="font-size: 10px">
+          <mat-form-field id="addupinput" appearance="outline">
+              <mat-label >Modèle</mat-label>
+                 <mat-select  formControlName="idModeleTpe"  [(ngModel)]="model" placeholder="" required  > 
+                  <mat-option *ngFor="let mdl of modeles" [value]="mdl.idModeleTpe">
+                    {{mdl.designation}} </mat-option>
+                 </mat-select>
+                 <mat-error  style="font-size: 13px;" *ngIf="!tpeform.controls['idModeleTpe'].valid &&  tpeform.controls['idModeleTpe'].touched">Champ Obligatoire</mat-error>
+          </mat-form-field>
+         </div>
+         <div style="font-size: 10px">
+            <mat-form-field id="addupinput" appearance="outline">
+              <mat-label >Propriété</mat-label>
+              <mat-select  formControlName="idProprietaireTpe"  [(ngModel)]="prop" placeholder="" required> 
+               <mat-option *ngFor="let proprietaire of proprietaires" [value]="proprietaire.idProprietaireTpe">
+                 {{proprietaire.designation}} </mat-option>
+              </mat-select>
+              <mat-error  style="font-size: 13px;" *ngIf="!tpeform.controls['idProprietaireTpe'].valid &&  tpeform.controls['idProprietaireTpe'].touched">Champ Obligatoire</mat-error>
+              </mat-form-field>
+             
+     </div>
+     <div style="font-size: 10px">
+      <mat-form-field id="addupinput" appearance="outline">
+          <mat-label >Version Application</mat-label>
+          <input formControlName="versionApplication" [(ngModel)]="versapp" matInput placeholder="" maxlength="5" minlength="5" id="inputstyle" required>
+          <mat-error  style="font-size: 13px;" *ngIf="!tpeform.controls['versionApplication'].valid && tpeform.controls['versionApplication'].touched">{{GetErrorversion()}}</mat-error>
+        </mat-form-field>
+    </div>
+    </form>
+      <div id="tpeuptfixed" class="form-group"  [hidden]="!isOpened">
+        <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Fermer()" title="Fermer"><span id="sp"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+        <button id="bbt"  class="waves-light btn red-yellow float-right btn-sm" type="submit" (click)="onSubmit(form1)" title="Valider"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+        <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Reset()" title="Effacer"><span id="sp"><i class="fa fa-eraser" aria-hidden="true"></i></span></button>
+        
+     </div>
+    
+    </div>
+</div>

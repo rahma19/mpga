@@ -1,0 +1,384 @@
+<div id="affichtransaction" *ngIf="isConnectionAvailable" clickNoRightClick>
+  <div class="card ">
+    <div class="card-header font-weight-bold black-text p-0" [hidden]="loading "><span
+        style="margin-left: 42%;">{{'transaction.headercard' | translate}}</span>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect
+        (click)="show()">
+        <i class="fa fa-bars"></i>
+      </button>
+      <button *ngIf="filter" type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect
+        (click)="Rechercher(filterform.value,check=false)"> <i class="fa fa-search"></i></button>
+      <!-- <button *ngIf="filter" type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3"
+        [disabled]="nbr_ligne==0" (click)="Print()"> <i class="fa fa-print"></i></button> -->
+    </div>
+
+    <div class="card-body" *ngIf="filter" [hidden]="loading ">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-9" id="ligne_horizon">
+
+            <form [formGroup]="filterform" class="form-inline">
+              <div style="font-size: 10px;margin-top:8px">
+                <mat-form-field id="partinput" appearance="outline">
+                  <mat-label>{{'transaction.attribute.n1' | translate}}</mat-label>
+                  <mat-select formControlName="etablissement" [(ngModel)]="etab_finan" placeholder=""
+                    (selectionChange)="getwallet(etab_finan)">
+                    <mat-option [value]="''">Tous</mat-option>
+                    <mat-option *ngFor="let etab of etablissements" [value]="etab">
+                      {{etab.nom}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div style="font-size: 10px;margin-top:8px">
+                <mat-form-field id="partinput" appearance="outline">
+                  <mat-label>{{'modifierEtablissement.column0' | translate}}</mat-label>
+                  <mat-select formControlName="wallet" [(ngModel)]="wall" placeholder="">
+                    <mat-option [value]="''">Tous</mat-option>
+                    <mat-option *ngFor="let wallet of wallets" [value]="wallet.nomProduitFinancier">
+                      {{wallet.nomProduitFinancier}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div style="font-size: 10px;margin-top:8px">
+                <mat-form-field id="partinput" appearance="outline">
+                  <mat-label>{{'transaction.attribute.n3' | translate}}</mat-label>
+                  <input id="datestyle" matInput formControlName="magasin_" [(ngModel)]="magasin"
+                    [formControl]="myControl" placeholder="" autocomplete="off"  (blur)="blurInput()">
+                  <button mat-button *ngIf="magasin" matSuffix mat-icon-button aria-label="Clear" (click)="magasin=''">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                    (optionSelected)="resetAutoInput($event)">
+                    <!-- <mat-option [value]="">Tous</mat-option> -->
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                      {{ option }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+
+              <div style="font-size: 3px">
+                <mat-form-field style="font-size: 3px" id="partinput" appearance="outline">
+                  <mat-label>{{'transaction.attribute.n4' | translate}}</mat-label>
+                  <input id="datestyle" autocomplete="off"  matInput class="form-control col-12" [(ngModel)]="montantmin" placeholder="exp: 3000"
+                    formControlName="montant_min" (blur)="updatemontantmin()">
+                </mat-form-field>
+              </div>
+
+              <div style="font-size: 3px">
+                <mat-form-field id="partinput" appearance="outline">
+                  <mat-label>{{'transaction.attribute.n5' | translate}}</mat-label>
+                  <input id="datestyle" autocomplete="off"  matInput class="form-control col-12" [(ngModel)]="montantmax" placeholder="exp: 3000"
+                    formControlName="montant_max" (blur)="updatemontantmax()">
+                </mat-form-field>
+              </div>
+
+              <!-- <div style="font-size: 10px;margin-top:8px">
+                <mat-form-field id="partinput" appearance="outline">
+                  <mat-label>{{'transaction.attribute.n9' | translate}}</mat-label>
+                  <mat-select formControlName="zone_" [(ngModel)]="zone" placeholder="">
+                    <mat-option [value]="''">Tous</mat-option>
+                    <mat-option *ngFor="let zone of zones" [value]="zone.idZoneGeographique">
+                      {{zone.libelleZone}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div><br> -->
+
+              <div style="font-size: 10px;margin-top:8px">
+                <mat-form-field id="partinput" appearance="outline">
+                  <mat-label>{{'ajouterCanal.headercard' | translate}}</mat-label>
+                  <mat-select formControlName="canalPaiement_"  placeholder="">
+                    <mat-option [value]="''">Tous</mat-option>
+                    <mat-option *ngFor="let canal of canals" [value]="canal.idCanalPaiement">
+                      {{canal.designation}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div><br>
+
+              <div style="font-size: 10px; margin-top: 5px">
+                <mat-form-field id="partinput" appearance="outline">
+                  <mat-label>{{'transaction.attribute.n10' | translate}}</mat-label>
+                  <input id="dateinputstyle" matInput autocomplete="off"  [(ngModel)]="maxDate" formControlName="Date_D"
+                    [matDatepicker]="picker1">
+                  <mat-datepicker-toggle class="float-right" matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div style="font-size: 10px; margin-top: 5px">
+                <mat-form-field id="partinput" appearance="outline">
+                  <mat-label>{{'transaction.attribute.n11' | translate}}</mat-label>
+                  <input id="datestyle" matInput autocomplete="off" [(ngModel)]="minDate" [min]="maxDate"  formControlName="Date_F" [matDatepicker]="picker2" >
+                  <mat-datepicker-toggle class="float-right" matSuffix  [for]="picker2"  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div style="font-size: 10px;margin-top:8px">
+                <mat-form-field id="partinput" appearance="outline">
+                  <mat-label>{{'transaction.attribute.n6' | translate}}</mat-label>
+                  <mat-select formControlName="etat_trans" [(ngModel)]="etattrans" placeholder="">
+                    <mat-option [value]="''">Tous</mat-option>
+                    <mat-option *ngFor="let etat of etatTran" [value]="etat.idEtatTransaction">
+                      {{etat.designation}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div style="font-size: 10px;margin-top:8px">
+                <mat-form-field id="partinput" appearance="outline">
+                  <mat-label>{{'transaction.attribute.n7' | translate}}</mat-label>
+                  <mat-select formControlName="etat_recon" [(ngModel)]="etatrecon" placeholder="">
+                    <mat-option [value]="''">Tous</mat-option>
+                    <mat-option *ngFor="let etat of etatRecon" [value]="etat.idEtatReconciliation">
+                      {{etat.designation}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div style="font-size: 10px;margin-top:8px">
+                <mat-form-field id="partinput" appearance="outline">
+                  <mat-label>{{'transaction.attribute.n8' | translate}}</mat-label>
+                  <mat-select formControlName="etat_lettrage" [(ngModel)]="etatlett" placeholder="">
+                    <mat-option [value]="''">Tous</mat-option>
+                    <mat-option *ngFor="let etat of etatLett" [value]="etat.idEtatLettrage">
+                      {{etat.designation}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            </form>
+          </div>
+
+          <div class="col-3" style="text-align: left;">
+            <div id="ligne_verticale" style="font-size: 10px">
+              <mat-form-field id="partinput" appearance="outline">
+                <mat-label>{{'transaction.recap.group' | translate}}</mat-label>
+                <mat-select [(ngModel)]="groupe" placeholder="" (selectionChange)="groupage(groupe)">
+                  <mat-option *ngFor="let groupe of groupeby" [value]="groupe.value">
+                    {{groupe.name}} </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <h5 style="color:  #e22d2c;font-weight: bold;">{{'transaction.recap.title' | translate}} : </h5>
+            <label style="font-weight: bold;">{{'transaction.recap.nbr_ligne' | translate}} : {{nbr_ligne}}</label><br>
+            <label style="font-weight: bold;">{{'transaction.recap.nbr_trans' | translate}} : {{nbr_transaction}}</label><br>
+            <label style="font-weight: bold;">{{'transaction.recap.montant' | translate}} : {{montanttotal}}</label><br><br>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  <div class="card mt-1" [hidden]="loading " >
+
+    <div class="card-header  font-weight-bold black-text p-0"><span style="margin-left: 42%;">{{title}}</span>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Rechercher(filterform.value,check=true)"> <i class="fa fa-repeat"></i></button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="scroll_bol" mdbWavesEffect (click)="scroll()" title='scrolling'><i class="fa fa-arrows-v" aria-hidden="true"></i></button>
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="page_bol" mdbWavesEffect (click)="page()" title='pagination'><i class="fa fa-files-o" aria-hidden="true"></i></button>
+      <input *ngIf="scroll_bol" class="float-right waves-light p-0 pl-3 pr-3" id="nbrligne" [(ngModel)]="row_nbr" min="1" (keyup)="getrow_nbr()">
+    </div>
+ 
+    <div class="row" [hidden]="loading ">
+        <div class="table-responsive ">
+          <table style="width: 100%;" mat-table matSort [dataSource]="source" class="mat-elevation-z8" >
+            <!-- Item Column -->
+            <ng-container  matColumnDef="dateTransaction">
+              <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header> {{'transaction.column_date' | translate}} </th>
+              <td (contextmenu)="menuTrans($event,row)" style="width: 15%;" mat-cell *matCellDef="let row"> {{row.dateTransaction}} </td>
+            </ng-container>
+
+            <ng-container  matColumnDef="canalPaiement">
+              <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header> {{'transaction.column_Desi' | translate}} </th>
+              <td style="width: 15%;" mat-cell *matCellDef="let row"> {{row.canalPaiement}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombre">
+              <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: right;padding-right: 20%;">{{'transaction.column_nbr' | translate}} </th>
+              <td mat-cell style="text-align: right;padding-right: 20%;width: 10%;" *matCellDef="let row"> {{row.nbr}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="refMpga">
+              <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header>{{'transaction.column_ref' | translate}} </th>
+              <td (contextmenu)="menuTrans($event,row)" mat-cell style="width: 15%;" *matCellDef="let row"> {{row.refMpga}} </td>
+            </ng-container>
+
+            <ng-container  matColumnDef="libelleMagasin">
+              <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header> {{'transaction.column_magasin' | translate}} </th>
+              <td (contextmenu)="menuTrans($event,row)" mat-cell style="width: 15%;"  *matCellDef="let row">  {{row.libelleMagasin}}  </td>
+            </ng-container>
+
+            <ng-container  matColumnDef="autorisation">
+              <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header> {{'transaction.column_autorisation' | translate}} </th>
+              <td (contextmenu)="menuTrans($event,row)" mat-cell style="width: 10%;"  *matCellDef="let row"> {{row.autorisation}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="montant">
+              <th cdkDrag  mat-header-cell style="text-align: right;padding-right: 80px;" *matHeaderCellDef mat-sort-header> {{'transaction.column_montant' | translate}} </th>
+              <td  mat-cell style="text-align: right;padding-right: 80px;width: 10%;"  *matCellDef="let row">  {{row.montant |formatNumber}}  </td><!--| formatNumber-->
+            </ng-container>
+
+            <ng-container matColumnDef="libelleEtablissementFinancier">
+              <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header> {{'transaction.column_etab' | translate}} </th>
+              <td (contextmenu)="menuTrans($event,row)" mat-cell style="width: 15%;"  *matCellDef="let row">  {{row.libelleEtablissementFinancier}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="libelleWallet">
+              <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header> {{'modifierEtablissement.column0' | translate}}</th>
+              <td (contextmenu)="menuTrans($event,row)" mat-cell style="width: 10%;"  *matCellDef="let row">  {{row.libelleWallet}}  </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="etatTransaction">
+              <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header> {{'transaction.attribute.n6' | translate}}</th>
+              <td (contextmenu)="menuTrans($event,row)" mat-cell style="width: 10%;"  *matCellDef="let row">  {{row.etatTransaction}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="idEtatReconciliation">
+              <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header> {{'transaction.column_reconcilie' | translate}} </th>
+              <td (contextmenu)="menuTrans($event,row)" mat-cell style="width: 10%;"  *matCellDef="let row">  {{row.etaRec}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="idEtatLettrage">
+              <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header> {{'transaction.column_lettre' | translate}} </th>
+              <td (contextmenu)="menuTrans($event,row)" mat-cell style="width:10%;"  *matCellDef="let row">  {{row.etaLet}}  </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsTransactions" id="mat-table"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsTransactions;"
+            [style.background-color]="row.couleurEtatTransaction"></tr>
+            <tr class="mat-row" *matNoDataRow>
+              <td colspan="9">
+                <h4 class="text-center"> {{'transaVide' | translate}}</h4>
+              </td>
+            </tr>
+          </table>
+          <mat-paginator *ngIf="scroll_bol" [pageSize]="row_nbr" hidePageSize showFirstLastButtons></mat-paginator>
+          <div style="visibility: hidden; position: fixed" 
+          [style.left]="contextMenuPosition.a"
+          [style.top]="contextMenuPosition.b"
+          [matMenuTriggerFor]="contextMenu"
+          [matMenuTriggerData]="{liste:liste}">
+          </div>
+             <mat-menu #contextMenu="matMenu">
+                <ng-template matMenuContent let-liste="liste" let-i="i">
+                  <button  (click)="detailTransa()" mat-menu-item><i class="fa fa-info-circle"> {{'rightClick3'| translate}}</i></button>
+                </ng-template>
+              </mat-menu>
+        </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div *ngIf="!isConnectionAvailable" clickNoRightClick>
+  <img id="wifi" src="../assets/nowifi.png" alt="logo" class="col-3" />
+  <p id="verifconx">{{'prob' | translate}}</p>
+</div>
+
+<div *ngIf="loading && isConnectionAvailable" clickNoRightClick>
+  <div class="spinner-img">
+  </div>
+  <h3 id="titreload">{{ "spinner" | translate }}</h3>
+</div>
+
+<!-- <div id="transactionprint" clickNoRightClick>
+
+  <div class="row">
+    <img id="logtrans" src="../assets/aziza.png" alt="logo" class="col-3" />
+    <div class=" font-weight-normal text-dark" id="adresstrans">
+      <label id=labadress>{{adresse}}</label><br> <label id=labadress>{{code}}</label> <label
+        id=labadressvil>{{ville}}</label> <br>
+      <label style="font-size: 20px; padding-right: 10px;">Tel : </label><label id=labadress>{{tel}}</label><br>
+      <label style="font-size: 20px; padding-right: 10px;">RNE : </label><label id=labadress>{{rne}}</label><br>
+    </div><br>
+  </div>
+  <br><br>
+
+  <table id="tabglob">
+    <th cdkDragead>
+      <h5 id="dateprinttrans">Edité le : {{ date}}</h5>
+      <h2 id="titreprinttransaction">Liste des transactions
+        <!-- <div id="suite">suite</div> -
+      </h2>
+    </thead>
+
+    <div class="row">
+      <div class="col-8">
+        <div>
+          <label id="labelfiltretransprint">Etablissement financier :</label>
+          <label id="filtretransaprint">{{etab}}</label><br>
+          <label id="labelfiltretransprint">Wallet :</label>
+          <label id="filtretransaprint">{{waltransaction}}</label><br>
+          <label id="labelfiltretransprint">Magasin :</label>
+          <label id="filtretransaprint">{{mg}}</label><br>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <table id="recaptransprint">
+          <tr>
+            <td id="labelrecaptransprint">Nb lignes :</td>
+            <td id="filtretransaprint"> {{nbr_ligne}}</td>
+          </tr>
+          <tr>
+            <td id="labelrecaptransprint">Nb Trans :</td>
+            <td id="filtretransaprint">{{nbr_transaction}}</td>
+          </tr>
+          <tr>
+            <td id="labelrecaptransprint">Montant trans :</td>
+            <td id="filtretransaprint"> {{montanttotal}}</td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="row" id="filtrans">
+      <div class="col-4">
+        <label id="labelfiltretransprint">Du :</label>
+        <label id="filtretransaprint">{{datdeb}}</label>
+        <label id="labelfiltretransprint">au :</label>
+        <label id="filtretransaprint">{{datfin}}</label>
+      </div>
+
+      <div class="col-8">
+        <label id="labelfiltretransprint">Montant entre :</label>
+        <label id="filtretransaprint">{{montantmin}}</label>
+        <label id="labelfiltretransprint">et :</label>
+        <label id="filtretransaprint">{{montantmax}}</label>
+      </div>
+    </div>
+
+    <table id="tableprinttransact">
+      <th cdkDragead class="report-header">
+        <tr>
+          <th cdkDrag>
+            Ref_MPGA
+          </th>
+          <th cdkDrag>Autorisation</th>
+          <th cdkDrag>Date/heure</th>
+          <th cdkDrag>Magasin</th>
+          <th cdkDrag>Montant</th>
+          <th cdkDrag>Réconciliée</th>
+        </tr>
+      </thead>
+
+      <tbody id="ptanst">
+        <tr *ngFor=" let trans of data">
+          <td>{{trans.refMpga}}</td>
+          <td>{{trans.autorisation}}</td>
+          <td>{{trans.date}}</td>
+          <td>{{trans.libelleMagasin}}</td>
+          <td id="monttrans">{{trans.montant_formate}}</td>
+          <td id="reconcel">{{trans.etatReconciliation}}</td>
+        </tr>
+      </tbody>
+
+    </table>
+
+  </table>
+
+</div> -->

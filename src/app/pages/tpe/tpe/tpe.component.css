@@ -1,0 +1,27 @@
+#partinput{
+    margin-right: 20px;
+    width: 150px;
+  }
+ 
+#inputmagasin{
+  margin-right: 20px;
+  width: 230px;
+}
+  :root{
+    --color1 : #FFFFFF;
+    --color2:#FFFFFF;
+    --color3:#FFFFFF;
+    --color4:#FFFFFF;
+  }
+  .tpesolved{
+    background-color:var(--color) ;
+  }
+  .tpeaborted {
+    background-color:var(--color2) ;
+  }
+  .etattpeaborted {
+    background-color:var(--color3) ;
+  }
+  .etattpesolved {
+    background-color:var(--color4) ;
+  }

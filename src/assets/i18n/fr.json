@@ -1,0 +1,427 @@
+{
+    "affiliation":{
+        "headerDetail":"Liste des affiliations",
+        "bodyDetail":"Liste des affiliations NOk",
+        "etabFin":"Etablissement financier",
+        "Canal":"Canal paiement",
+        "prodFin":"Produit financier",
+        "AffOk":"Aff Ok",
+    "AffNOk":"Aff NOK",
+    "AffVide":"Affiliation vide",
+    "EtabPai":"Etablissements de paiement",
+    "CanalPai":"Canal de paiement",
+    "column0":"Produit Financier",
+    "nbMag":"Nb magasin"
+    },
+    "transaction":{
+        "headercard": "Recherche Transaction",
+        "bodycard": "Liste des Transactions",
+        "detail":"Détails Transaction",
+        "groupbymagasin": "Groupage par magasin",
+        "groupbydate": "Groupage par date",
+        "groupbyetab": "Groupage par établissement financier",
+        "groupbywallet": "Groupage par wallet",
+        "groupebyetat":"Groupage par etat",
+        "groupebycanal":"Groupage par canal",
+        "message":"Pas de transaction",
+        "recap":{
+            "title":"Récapitulation",
+            "group":"Groupage par",
+            "groupeZone":"Groupage par zone",
+            "groupeGouv":"Groupage par gouvernorat",
+            "groupeVille":"Groupage par ville",
+            "groupeMag":"Groupage par magasin",
+            "g1":"Aucun",
+            "g2":"Magasin",
+            "g3":"Etablissement financier",
+            "g4":"Wallet",
+            "nbr_ligne":"Nb lignes",
+            "nbr_ecart":"Nb ecarts",
+            "nbr_trans":"Nb Transactions",
+            "montant":"Montant",
+            "typeClotureJour":"type Cloture journee",
+            "nombreMagEcart":"nombre Magasin Ecart",
+            "nombreMagNonReconcilie":"nombre Magasin Non Reconcilie"
+        },
+        "attribute":{
+            "n0":"Date",
+            "n1":"Etablissement Financier",
+            "n2":"Wallet",
+            "n3":"Magasin",
+            "n4":"Montant Min",
+            "n5":"Montant Max",
+            "n6":"Etat Transaction",
+            "n7":"Etat Réconciliation",
+            "n8":"Etat Lettrage",
+            "n9":"Zone",
+            "n10":"Date Début",
+            "n11":"Date Fin",
+            "n12":"Critère",
+            "n13":"Identifiant Critère"
+        },
+        "column_Oui":"OUI",
+        "column_Non":"NON",
+        "column_date":"Date/Heure",
+        "column_nbr":"Nombre",
+        "column_ref":"Réf-MPGA",
+        "column_magasin":"Magasin",
+        "column_autorisation":"Autorisation",
+        "column_montant":"Montant",
+        "column_etab":"Etab.fin",
+        "column_wallet":"Wallet",
+        "column_reconcilie":"Réconciliée",
+        "column_lettre":"Lettrée",
+        "column_Dte_Lettre":"Date lettrage",
+        "column_Dte_Rec":"Date réconciliation",
+        "column_Transa_Rec":"Transaction réconciliée le",
+        "column_Type_Rec":"Type réconciliation",
+        "column_Transa_Letre":"Transaction lettrée le",
+        "column_Caisse":"Caisse",
+        "column_Caissier":"Caissier",
+        "column_Num_Ticket":"Num ticket",
+        "column_Desi":"Designation"
+    },
+    "magasin":{
+        "headercard": "Recherche Magasin",
+        "bodycard": "Liste des Magasins",
+        "Detail":"Liste magasins non réconciliés",
+        "recap":{
+            "title":"Récapitulation",
+            "group":"Groupage par",
+            "g1":"Aucun",
+            "g2":"Gouvernorat",
+            "g3":"Ville",
+            "g4":"Zone",
+            "nbr_ligne":"Nb Lignes",
+            "nbr_mag":"Nb Magasins",
+            "caisse":"Nb Caisses",
+            "codeCaisse":"Code Caisse",
+            "NbMagréconc":"Nb Magasins réconciliés",
+            "NbMagNonréconc":"Nb Magasins non réconciliés",
+            "NbTrans":"Nb Trans",
+            "NbMagOuvert":"Nb Magasins Ouverts",
+            "NbMagFerme":"Nb Magasins Fermés",
+            "NbEtabPai":"Nb Etablissements de paiement",
+            "NbCaissPai":"Nb Caissiers de paiement",
+            "NbProdFin":"Nb Produits financiers",
+            "MontantTrans":"Montant Trans",
+            "NbMagecarts":"Nb Magasins avec ecarts",
+            "NbEcart":"Nb Ecarts",
+            "HistoriqueRec":"Historique réconciliation"
+        },
+        "attribute":{
+            "n1":"Code",
+            "n2":"Ville",
+            "n3":"Service",
+            "n4":"Zone",
+            "n5":"Etat",
+            "n6":"Code magasin",
+            "n7":"Libelle magasin",
+            "n8":"Vcn",
+            "n9":"Motif"
+        },
+        "column0":"Code",
+        "column1":"Nom",
+        "column2":"Nb Caisses",
+        "column3":"Nb Caissiers",
+        "column4":"Etat"
+    },
+    "detailMagasin": {
+        "headercard": "Détails Magasin",
+        "attribute": {
+            "n1": "Nom magasin",
+            "n2": "Code magasin",
+            "n3": "Etat",
+            "n4": "Num ref MPGA",
+            "n5": "Liste des caisses",
+            "n6": "Libelle",
+            "n7": "Code",
+            "n8": "@ IP Caisse",
+            "n9": "@ IP Tpe",
+            "n10": "QR Code",
+            "n11": "Liste des services",
+            "n12": "Wallet",
+            "n13":"Affiliation"
+           
+        }
+    },
+    "activer_Desactiver_magasin": {
+        "headercard": "Activer Magasin",
+        "headercard2": "Désactiver Magasin"
+        
+    },
+    "ajouterMagasin": {
+        "headercard": "Ajouter Magasin"
+        
+    },
+    "activation": {
+        "messageactivation": "Confirmer l'activation ?",
+        "messagedesactivation": "Confirmer la désactivation ?"
+    },
+    "modifierMagasin": {
+        "headercard": "Modifier Magasin",
+        "ongletName": {
+            "ongl0": "Données générales",
+            "ongl1": "Caisses",
+            "ongl2":"Services"
+        },
+        "column0":"Wallet",
+        "column1":"Affiliation",
+        "column2":"Num Ref MPGA",
+        "column3":"Etat",
+        "column4":"Code",
+        "column5":"Libellé",
+        "column6":"@ IP",
+        "column7":"@ IP TPE",
+        "column8":"QR Code"
+    },
+    "modifierCaisse": {
+        "headercard": "Modifier Caisse"
+        
+    },
+      "modifierService": {
+        "headercard": "Modifier Service"
+        
+    },
+    "activer_Desactiver_service": {
+        "headercard": "Activer Service",
+        "headercard2": "Désactiver Service"
+        
+    },
+    "supprimerBin": {
+        "headercard": "Supprimer BIN",
+        "messageactivation": "Confirmer la suppression ?"
+       
+    },
+    "detailBin": {
+        "headercard": "Détails BIN",
+        "attribute": {
+            "n1": "Nom BIN",
+            "n2": "Début Plage",
+            "n3": "Fin Plage",
+            "n4": "Emetteur",
+            "n5": "Acquéreur"
+           
+           
+        }
+    },
+
+    "modifierBin": {
+        "headercard": "Modifier BIN"
+        
+    },
+    "ajouterBin": {
+        "headercard": "Ajouter BIN"
+        
+    },
+    "bin":{
+        "headercard": "Recherche BIN",
+        "bodycard": "Liste des BIN",
+        "recap":{
+            "title":"Récapitulation",
+            "nbr_ligne":"Nbr Ligne",
+            "nbr_bin":"Nbr BIN"
+           
+        },
+        "attribute":{
+            "n1":"Emetteur",
+            "n2":"Acquéreur"
+            
+        },
+        "groupage":{
+            "group":"Groupage par",
+            "g1":"Aucun",
+            "g2":"Emetteur",
+            "g3":"Acquéreur"
+            
+        },
+        "column0":"Nom BIN",
+        "column1":"Début Plage",
+        "column2":"Fin Plage",
+        "column3":"Emetteur",
+        "column4":"Acquéreur",
+        "column5":"Nombre",
+        "column6":"Pourcentage"
+    },
+    "servicePaiement":{
+        "title0":"Affiliation Monétique",
+"title1":"Etablissements Financiers",
+"title2":"Emetteurs",
+"title3":"Acquéreurs",
+"title4":"Table des BIN"
+    },
+  "ajouterEtablissement":{
+    "headercard": "Ajouter Etablissement Financier",
+    "headercard2": "Coordonées Etablissement Financier"
+  } , 
+  "modifierEtablissement":{
+    "headercard": "Etablissement Financier",
+    "headercard2": "Coordonées Etablissement Financier",
+    "onglet":{
+        "ongl1":"Données Générales",
+        "ongl2":"Produits Financiers"
+    },
+    "column0":"Produit Financier",
+    "column1":"Canal Paiement",
+    "column2":"Emission",
+    "column3":"Acquisition"
+    
+  } , 
+  "ajouterCanal":{
+    "headercard": "Canal Paiement"   
+  },
+"input":{
+    "tous":"Tous",
+    "cde":"Code",
+    "nomMag":"Nom magasin",
+    "NbCaiss":"Nombre de caisses",
+    "NbCaissier":"Nombre de caissiers",
+    "adrIpRac":"Adresse IP racine",
+    "affiliation":"Affiliation D17",
+    "libelle":"Libellé",
+    "qr":"QR Code",
+    "nbCaisse":"Nombre caisse",
+    "adrIpRacine":"Adresse IP racine",
+    "aff":"Affiliation",
+    "nomBin":"Nom BIN",
+    "debPlage":"Début Plage",
+    "finPlage":"Fin Plage",
+    "emetteur":"Emetteur",
+    "acquereur":"Acquéreur",
+    "raison":"Raison Sociale",
+    "nomCommercial":"Nom Commercial",
+    "nomAbrege":"Nom Abrégé",
+    "typeIdenti":"Type Identification",
+    "rne":"RNE",
+    "categorie":"Catégorie",
+    "adr":"Adresse",
+    "gouvernorat":"Gouvernorat",
+    "ville":"Ville",
+    "cdePostal":"Code Postal",
+    "prodFinance":"Produit Financier",
+    "canalPaiement":"Canal Paiement",
+    "acquisition":"Acquisition",
+    "emission":"Emission"
+
+},
+"btn": {
+    "btn0": "Ouvrir",
+    "btn1": "Fermer",
+    "btn2": "Effacer",
+    "btn3": "Valider",
+    "btn4": "Chercher",
+    "btn5": "Imprimer",
+    "btn6": "Ajouter",
+    "btn7": "Modifier",
+    "btn8": "Activer",
+    "btn9": "Désactiver",
+    "btn10": "Détails",
+    "btn11": "Supprimer",
+    "btn12": "Défilement",
+    "btn13": "Pagination",
+    "btn14": "Scroll",
+    "btn15": "minimize",
+    "btn16": "maximize",
+    "btn17": "Affecter TPE",
+    "btn18": "Désaffecter TPE",
+    "btn19": "cloture manuelle",
+    "btn20": "Produits",
+    "btn21": "Gérer compte",
+    "btn22": "Désignation par default",
+    "btn23": "OUI",
+    "btn24": "NON",
+    "btn25":"Bloquer",
+    "btn26":"Débloquer",
+    "btn27":"Ajouter Canal"
+},
+"toast": {
+    "affectationfcc": " FCC a été affecté avec succès",
+    "connecter": "Utilisateur connecté",
+    "deconnecter": "Utilisateur déconnecté",
+    "ajouter": "L'ajout à étè effectué avec succès",
+    "password": "Mot de passe a été modifié avec succès",
+    "affectProduit": "Liste des produits a étè affecté avec succès",
+    "modifier": "La modification à étè effectuée avec succès",
+    "echec": "Echéc serveur ! Contactez l'administration",
+    "echecContact": "Echéc lors de l'ajout contact! Contactez l'administration",
+    "statut": "Etat a étè changé avec succés",
+    "ProfileAttaché": "Vous pouvez pas supprimer ce profile",
+    "erreurCodeStation": "Code interne station est déja utilisé ! Essayer un autre",
+    "affectTpe": "TPE affecté avec succès",
+    "desaaffectTpe": "TPE désaffecté avec succès",
+    "traitement": "Traitement effectué avec succès",
+    "priorite": "La priorité FCC est déjà existé. Essayer une autre priorité",
+    "serie": "Le numéro de série FCC est déjà existé. Vérifier votre Numéro de série.",
+    "validation": "Validation effectué avec succès",
+    "manuel": "Cloture manuelle affecté avec succès",
+    "code": "Le code est déjà utilisé. Essayer un autre code",
+    "nonAutorise": "Utilisateur non autorisé",
+    "nomclient": "le nom client est déjà utilisé. Essayer un autre nom",
+    "profilesupprimer": "Profile commission à étè supprimé avec succès",
+    "designation": "La désignation choisie est déjà utilisée. Essayer une autre désignation",
+    "numSerie": "Num série est déja utilisé ! Essayer un autre",
+    "commission": "Commission est déja utilisée ! Essayer une autre",
+    "toast_limit": "Vous avez atteint la limite de 5 modals",
+    "listvide": "Vous devez choisir au moins un produit",
+    "dateeffet": "Date d'effet doit etre supèrieur à date de jour",
+    "suppression":"La suppression à étè effectuée avec succès",
+    "affectCanal":"Affectation effectué avec succées"
+},
+"requirements": {
+    "required": "Champ obligatoire",
+    "lettreChiffre": "Que des lettres et chiffres !",
+    "chiffre": "Que des chiffres !",
+    "lettre": "Que des lettres !",
+    "maxchiffre": "il faut 8 chiffres ",
+    "maxlength":"la taille maximale est 25 caractères",
+    "minlength": " Au moins 8 caractères",
+    "special": "Au moins un caractère spécial",
+    "number_at_least": "Au moins un numéro",
+    "ip": "Quatre nombres (chacun entre 0 et 255) séparés par des points.",
+    "custom":"Il faut ",
+    "custom1":"Caractères ",
+    "error":"Veuillez vérifier vos informations "
+},
+"connexion": "Vérifier votre connexion",
+"spinner": "Chargement en cours ....",
+    "recon":{
+        "detail":"Détails Réconciliation",
+        "headercard": "Recherche Réconciliation",
+        "bodycard": "Liste des Réconciliations",
+        "dateCloture":"Date Cloture",
+        "produitF":"Produit Financier",
+        "nbrMagasin":"Nombre Mag Reseau",
+        "nbrMagActif":"Nombre Mag Actif",
+        "nbrTransa":"Nombre Trans Reconcilie",
+        "montantTransa":"montant Trans Reconcilie",
+        "nbrTransaMPGA":"Nombre Trans MPGA",
+        "montantTransaMPGA":"Montant Trans MPGA",
+        "nbrTransaWallet":"Nombre Wallet",
+        "montantTransaWallet":"montant Wallet",
+        "nbrEcart":"Nombre Ecart",
+        "etatCloture":"Etat Cloture",
+        "motif":"Motif Reconciliation",
+        "user":"User"
+    },
+    "ecart":{
+        "headercard": "Recherche Ecart",
+        "bodycard": "Liste des Ecarts",
+        "codeMag":"Code magasin",
+        "vcn":"Vcn",
+        "refmpga":"Ref MPGA",
+        "autorisation":"Autorisation",
+        "montant":"Montant",
+        "typeAnomalie":"Type anomalie",
+        "ecart":"Ecart"
+    },
+    "prob":"Problème de connexion",
+    "transaVide":"pas de transactions",
+    "ReconsVide":"pas de reconciliations",
+    "EcartVide":"pas d'ecart",
+    "MagasinVide":"pas de magasin",
+    "rightClick3":"Détail",  
+    "rightClick4":"Liste Aff NOk",  
+    "rightClick5":"Injecter Aff/Fichier",  
+    "Cloture":"Cloture manuelle"
+
+}

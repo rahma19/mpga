@@ -1,0 +1,39 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="card text-center">
+        <div  class="card-header font-weight-bold black-text p-0"> {{nom}}
+          <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+            <i class="fa fa-times"></i>
+          </button>
+          <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"   title='minimize' (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+          <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title='maximize' (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+        </div></div><br>
+        <table id="tableqr" [hidden]="!isOpened" *ngIf="qr">
+            <tr>
+                <th>ID</th>
+                <th>Désignation</th>
+                <th>Valeur</th>
+               
+            </tr>
+            <!-- <tr *ngFor="let prod of objectdata">
+                <td>{{prod.nomproduit}}</td>
+                <td>{{prod.canal}}</td>
+               <td></td>
+            </tr> -->
+
+        </table>
+        <table id="tablebin" [hidden]="!isOpened" *ngIf="bin">
+            <tr>
+                <th>Nom BIN</th>
+                <th>Début Plage</th>
+                <th>Fin Plage</th>
+                <th>Acquéreur</th>
+               
+            </tr>
+            <!-- <tr *ngFor="let prod of objectdata">
+                <td>{{prod.nomproduit}}</td>
+                <td>{{prod.canal}}</td>
+               <td></td>
+            </tr> -->
+
+        </table>
+</div>

@@ -1,0 +1,32 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="card text-center">
+        <div  class="card-header font-weight-bold black-text p-0"> {{nom}}
+          <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+            <i class="fa fa-times"></i>
+          </button>
+          <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"   title='minimize' (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+          <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title='maximize' (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+        </div></div><br>
+        <table id="tableemetteur" [hidden]="!isOpened">
+            <tr>
+                <th>Produit Financier</th>
+                <th>Canal</th>
+                <th>QR Code</th>
+                <th>BIN</th>
+                <th>Acquéreur</th>
+                <th>Etat</th>
+            </tr>
+            <tr *ngFor="let prod of objectdata">
+                <td>{{prod.nomproduit}}</td>
+                <td>{{prod.canal}}</td>
+                <td style="text-align: center; width: 70px;" *ngIf="prod.qr!=null"><button  (click)="affichcecontenu(prod)"><i class="fa fa-info-circle"></i></button></td>
+                <td style="text-align: center; font-weight: bold;" *ngIf="prod.qr==null"> -- </td>
+                <td style="text-align: center;" *ngIf="prod.bin!=null"><button  (click)="affichcecontenu(prod)"><i class="fa fa-info-circle"></i></button></td>
+                <td style="text-align: center; font-weight: bold;" *ngIf="prod.bin==null"> -- </td>
+                <td>{{prod.acquereur}}</td>
+                <!-- <td>{{prod.etat}}</td>  -->
+                <td style="text-align: center;"> <mat-checkbox  [(ngModel)]="prod.etat" [disabled]="true"></mat-checkbox> </td>
+            </tr>
+        </table>
+        <br [hidden]="!isOpened">
+</div>

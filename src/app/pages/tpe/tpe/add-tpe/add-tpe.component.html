@@ -1,0 +1,95 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div id="addtpe">
+    <div class="card text-center">
+      <div  class="card-header font-weight-bold black-text p-0"> Ajouter TPE 
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+          <i class="fa fa-times"></i>
+        </button>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"   title='minimize' (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+        <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title='maximize' (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+
+      </div></div><br>
+
+      <form #form="ngForm" [formGroup]="formradio" class="form-inline" id="forme" [hidden]="!isOpened">
+        <div style="font-size: 10px">
+          <mat-radio-group  formControlName="add" [(ngModel)]="mode"  >
+            <mat-radio-button [value]="1"  class="radio">Unitaire</mat-radio-button>
+            <mat-radio-button [value]="2"  class="radio"  >Fichier</mat-radio-button>
+          </mat-radio-group>
+        
+        </div>
+        </form>
+<br>
+
+
+      <form #form1="ngForm" [formGroup]="tpeform" class="form-inline" *ngIf="mode==1"><br>
+       
+         <div style="font-size: 10px">
+          <mat-form-field id="addupinput" appearance="outline">
+              <mat-label>Marque</mat-label>
+                 <mat-select  formControlName="marque_tpe"  [(ngModel)]="marque" placeholder="" required (selectionChange)="OnchangeModel(marque)"> 
+                  <mat-option *ngFor="let marque of marques" [value]="marque.idMarqueTpe">
+                    {{marque.designation}} </mat-option>
+                 </mat-select>
+                 <mat-error  style="font-size: 13px;" *ngIf="!tpeform.controls['marque_tpe'].valid && tpeform.controls['marque_tpe'].touched">Champ Obligatoire</mat-error>
+          </mat-form-field>
+         </div>
+         <div style="font-size: 10px">
+          <mat-form-field id="addupinput" appearance="outline">
+              <mat-label >Modèle</mat-label>
+                 <mat-select  formControlName="idModeleTpe"  [(ngModel)]="model" (selectionChange)="modelChange($event)" placeholder="" required > 
+                  <mat-option *ngFor="let model of models" [value]="model.idModeleTpe">
+                    {{model.designation}} </mat-option>
+                 </mat-select>
+                 <mat-error  style="font-size: 13px;" *ngIf="!tpeform.controls['idModeleTpe'].valid && tpeform.controls['idModeleTpe'].touched">Champ Obligatoire</mat-error>
+          </mat-form-field>
+         </div>
+         <div style="font-size: 10px">
+          <mat-form-field id="addupinput" appearance="outline">
+              <mat-label >Numéro série</mat-label>
+              <input formControlName="numeroSerie" [(ngModel)]="serie" matInput placeholder="" minlength="nbrcarac" maxlength="nbrcarac" (change)="Numserie($event)" id="inputstyle" required>
+              <mat-error  style="font-size: 13px;" *ngIf="!tpeform.controls['numeroSerie'].valid && tpeform.controls['numeroSerie'].touched">{{GetErrorNumSerie()}}</mat-error>
+            </mat-form-field>
+    </div>
+         <div style="font-size: 10px">
+            <mat-form-field id="addupinput" appearance="outline">
+              <mat-label >Proprietaire</mat-label>
+              <mat-select  formControlName="idProprietaireTpe"  [(ngModel)]="prop" placeholder="" required> 
+               <mat-option *ngFor="let proprietaire of proprietaires" [value]="proprietaire.idProprietaireTpe">
+                 {{proprietaire.designation}} </mat-option>
+              </mat-select>
+              <mat-error  style="font-size: 13px;" *ngIf="!tpeform.controls['idProprietaireTpe'].valid && tpeform.controls['idProprietaireTpe'].touched">Champ Obligatoire</mat-error>
+              </mat-form-field>
+             
+     </div>
+     <div style="font-size: 10px">
+      <mat-form-field id="addupinput" appearance="outline">
+          <mat-label >Version Application</mat-label>
+          <input formControlName="versionApplication" [(ngModel)]="versapp" matInput placeholder="" id="inputstyle" required >
+          <mat-error  style="font-size: 13px;" *ngIf="!tpeform.controls['versionApplication'].valid && tpeform.controls['versionApplication'].touched">{{GetErrorversion()}}</mat-error>
+        </mat-form-field>
+    </div>
+    </form>
+    <div *ngIf="mode==2"  id="forme"><br>
+      <div id="upload_button">
+        <label>
+          <input type="file"  #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv ,.xlsx" />
+          <span class="btn btn-light">Choisir un Fichier</span>
+        </label>
+      </div>{{fichier}}
+      <button style="border: none;position: relative;left: 50px; " (click)="detail()" [disabled]="detailsfile==false || fichier==''"><i class="fa fa-eye" style="font-size: 20px;"></i></button>
+    </div>
+
+
+      <div class="form-group" [hidden]="!isOpened">
+        <div  *ngIf="errorserie=== true" class="red-text float-left error-message" id="errorserie">
+          <i id="iiiserie" class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{msg}}</div>
+          <div id="fixedtpe">
+        <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Fermer()" title="Fermer"><span id="sp"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+        <button id="bbt"  class="waves-light btn red-yellow float-right btn-sm" type="submit" (click)="onSubmit()" title="Valider"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+        <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="reset()" title="Effacer"><span id="sp"><i class="fa fa-eraser" aria-hidden="true"></i></span></button>
+      
+     </div>
+    </div>
+    </div>
+</div>

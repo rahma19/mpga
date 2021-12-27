@@ -1,0 +1,113 @@
+
+    /* mat-select,mat-option,mat-label,mat-datepicker-toggle,#dateinputstyle,#datestyle{
+      font-size: 13px;
+    } */
+
+    .mat-column-libelle{
+      
+      width: 100%;    
+    }  
+    #emetteurtab{
+      width: 100%;
+      margin: auto;
+     
+    }
+    .mat-column-idDataObject{
+      
+      width: 10%;    
+    }  
+    .mat-column-codeId{
+      
+      width: 20%;    
+    }  
+    .mat-column-designation{
+      
+      width: 50%;    
+    }  
+    .mat-column-valeur{
+      
+      width: 10%;    
+    }  
+    .mat-column-commentaire{
+      
+      width: 10%;   
+      text-align: center  !important; 
+    }  
+
+    th.mat-header-cell
+ {
+font-weight: bold;
+color:black;
+font-size: 15px;
+}
+th.mat-header-cell
+ {
+  /* height: auto  !important;  */
+  position: sticky !important;
+    top: 0px;
+    
+    background-color:white !important;
+    z-index: 16 !important;
+}
+td.mat-cell{
+  position: relative  !important;
+  z-index: 1;
+}
+
+
+#objecttab{
+  width: 100%;
+   
+   max-height: 750px;
+    overflow-y: scroll;
+   
+    
+}
+#objecttab::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+  background: rgb(203, 238, 7);
+}
+#objecttab::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 1ex;
+  -webkit-box-shadow: inset 0 0 6px rgba(247, 48, 157, 0.1);
+  background-image: -webkit-linear-gradient(330deg, #f7dd02 0%, #f7dd02 100%);
+  background-image: linear-gradient(120deg, #f7dd02 0%, #f7dd02 99%, #f7dd02 100%);
+}
+
+#objecttab::-webkit-scrollbar-corner {
+  background: rgb(233, 192, 12);
+}
+#sousobjecttab{
+  width: 100%;
+   
+   max-height: 750px;
+    overflow-y: scroll;
+   
+    
+}
+#sousobjecttab::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+  background: rgb(203, 238, 7);
+}
+#sousobjecttab::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 1ex;
+  -webkit-box-shadow: inset 0 0 6px rgba(247, 48, 157, 0.1);
+  background-image: -webkit-linear-gradient(330deg, #f7dd02 0%, #f7dd02 100%);
+  background-image: linear-gradient(120deg, #f7dd02 0%, #f7dd02 99%, #f7dd02 100%);
+}
+
+#sousobjecttab::-webkit-scrollbar-corner {
+  background: rgb(233, 192, 12);
+}
+
+#area{
+height: 300px;
+width: 100%;
+}
+#addupinput{
+  margin-left: 5px;
+  margin-right: 10px;
+  margin-top: 15px;
+}

@@ -1,0 +1,92 @@
+<div class="card text-center" clickNoRightClick>
+    <div  class="card-header font-weight-bold black-text p-0"> Détails {{name}}
+      <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect (click)="Fermer()">
+        <i class="fa fa-times"></i>
+      </button>
+    </div></div><br>
+    <div *ngIf="id==1 || id==2 ||id==3 ||id==4 || id==6"> 
+    <table id="etatRE" clickNoRightClick>
+        <tr >
+          <td><h5 id="titreEtat">Libellé</h5></td>
+          <td><h5 id="titreEtat">Couleur</h5></td>
+          <td><h5 id="titreEtat">Commentaire</h5></td>
+              
+        </tr>
+     <tr *ngFor="let liste of list">  
+        <td><h6 style="font-weight: bold;">{{liste.libelle}}</h6></td> 
+        <td><h6 style="font-weight: bold;">{{liste.couleur}}</h6></td> 
+        <td><h6 style="font-weight: bold;">{{liste.commentaire}}</h6></td> 
+     </tr> 
+     </table>
+    </div>
+    <div *ngIf="id==7"> 
+        <table id="etatRE" clickNoRightClick>
+            <tr >
+              <td><h5 id="titreEtat">Code</h5></td>
+              <td><h5 id="titreEtat">Libellé</h5></td>
+              <td><h5 id="titreEtat">Nb Agents</h5></td>
+              <td><h5 id="titreEtat">Commentaire</h5></td>
+                  
+            </tr>
+         <tr *ngFor="let liste of list">  
+            <td><h6 style="font-weight: bold;">{{liste.codeCategorieAgent}}</h6></td> 
+            <td><h6 style="font-weight: bold;">{{liste.libelle}}</h6></td> 
+            <td><h6 style="font-weight: bold;">{{liste.nombreAgent}}</h6></td>
+            <td><h6 style="font-weight: bold;">{{liste.commentaire}}</h6></td> 
+         </tr> 
+         </table>
+        </div>
+        <div *ngIf="id==8"> 
+            <table id="etatRE" clickNoRightClick>
+                <tr >
+                  <td><h5 id="titreEtat">Catégorie</h5></td>
+                  <td><h5 id="titreEtat">Code</h5></td>
+                  <td><h5 id="titreEtat">Libellé</h5></td>
+                  <td><h5 id="titreEtat">Commentaire</h5></td>
+                      
+                </tr>
+             <tr *ngFor="let liste of list">  
+                <td><h6 style="font-weight: bold;">{{liste.categorieErreur}}</h6></td> 
+                <td><h6 style="font-weight: bold;">{{liste.code}}</h6></td> 
+                <td><h6 style="font-weight: bold;">{{liste.libelle}}</h6></td>
+                <td><h6 style="font-weight: bold;">{{liste.commentaire}}</h6></td> 
+             </tr> 
+             </table>
+            </div>
+            <div *ngIf="id==5|| id==9 || id==10|| id==11|| id==12"> 
+              <table id="etatRE" clickNoRightClick>
+                  <tr >
+                    <td><h5 id="titreEtat">Libellé</h5></td>
+                    <td><h5 id="titreEtat">Couleur</h5></td>
+                    <td><h5 id="titreEtat">Commentaire</h5></td>
+                        
+                  </tr>
+               <tr *ngFor="let liste of list">  
+                  <td><h6 style="font-weight: bold;">{{liste.designation}}</h6></td> 
+                  <td><h6 style="font-weight: bold;">{{liste.couleur}}</h6></td> 
+                  <td><h6 style="font-weight: bold;">{{liste.commentaire}}</h6></td> 
+               </tr> 
+               </table>
+              </div>
+            <!-- <div *ngIf="id==9"> 
+                <table id="etatRE" clickNoRightClick>
+                    <tr >
+                      <td><h5 id="titreEtat">Code</h5></td>
+                      <td><h5 id="titreEtat">Libellé</h5></td>
+                      <td><h5 id="titreEtat">Nb magasins</h5></td>
+                      <td><h5 id="titreEtat">Commentaire</h5></td>
+                          
+                    </tr>
+                 <tr *ngFor="let liste of list">  
+                    <td><h6 style="font-weight: bold;">{{liste.code}}</h6></td> 
+                    <td><h6 style="font-weight: bold;">{{liste.libelle}}</h6></td> 
+                    <td><h6 style="font-weight: bold;">{{liste.nombremagasin}}</h6></td>
+                    <td><h6 style="font-weight: bold;">{{liste.commentaire}}</h6></td> 
+                 </tr> 
+                 </table>
+                </div> -->
+    <!-- <div id="bott" class="form-group" clickNoRightClick>
+        <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+        
+    </div> -->
+

@@ -1,0 +1,57 @@
+#etatRE{
+    border: solid 2px;
+    color: black;
+    /* margin: 10%; */
+    margin:auto;
+   /* width: 500px; */
+   width: 95%;
+}
+#etatRE>tr,#etatRE>tr>td{
+    border: solid 2px;
+    color: black;
+    margin: 10%;
+   width: auto;
+}
+#etatRE>td{
+    border: solid 2px;
+    color: black;
+    margin: 10%;
+   width: auto;
+}
+#titreEtat{
+    margin: 10px;
+    font-weight: bold;
+}
+#modeletpe{
+    border: solid 2px;
+    color: black;
+    margin: auto;
+   width: 100%;
+}
+#modeletpe>tr,#modeletpe>tr>td{
+    border: solid 2px;
+    color: black;
+    /* margin: 10%;
+   width: auto; */
+}
+#modeletpe>td{
+    border: solid 2px;
+    color: black;
+    /* margin: 10%;
+   width: auto; */
+}
+#formimatqnput{
+    width: 150px;
+}
+#addupinput{
+    /* margin-right: 20px;
+    margin-left: 20px; */
+    width: 130px;
+    margin-bottom: 11px;
+  }
+  #imprim{
+   
+    float: right;
+   
+    margin-left :10px
+}

@@ -1,0 +1,388 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div id="dialogvente" clickNoRightClick>
+<div class="card text-center" [hidden]="loading">
+  <div  class="card-header font-weight-bold black-text p-0"> {{'modifierMagasin.headercard' | translate}}
+    <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" title="{{'btn.btn1'| translate}}" mdbWavesEffect (click)="Fermer()">
+      <i class="fa fa-times"></i>
+    </button>
+    <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"   title="{{'btn.btn15'| translate}}" (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+    <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title="{{'btn.btn16'| translate}}" (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+  </div></div><br [hidden]="!isOpened">
+  <div  mat-dialog-content [hidden]="!isOpened" class="updatmg">
+                 <ul class="nav nav-tabs col-12 p-0"  [hidden]="!isOpened">
+                    <li class="nav-item p-0">
+                        <a class="nav-link activetab" (click)="tab('magasin')" id="magasin"><h6>{{'modifierMagasin.ongletName.ongl0' | translate}}</h6>
+                        </a>
+                      </li>
+                         <li class="nav-item p-0">
+                           <a class="nav-link" (click)="tab('caisse')" id="caisse"><h6>{{'modifierMagasin.ongletName.ongl1' | translate}}</h6>
+                           </a>
+                         </li>
+                         <li class="nav-item p-0">
+                          <a class="nav-link" (click)="tab('service')" id="service"><h6>{{'modifierMagasin.ongletName.ongl2' | translate}} </h6></a>
+                        </li>
+                        <!-- <li class="nav-item p-0">
+                            <a class="nav-link" (click)="tab('agent')" id="agent"><h6>Agents </h6></a>
+                          </li> -->
+                  </ul>
+  <form #form1="ngForm" [formGroup]="caisseform" id="form1" class="form-inline"  [hidden]="!isOpened">
+      <ng-template [ngIf]="activetab=='caisse'">
+          <div style="font-size: 3px; ">
+              <mat-form-field id="magasininput" appearance="outline">
+                  <mat-label>{{'input.nbCaisse' | translate}}</mat-label>
+                <input style="font-weight: bold;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="nombrecaisse" formControlName="nbr_caisse">
+              </mat-form-field>
+            </div>
+            <div style="font-size: 3px">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label>{{'input.adrIpRacine' | translate}}</mat-label>
+                  <input style="font-weight: bold;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="adresseIP" formControlName="adrIP">
+                </mat-form-field>
+              </div>
+            <div class="table-responsive" id="tab">
+                <!-- <ng2-smart-table [settings]="settings" [source]="source" id="header" (editConfirm)="onSaveConfirm($event)" >
+                   
+                </ng2-smart-table> -->
+
+
+                <table mat-table matSort #sortcaiss="matSort"  
+                [dataSource]="caissedata" class="mat-elevation-z8" 
+              >
+              
+                <ng-container matColumnDef="code">
+                  <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'modifierMagasin.column4' | translate}} </th>
+                  <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtatCaisse" (contextmenu)="onRightClick($event, element)"> {{element.code}} </td>
+                </ng-container>
+                  <ng-container matColumnDef="libelleCaisse">
+                    <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'modifierMagasin.column5' | translate}} </th>
+                    <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtatCaisse" (contextmenu)="onRightClick($event, element)"> {{element.libelleCaisse}} </td>
+                  </ng-container>
+                
+                  <ng-container matColumnDef="adresseIpCaisse">
+                    <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'modifierMagasin.column6' | translate}} </th>
+                    <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtatCaisse" (contextmenu)="onRightClick($event, element)"> {{element.adresseIpCaisse}} </td>
+                  </ng-container>
+                 
+                  <ng-container matColumnDef="adresseIpTpe">
+                    <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'modifierMagasin.column7' | translate}} </th>
+                    <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtatCaisse" (contextmenu)="onRightClick($event, element)">{{element.adresseIpTpe}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="qrCode">
+                    <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'modifierMagasin.column8' | translate}} </th>
+                    <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtatCaisse" (contextmenu)="onRightClick($event, element)">{{element.qrCode}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="etatCaisse">
+                    <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'modifierMagasin.column3' | translate}} </th>
+                    <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtatCaisse"  (contextmenu)="onRightClick($event, element)">{{element.etatCaisse}} </td>
+                  </ng-container>
+                 
+                 
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnscaisse"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnscaisse;"></tr>
+                </table>
+                <div style="visibility: hidden; position: fixed" 
+                [style.left]="contextMenuPosition.a"
+                [style.top]="contextMenuPosition.b"
+                [matMenuTriggerFor]="contextMenu"
+                [matMenuTriggerData]="{liste:element,i:i}">
+                
+                </div>
+                   <mat-menu #contextMenu="matMenu">
+                      <ng-template matMenuContent let-liste="element" let-i="i">
+                       
+                     
+                        <button
+                        (click)="modifier(element)"
+                        mat-menu-item
+                       
+                      >
+                        <i class="fa fa-edit"> {{ "btn.btn7" | translate }}</i>
+                      </button> 
+                     
+                  
+                  
+                        </ng-template>
+                        
+                    </mat-menu>
+                <mat-paginator  #caissPaginator [pageSize]="8" hidePageSize showFirstLastButtons></mat-paginator>
+              </div>
+       </ng-template>
+  </form>
+  <form #form2="ngForm" [formGroup]="serviceform"  class="form-inline"  [hidden]="!isOpened">
+      <ng-template [ngIf]="activetab=='service'">
+        <div style="font-size: 3px; " >
+          <mat-form-field id="magasininput" appearance="outline">
+              <mat-label>{{'input.cde' | translate}}</mat-label>
+            <input style="font-weight: bold;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="code_mg" formControlName="code">
+          </mat-form-field>
+        </div>
+      <div style="font-size: 3px">
+          <mat-form-field id="magasininput" appearance="outline">
+              <mat-label>{{'input.nomMag' | translate}}</mat-label>
+            <input style="font-weight: bold;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="nom_magasin" formControlName="nom_mgserv" >
+          </mat-form-field>
+        </div>
+          <div class="table-responsive">
+            
+
+
+              <table mat-table matSort
+        [dataSource]="service" class="mat-elevation-z8" 
+      >
+      
+        <ng-container matColumnDef="nomWallet">
+          <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'modifierMagasin.column0' | translate}} </th>
+          <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtatWallet" (contextmenu)="Menus($event,element)"> {{element.nomWallet}} </td>
+        </ng-container>
+          <ng-container matColumnDef="affiliationMonetique">
+            <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'modifierMagasin.column1' | translate}} </th>
+            <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtatWallet" (contextmenu)="Menus($event,element)"> {{element.affiliationMonetique}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="numeroRefMpga">
+            <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'modifierMagasin.column2' | translate}} </th>
+            <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtatWallet" (contextmenu)="Menus($event,element)"> {{element.numeroRefMpga}} </td>
+          </ng-container>
+         
+          <ng-container matColumnDef="etatWallet">
+            <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'modifierMagasin.column3' | translate}} </th>
+            <td mat-cell *matCellDef="let element" [style.background-color]="element.couleurEtatWallet" (contextmenu)="Menus($event,element)">{{element.etatWallet}} </td>
+          </ng-container>
+         
+         
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+
+        <div style="visibility: hidden; position: fixed" #triggers="matMenuTrigger"
+        [style.left]="srvcontextMenuPosition.c"
+        [style.top]="srvcontextMenuPosition.d"
+        [matMenuTriggerFor]="srvcontextMenu"
+        [matMenuTriggerData]="{liste:element,i:i}">
+        </div>
+           <mat-menu #srvcontextMenu="matMenu">
+              <ng-template matMenuContent let-liste="element" let-i="i">
+                <button
+                (click)="serviceModifier(element)"
+                mat-menu-item
+               
+              >
+                <i class="fa fa-edit"> {{ "btn.btn7" | translate }}</i>
+              </button> 
+              <button *ngIf="idetat==2"
+              (click)="changer()"
+              mat-menu-item
+             
+            >
+              <i class="fa fa-unlock"> {{ "btn.btn0" | translate }}</i>
+            </button> 
+            <button 
+            (click)="changer()" *ngIf="idetat==1"
+            mat-menu-item
+           
+          >
+            <i class="fa fa-lock"> {{ "btn.btn1" | translate }}</i>
+          </button> 
+              
+              </ng-template>
+            </mat-menu>
+
+
+        <mat-paginator [pageSize]="8" hidePageSize showFirstLastButtons></mat-paginator>
+            </div>
+      </ng-template>
+  </form>
+  <form #form3="ngForm" [formGroup]="magasinform" class="form-inline"  [hidden]="!isOpened">
+      <ng-template [ngIf]="activetab=='magasin'">
+          <div style="font-size: 3px;" >
+              <mat-form-field id="magasininput" appearance="outline">
+                  <mat-label id="labelobligatoir">{{'input.cde' | translate}}</mat-label>
+                <input (focus)="onFocus([Type_Message.NUMBER,Type_Message.CUSTOM_CAR],true,4)"
+                (blur)="onBlur()" autocomplete="off" id="datestyle" matInput class="form-control col-12" [(ngModel)]="code_mg" formControlName="code" maxlength="4">
+                <!-- <mat-error style="font-size: 13px;" *ngIf="!magasinform.controls['code'].valid && magasinform.controls['code'].touched">{{getErrorCode()}}</mat-error> -->
+              </mat-form-field>
+            </div>
+          <div style="font-size: 3px">
+              <mat-form-field id="magasininput" appearance="outline">
+                  <mat-label id="labelobligatoir">{{'input.nomMag' | translate}}</mat-label>
+                <input (focus)="onFocus([Type_Message.LETTER_NUMBER],true)"
+                (blur)="onBlur()" autocomplete="off"  id="datestyle" matInput class="form-control col-12" [(ngModel)]="nom_magasin" formControlName="nom_mg" maxlength="30">
+                <!-- <mat-error style="font-size: 13px;" *ngIf="!magasinform.controls['nom_mg'].valid && magasinform.controls['nom_mg'].touched">*Champ obligatoire</mat-error> -->
+              </mat-form-field>
+            </div>
+            
+            <!-- <div style="font-size: 10px;margin-top:8px">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label>Zone</mat-label>
+                    <mat-select  formControlName="zone_"  [(ngModel)]="zone" placeholder="" > 
+                        <mat-option [value]="-1">Tous</mat-option>
+                      <mat-option *ngFor="let zzz of zones" [value]="zzz.libelleZone">
+                            {{zzz.libelleZone}} </mat-option>
+                            </mat-select>
+                            </mat-form-field>
+              </div>
+              <div style="font-size: 3px">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label>Nombre de caisses</mat-label>
+                  <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="nbr_caisse" formControlName="nombre_caisse">
+                </mat-form-field>
+              </div>
+              <div style="font-size: 3px">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label>Nombre de caissiers</mat-label>
+                  <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="nbr_caissier" formControlName="nombre_caissier">
+                </mat-form-field>
+              </div>
+              <div style="font-size: 3px">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label>Adresse IP racine</mat-label>
+                  <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="adresseIP" formControlName="adrIP">
+                </mat-form-field>
+              </div>
+              <div style="font-size: 3px">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label>Début plage adresse IP</mat-label>
+                  <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="debutplage" formControlName="debut_plage">
+                </mat-form-field>
+              </div>
+              <div style="font-size: 3px">
+                <mat-form-field id="magasininput" appearance="outline">
+                    <mat-label>Fin plage adresse IP</mat-label>
+                  <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="finplage" formControlName="fin_plage">
+                </mat-form-field>
+              </div> -->
+              <br>
+              <!-- <fieldset >
+                  <legend ><h6 style="font-weight: bold;">Coordonnées : </h6></legend>
+                  
+                      <mat-form-field style="font-size: 3px" id="adresserue" appearance="outline">
+                          <mat-label>Rue</mat-label>
+                        <input style="width: 100%;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="rue" formControlName="rue_" maxlength="50">
+                        <mat-error style="font-size: 13px;" *ngIf="!magasinform.controls['rue_'].valid && magasinform.controls['rue_'].touched">*Champ obligatoire</mat-error>
+                      </mat-form-field>
+                    <br>
+                        <mat-form-field style="font-size: 10px;margin-top:8px" id="magasininput" appearance="outline">
+                            <mat-label>Gouvernorat</mat-label>
+                        <mat-select  formControlName="gouvernorat"  [(ngModel)]="gouver" placeholder="" (selectionChange)="getville(gouver)"> 
+                          <mat-option *ngFor="let gouvern of gouvernorats" [value]="gouvern.idGouvernorat">
+                          {{gouvern.nom}} </mat-option>
+                        </mat-select>
+                        <mat-error style="font-size: 13px;" *ngIf="!magasinform.controls['gouvernorat'].valid && magasinform.controls['gouvernorat'].touched">*Champ obligatoire</mat-error>
+                        </mat-form-field>
+                    
+                        <mat-form-field style="font-size: 10px;margin-top:8px" id="magasininput" appearance="outline">
+                          <mat-label>Ville</mat-label>
+                            <mat-select  formControlName="ville"  [(ngModel)]="villegouver" placeholder="" (selectionChange)="getpostal(villegouver)">
+                              <mat-option *ngFor="let vvv of villes" [value]="vvv.idVille">
+                                    {{vvv.nom}} </mat-option>
+                                    </mat-select>
+                                    <mat-error style="font-size: 13px;" *ngIf="!magasinform.controls['ville'].valid && magasinform.controls['ville'].touched">*Champ obligatoire</mat-error>
+                                    </mat-form-field>
+            
+                    <mat-form-field style="font-size: 3px" id="magasininput" appearance="outline">
+                      <mat-label>Code postal</mat-label>
+                        <input style="font-weight: bold;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="codepos" formControlName="codepostal" disabled>
+                  </mat-form-field>
+                  <mat-form-field style="font-size: 3px" id="magasininput" appearance="outline">
+                      <mat-label>Téléphone</mat-label>
+                    <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="telephone" formControlName="tele" maxlength="8">
+                    <mat-error style="font-size: 13px;" *ngIf="!magasinform.controls['tele'].valid && magasinform.controls['tele'].touched">{{getErrorTel()}}</mat-error>
+                  </mat-form-field>
+                  <mat-form-field style="font-size: 3px" id="magasininput" appearance="outline">
+                      <mat-label>Fax</mat-label>
+                    <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="fax" formControlName="fax_" maxlength="8">
+                    <mat-error style="font-size: 13px;" *ngIf="!magasinform.controls['fax_'].valid && magasinform.controls['fax_'].touched">{{getErrorFax()}}</mat-error>
+                  </mat-form-field>
+                  <mat-form-field style="font-size: 3px" id="magasininput" appearance="outline">
+                      <mat-label>Email</mat-label>
+                    <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="email" formControlName="email_">
+                    <mat-error style="font-size: 13px;" *ngIf="!magasinform.controls['email_'].valid && magasinform.controls['email_'].touched">{{getErrorMessage()}}</mat-error>
+                  </mat-form-field><br><br>
+                  </fieldset> -->
+                  <!-- <fieldset >
+                      <legend ><h6>Résponsables : </h6></legend>
+                      
+                      <mat-form-field style="font-size: 10px" id="magasininput" appearance="outline">
+                          <mat-label>RM</mat-label>
+                          <mat-select  formControlName="RM"  [(ngModel)]="nomRM" >
+                            <mat-option [value]="-1">Tous</mat-option>
+                          <mat-option *ngFor="let liste of listeRM" [value]="liste.idAgent">
+                                {{liste.nomPrenom}} </mat-option>
+                                </mat-select>
+                </mat-form-field>
+                <mat-form-field style="font-size: 10px" id="magasininput" appearance="outline">
+                  <mat-label>ARM</mat-label>
+                  <mat-select  formControlName="ARM"  [(ngModel)]="nomARM" >
+                    <mat-option [value]="-1">Tous</mat-option>
+                  <mat-option *ngFor="let liste of listeARM" [value]="liste.idAgent">
+                        {{liste.nomPrenom}} </mat-option>
+                        </mat-select>
+        </mat-form-field>
+        <mat-form-field style="font-size: 10px" id="magasininput" appearance="outline">
+          <mat-label>RZ</mat-label>
+          <mat-select  formControlName="RZ"  [(ngModel)]="nomRZ" >
+            <mat-option [value]="-1">Tous</mat-option>
+          <mat-option *ngFor="let liste of listeRZ" [value]="liste.idAgent">
+                {{liste.nomPrenom}} </mat-option>
+                </mat-select>
+</mat-form-field>
+                
+                      </fieldset>
+                      <fieldset >
+                          <legend ><h6>Services : </h6></legend>
+                    
+                            <mat-form-field style="font-size: 3px" id="affiliation" appearance="outline">
+                              <mat-label>Affiliation D17</mat-label>
+                                <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="affiliation" formControlName="affiliationd17" maxlength="16">
+                          </mat-form-field>
+                          </fieldset> -->
+                              </ng-template>
+   </form>
+   <!-- <form #form4="ngForm" [formGroup]="agentform" class="form-inline">
+      <ng-template [ngIf]="activetab=='agent'">
+              <div *ngFor="let liste of agents; let i=index">
+              <div id="cardupdate" class="card" (click)="detailagent(liste,i)" (contextmenu)="onContextMenu($event,liste,i)">
+                  <img id="imgcontact" src="assets/img/users/x.png" alt="user-img" class="user-img rounded-circle">
+                  <div class="card-body">
+                    <h5 class="card-title">{{liste.categorieAgent}}</h5>
+                    <p class="card-text">{{liste.nom}}  {{liste.prenom}}</p>
+                    <p class="card-text">{{liste.email}}</p>
+                  </div> -->
+                  <!-- <div style="visibility: hidden; position: fixed"
+                  [style.left]="contextMenuPosition.x"
+                  [style.top]="contextMenuPosition.y"
+                  [matMenuTriggerFor]="contextMenu"
+                  [matMenuTriggerData]="{liste:liste,i:i}">
+              </div> -->
+                    <!-- <mat-menu #contextMenu="matMenu">
+                        <ng-template matMenuContent let-liste="liste" let-i="i">
+                          <button id="boutonmenu" mat-menu-item (click)="detailcontact(liste,i)"><span id="spanmenu">Détail</span></button>
+                          <button id="boutonmenu" mat-menu-item (click)="updatecontact(liste,i)"><span id="spanmenu">Modifier</span></button>
+                          <button *ngIf="liste.id_profile_contact!=1" id="boutonmenu" mat-menu-item (click)="deletecontact(liste,i)"><span id="spanmenu">Supprimer</span></button>
+                        </ng-template>
+                      </mat-menu> -->
+                <!-- </div>
+               
+              </div>
+      </ng-template>
+   </form> -->
+  </div>
+   <div mat-dialog-actions align="end" class="footr mt-auto"  [hidden]="!isOpened">
+    <br>
+    <div class="d-left">
+      <ul style="list-style-type:none; " class="small text-left pl-4 m-3">
+        <li *ngFor="let m of Messages" [ngStyle]="{'color': m.color}"><i style="margin-right: 10px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{m.message }}</li>
+     
+     <li>
+      <mat-error  *ngIf="err"><i style="margin-right: 10px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{msg}}</mat-error> 
+     </li> </ul>
+    </div>
+  <div class="form-group dialog-footer" [hidden]="!isOpened" >
+    <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times"></i></span></button>
+    <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="submit" (click)="onSubmit(form3)"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+    <button id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="reset()" title="Effacer"><span id="sp"><i class="fa fa-eraser" aria-hidden="true"></i></span></button>
+  </div>
+</div>
+</div>
+</div>

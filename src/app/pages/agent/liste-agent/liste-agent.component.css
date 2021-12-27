@@ -1,0 +1,58 @@
+:root{
+  --coloragent1 : #FFFFFF;
+  --color2agent:#FFFFFF;
+  --color3agent:#FFFFFF;
+  --color4agent:#FFFFFF;
+}
+.agentsolved {
+  background-color:var(--coloragent1) ;
+}
+.agentaborted {
+  background-color:var(--color2agent) ;
+}
+.agent3aborted {
+  background-color:var(--color3agent) ;
+}
+.agent4aborted{
+  background-color:var(--color4agent) ;
+}
+ng2-smart-table-title a:focus { color: #009ECE; }
+#nbrligne{
+  max-width: 80px;
+  margin-top: 4px;
+}
+#rowpvt{
+  margin-right: 150px;
+}
+.table-responsive{
+max-height: 460px;
+overflow-x: auto;
+ position: relative;
+}
+#newinput{
+    margin-right: 30px;
+    width: 150px;  
+    }
+    mat-select,mat-option,mat-label,mat-datepicker-toggle,#dateinputstyle,#datestyle{
+        font-size: 13px;
+      }
+      #ligne_verticale {
+        width: 100%;  /* la moitié du <div="corps" */
+        margin-bottom: 3%; /* ou 15% */
+        border-bottom: 2px solid rgb(240, 205, 8);
+      }
+      #ligne_horizon{
+        width: 100%;  /* la moitié du <div="corps" */
+         border-right: 2px dotted rgb(240, 205, 8);
+      }
+      #affichmagasin{
+        visibility: visible;
+       
+      }
+      #printmagasin{
+        visibility: hidden;
+        
+        height: 0px;
+      }
+
+      
