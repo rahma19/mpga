@@ -18,7 +18,7 @@ import { PaginationService } from 'app/pages/services/pagination.service';
   selector: 'app-detail-reconciliation',
   templateUrl: './detail-reconciliation.component.html',
   styleUrls: ['./detail-reconciliation.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.None
 })
 export class DetailReconciliationComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;

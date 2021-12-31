@@ -9,6 +9,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { PaginationService } from 'app/pages/services/pagination.service';
 import { PaiementService } from 'app/pages/services/paiement.service';
 import { ChangerEtatComponent } from 'app/pages/vente/vente/changer-etat/changer-etat.component';
+import { DatailCanalComponent } from 'app/pages/vente/vente/update-vente/datail-canal/datail-canal.component';
 import { UpdateVenteComponent } from 'app/pages/vente/vente/update-vente/update-vente.component';
 
 import { finalize } from 'rxjs/operators';
@@ -31,7 +32,7 @@ interface column {
   selector: 'app-paiement',
   templateUrl: './paiement.component.html',
   styleUrls: ['./paiement.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.None
 })
 export class PaiementComponent implements OnInit {
   isConnectionAvailable: boolean = navigator.onLine;
@@ -43,7 +44,8 @@ export class PaiementComponent implements OnInit {
   source: any;
   val = '';
 
-  loading: any = false;;
+  loading: any = false; dte: any;
+  ;
   row_nbr: number = 18;
   row_nbrAff: number = 18;
   page_bol: boolean = false;
@@ -85,18 +87,18 @@ export class PaiementComponent implements OnInit {
   @ViewChild('triggerbin') triggerbin: MatMenuTrigger;
   @ViewChild(MatMenuTrigger) contextMenuBin: MatMenuTrigger;
   contextMenuBinPosition = { a: '0px', b: '0px' };
-  displayedColumnsAff: string[] = ['etablissement', 'produitFinancier', 'nbr_affiliation_Ok', 'nbr_affiliation_NonOk'];
+  displayedColumnsAff: string[] = ['etablissement', 'produitFinancier', 'nbr_affiliation_Ok', 'nbr_affiliation_NonOk', 'canalPaiement'];
   displayedColumns: string[] = ['nomPlageBin', 'debutPlageBin', 'finPlageBin', 'emetteur', 'acquereur'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) pag: MatPaginator;
   @ViewChild(MatSort) sorrt: MatSort;
 
-  dataAff: any;
-  nbrEtab: any;
-  magFerme: any;
-  magOuvert: any;
-  nbrProduit: any;
+  dataAff = 0;
+  nbrEtab = 0;
+  magFerme = 0;
+  magOuvert = 0;
+  nbrProduit = 0;
   constructor(private dialog: MatDialog, private fb: FormBuilder, private router: Router, private paiement: PaiementService,
     private changeDetector: ChangeDetectorRef, private pageservice: PaginationService) {
     window.addEventListener('offline', () => {
@@ -129,9 +131,11 @@ export class PaiementComponent implements OnInit {
     this.paiement.ListEmetteur().subscribe(res => {
       this.emetteurs = res
     })
-    this.loading = true;
+
 
     this.paiement.listAffMonetique().subscribe((res: any) => {
+      console.log(res);
+      this.dte = res;
       this.affsource = new MatTableDataSource(res.list_affiliationProduit);
       if (this.scroll_bol == true) {
         setTimeout(() => this.affsource.paginator = this.pag);
@@ -145,12 +149,14 @@ export class PaiementComponent implements OnInit {
       this.magFerme = res.nbr_magasin_ferme;
       this.magOuvert = res.nbr_magasin_ouvert;
       this.loading = false
+    }, err => {
+      this.loading = false;
     })
-    this.loading = true;
+
 
     this.paiement.listebinfiltre(this.val, this.val).subscribe((res) => {
       this.data = res
-      this.loading = false
+
       console.log(this.data)
       this.resultat = res;
       this.countStat(this.resultat);
@@ -166,10 +172,9 @@ export class PaiementComponent implements OnInit {
       this.groupage(this.groupe)
     })
 
-    this.loading = true
+
     this.paiement.ListEtablissementFinancier().subscribe(res => {
       this.etablissements = res
-      this.loading = false
     })
   }
 
@@ -177,9 +182,38 @@ export class PaiementComponent implements OnInit {
   show() {
 
     this.filter ? this.filter = false : this.filter = true;
-
-
   }
+
+  detailCanal(dataAff) {
+    let data = {
+      code: dataAff.code_magasin,
+      libelle: dataAff.libelle_magasin,
+    }
+    let item = {
+      id_produit_financier: dataAff.id_produit_financier,
+      affiliation_magasin: dataAff.affiliation_magasin,
+      nom_commercial: dataAff.etablissement,
+      produit_financier: dataAff.produitFinancier,
+    }
+    let obj = { data: data, item: item };
+    console.log(obj);
+
+    const dialogConfig = new MatDialogConfig;
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "700px";
+    dialogConfig.hasBackdrop = false;
+
+    dialogConfig.data = obj;
+    const diag = this.dialog.open(DatailCanalComponent, dialogConfig);
+
+    diag.afterClosed().subscribe(item => {
+      if (item == 1) {
+        this.ngOnInit();
+      }
+    })
+  }
+
   Rechercher(value) {
     this.loading = true;
     this.nbr_ligne = 0
@@ -641,7 +675,7 @@ export class PaiementComponent implements OnInit {
     this.contextMenu.openMenu();
   }
 
-  detailAff() {
+  async detailAff() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -649,10 +683,16 @@ export class PaiementComponent implements OnInit {
     dialogConfig.height = 'auto';
     dialogConfig.hasBackdrop = false;
     // dialogConfig.maxHeight = '600px';
-    dialogConfig.data = this.dataAff;
-
-
+    dialogConfig.data = await this.dataAff;
     const diag = this.dialog.open(AffNokComponent, dialogConfig);
+    diag.afterClosed().subscribe(item => {
+      // console.log(item);
+      if (item == 1) {
+
+        this.ngOnInit();
+      }
+
+    })
   }
 
 }

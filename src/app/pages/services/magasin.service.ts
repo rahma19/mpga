@@ -67,4 +67,7 @@ export class MagasinService {
   changeEtatWallet(form:any){
     return this.http.put(this.BaseUrl+'/ChangeEtatMagasinWallet',form);
   }
+  ListAffiliationByIdMagasin(idmag:any,idProd:any){
+    return this.http.get(this.BaseUrl+'/ListAffiliationCaisseByIdMagasinIdProduit?id_magasin='+idmag+'&id_produit='+idProd)
+  }
 }

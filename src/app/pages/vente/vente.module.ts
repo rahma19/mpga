@@ -52,6 +52,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
+import { AffiliationComponent } from './vente/affiliation/affiliation.component';
+import { CaisseAffComponent } from './vente/affiliation/caisse-aff/caisse-aff.component';
+import { DatailCanalComponent } from './vente/update-vente/datail-canal/datail-canal.component';
+import { DetailCaisseComponent } from './vente/update-vente/detail-caisse/detail-caisse.component';
+
 
 
 
@@ -63,8 +68,14 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
-  declarations: [VenteComponent, AddVenteComponent, UpdateVenteComponent, DetailVenteComponent, ChangerEtatComponent, UpdateAgentComponent, ErrormsgComponent,ImpressionComponent, PrintComponent,DropdownComponent, UpdateCaisseComponent,UpdateServiceComponent, ActifServiceComponent],
-  entryComponents:[VenteComponent, AddVenteComponent, UpdateVenteComponent,DetailVenteComponent,ChangerEtatComponent,UpdateAgentComponent,ErrormsgComponent,ImpressionComponent,DropdownComponent,UpdateCaisseComponent,UpdateServiceComponent,ActifServiceComponent],
+  declarations: [VenteComponent, AddVenteComponent, UpdateVenteComponent, DetailVenteComponent,
+     ChangerEtatComponent, UpdateAgentComponent, ErrormsgComponent,ImpressionComponent, 
+     PrintComponent,DropdownComponent, UpdateCaisseComponent,UpdateServiceComponent, ActifServiceComponent, 
+     AffiliationComponent, CaisseAffComponent, DatailCanalComponent, DetailCaisseComponent],
+  entryComponents:[VenteComponent, AddVenteComponent, UpdateVenteComponent,DetailVenteComponent,
+    ChangerEtatComponent,UpdateAgentComponent,ErrormsgComponent,ImpressionComponent,DropdownComponent,
+    UpdateCaisseComponent,UpdateServiceComponent,ActifServiceComponent,AffiliationComponent, CaisseAffComponent
+    , DatailCanalComponent, DetailCaisseComponent],
   providers: [
    // {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
 

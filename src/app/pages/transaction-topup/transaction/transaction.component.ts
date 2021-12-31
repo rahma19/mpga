@@ -74,7 +74,6 @@ export class TransactionComponent implements OnInit, OnDestroy {
   magasins: any;
   active: boolean;
   etab: any
-  wall: any
   waltransaction: any;
   datfin: any;
   datdeb: any;
@@ -85,9 +84,6 @@ export class TransactionComponent implements OnInit, OnDestroy {
   groupe: any;
   title: string;
   resultat: any;
-  etattrans: any;
-  etatrecon: any;
-  etatlett: any;
   zone: any;
   page_bol: boolean = false;
   scroll_bol: boolean = true;
@@ -97,11 +93,12 @@ export class TransactionComponent implements OnInit, OnDestroy {
   listetest = [];
   isValid: any;
   row_nbr: number = 18;
-  displayedColumnsTransactions: string[] = ['dateTransaction', 'refMpga', 'libelleMagasin', 'autorisation', 'montant', 'libelleEtablissementFinancier', 'libelleWallet', 'etatTransaction', 'idEtatReconciliation', 'idEtatLettrage'];
+  displayedColumnsTransactions: string[] = ['dateTransaction', 'refMpga', 'libelleMagasin', 'autorisation', 'montant', 'libelleEtablissementFinancier', 'libelleWallet', 'canalTransaction', 'etatTransaction'];
   myfilter: string;
   filtre: any;
   dataTrans: any;
   canals: Object;
+  categCanals: Object;
 
   constructor(private fb: FormBuilder,
     private router: Router,
@@ -134,7 +131,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
 
   private filterData(source): void {
     source.filterPredicate = ((data, filter) => {
-      const etaTrans = !filter.etat_trans || data.idetatTransaction == filter.etat_trans;
+      const etaTrans = !filter.etat_trans || data.idEtatTransaction == filter.etat_trans;
       const etab = !filter.etablissement?.nomCommercial || data.libelleEtablissementFinancier == filter.etablissement?.nomCommercial;
       const wallet = !filter.wallet || data.libelleWallet == filter.wallet;
       const magasin = !filter.magasin_ || data.libelleMagasin.toLowerCase().includes(filter.magasin_.toLowerCase());
@@ -144,6 +141,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
       const etaLet = !filter.etat_lettrage || data.idEtatLettrage == filter.etat_lettrage;
       const zone = !filter.zone_ || data.idZone == filter.zone_;
       const canalPaiement = !filter.canalPaiement_ || data.idCanalPaiement == filter.canalPaiement_;
+      const categCanalPaiement = !filter.categcanalPaiement_ || data.idCategorieCanalPaiement == filter.categcanalPaiement_;
 
       return (
         etaTrans &&
@@ -155,7 +153,8 @@ export class TransactionComponent implements OnInit, OnDestroy {
         etatRec &&
         etaLet &&
         zone &&
-        canalPaiement
+        canalPaiement &&
+        categCanalPaiement
       );
     }) as (PeriodicElement, string) => boolean;
   }
@@ -203,6 +202,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
       Date_D: [new Date()],
       Date_F: [new Date()],
       zone_: [''],
+      categcanalPaiement_: [''],
       canalPaiement_: ['']
     })
   }
@@ -240,6 +240,8 @@ export class TransactionComponent implements OnInit, OnDestroy {
     })
     this.Transaction.etatTransaction().subscribe(res => {
       this.etatTran = res;
+      console.log(res);
+
     })
     this.Transaction.etatReconciliation().subscribe(res => {
       this.etatRecon = res;
@@ -250,9 +252,11 @@ export class TransactionComponent implements OnInit, OnDestroy {
     this.Transaction.getZone().subscribe(res => {
       this.zones = res;
     })
-    this.Paiement.CanalPaiement().subscribe(res => {
-      this.canals = res;
+    this.Paiement.listCategCanalPaiement().subscribe(res => {
+      this.categCanals = res;
+
     })
+
     this.mag.filtremagasin(this.val, this.val, this.val).subscribe(res => {
       this.magasins = res;
     })
@@ -269,8 +273,8 @@ export class TransactionComponent implements OnInit, OnDestroy {
         //this.filtre[i].montant = this.format.transform(Number(this.data[i].montant));
         this.montant_t = mm + this.montant_t;
         this.filtre[i].dateTransaction = moment(this.data[i].dateTransaction).format('DD/MM/YYYY HH:mm');
-        if (this.filtre[i].idEtatReconciliation == '2') { this.filtre[i].etaRec = this.translate.instant('transaction.column_Oui'); } else { this.filtre[i].etaRec = this.translate.instant('transaction.column_Non'); }
-        if (this.filtre[i].idEtatLettrage == '2') { this.filtre[i].etaLet = this.translate.instant('transaction.column_Oui'); } else { this.filtre[i].etaLet = this.translate.instant('transaction.column_Non'); }
+        // if (this.filtre[i].idEtatReconciliation == '2') { this.filtre[i].etaRec = this.translate.instant('transaction.column_Oui'); } else { this.filtre[i].etaRec = this.translate.instant('transaction.column_Non'); }
+        // if (this.filtre[i].idEtatLettrage == '2') { this.filtre[i].etaLet = this.translate.instant('transaction.column_Oui'); } else { this.filtre[i].etaLet = this.translate.instant('transaction.column_Non'); }
       }
       if (this.montant_t == 0) {
         this.montanttotal = 0;
@@ -461,7 +465,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
       } this.source.sort = this.sort;
     }
     else if (groupe == 6) {
-      this.displayedColumnsTransactions = ['canalPaiement', 'nombre', 'montant'];
+      this.displayedColumnsTransactions = ['canalTransaction', 'nombre', 'montant'];
       this.title = this.translate.instant('transaction.groupebycanal');
       for (var i = 0; i < this.resultat.length; i++) {
         var raison = this.resultat[i].idCanalPaiement;
@@ -500,7 +504,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
       } this.source.sort = this.sort;
     }
     else if (groupe == 1) {
-      this.displayedColumnsTransactions = ['dateTransaction', 'refMpga', 'libelleMagasin', 'autorisation', 'montant', 'libelleEtablissementFinancier', 'libelleWallet', 'etatTransaction', 'idEtatReconciliation', 'idEtatLettrage'];
+      this.displayedColumnsTransactions = ['dateTransaction', 'refMpga', 'libelleMagasin', 'autorisation', 'montant', 'libelleEtablissementFinancier', 'libelleWallet', 'canalTransaction', 'etatTransaction'];
       this.title = this.translate.instant('transaction.bodycard');
       this.checked = false;
       this.data = this.resultat;
@@ -514,10 +518,22 @@ export class TransactionComponent implements OnInit, OnDestroy {
     }
   }
 
-  getwallet(value) {
-    this.wall = -1;
+  getcanal() {
+    let value = this.filterform.value.categcanalPaiement_;
+
+    this.canals = []
+    if (value != '') {
+      this.Paiement.ListCanalPaiementByIdCategorie(value).subscribe(res => {
+        this.canals = res;
+      })
+    }
+  }
+
+
+  getwallet() {
+    let value = this.filterform.value.etablissement;
     this.wallets = []
-    if (value != -1) {
+    if (value != '') {
       this.Transaction.listewallet(value.idEtablissementFinancier).subscribe(res => {
         this.wallets = res;
       })

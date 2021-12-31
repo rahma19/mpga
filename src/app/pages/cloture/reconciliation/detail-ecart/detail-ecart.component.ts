@@ -12,7 +12,7 @@ import { MatSort } from '@angular/material/sort';
   selector: 'app-detail-ecart',
   templateUrl: './detail-ecart.component.html',
   styleUrls: ['./detail-ecart.component.css'],
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.None
 })
 export class DetailEcartComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;

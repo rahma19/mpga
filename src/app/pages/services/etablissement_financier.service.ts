@@ -34,4 +34,11 @@ export class EtablissementFinancierService {
 // UpdateCanalPaiement(form){
 //   return this.http.put(this.BaseUrl+'/UpdateCanalPaiement',form)
 // }
+ListEtatblissementByIdMagasin(id:any){
+  return this.http.get(this.BaseUrl+'/ListEtablissementByIdMagasin?id_magasin='+id)
+}
+ListCanalByProduit(id:any){
+  return this.http.get(this.BaseUrl+'/ListCanalPaiementByProduit?id_produit='+id)
+}
+
 }

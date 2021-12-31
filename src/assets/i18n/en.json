@@ -1,26 +1,6 @@
 { 
-    "affiliation":{
-        "headerDetail":"List of affiliations",
-        "bodyDetail":"Listf of affiliations NOk",
-    "etabFin":"Financial institution",
-    "Canal":"Payment channel",
-    "prodFin":"Financial product",
-    "AffOk":"Aff Ok",
-"AffNOk":"Aff NOK",
-"AffVide":"No Affiliation",
-"EtabPai":"Payment institution",
-"CanalPai":"Payment channel",
-"column0":"Financial product",
-"nbMag":"Number of store"
-},
-    "magasin":{
-        "recap":{"NbMagOuvert":"number of stores open",
-        "NbMagFerme":"number of stores closed",
-        "NbEtabPai":"Number of payment institutions",
-        "NbCaissPai":"Number of Payment cashiers",
-        "NbProdFin":"Number of Financial products"
-    }
-    },
+ 
+    
     "transaction": {
         "headercard": "Transaction Search",
         "bodycard": "List of transactions",
@@ -32,6 +12,7 @@
         "groupebyetat":"Grouping by state",
         "groupebycanal":"Grouping by Channel",
         "message": "No transaction",
+        "HistoriqueTrans":"Operation history",
         "recap": {
             "title": "Recapitulation",
             "group": "Grouping by",
@@ -46,6 +27,7 @@
             "nbr_ligne": "Row Nb",
             "nbr_ecart":"Deviation Nb",
             "nbr_trans": "Transaction Nb",
+            "categCP":"Category Payment Channel",
             "montant": "Amount",
             "typeClotureJour":"Closing day type",
             "nombreMagEcart":"Number Store Gap",
@@ -94,6 +76,48 @@
     "column3":"Nb Cashiers",
     "column4":"Status"
 },
+
+"magasin":{
+    "headercard": "Store Search",
+    "bodycard": "List of Store",
+    "Detail":"Liste magasins non réconciliés",
+    "recap":{
+        "NbMagOuvert":"number of stores open",
+        "NbMagFerme":"number of stores closed",
+        "NbEtabPai":"Number of payment institutions",
+        "NbCaissPai":"Number of Payment cashiers",
+        "NbProdFin":"Number of Financial products",
+        "title":"Recapitulation",
+        "group":"Grouping by",
+        "g1":"None",
+        "g2":"Governorate",
+        "g3":"City",
+        "g4":"Zoned",
+        "nbr_ligne":"Nb Lines",
+        "nbr_mag":"Nb of stores",
+        "caisse":"Nb Crates"
+     
+    },
+    "attribute":{
+        "n1":"Coded",
+        "n2":"City",
+        "n3":"Service",
+        "n4":"Zone",
+        "n5":"Status",
+        "n6":"Code magasin",
+        "n7":"Libelle magasin",
+        "n8":"Vcn",
+        "n9":"Motif",
+        "n10":"Name store",
+        "n11":"Nb POS"
+    },
+    "column0":"Coded",
+    "column1":"Name",
+    "column2":"Nb Crates",
+    "column3":"Nb Cashiers",
+    "column4":"Status",
+    "column5":"Nb POS"
+},
 "detailMagasin": {
     "headercard": "Details Store ",
     "attribute": {
@@ -114,7 +138,11 @@
     }
 },
 "ajouterMagasin": {
-    "headercard": "Add Store"
+    "headercard": "Add Store",
+    "onglet":{
+        "ogl1":"General data",
+        "ogl2":"Affiliation"
+    }
     
 },
 "activer_Desactiver_magasin": {
@@ -132,17 +160,20 @@
     "ongletName": {
         "ongl0": "General data",
         "ongl1": "Crates",
-        "ongl2":"Services"
+        "ongl2":"Financial Product"
     },
-    "column0":"Wallet",
-    "column1":"Affiliation",
+    "column0":"Financial.Prod",
+    "column1":"Store Affiliation",
     "column2":"Num Ref MPGA",
     "column3":"Status",
     "column4":"Coded",
     "column5":"Wording",
     "column6":"IP @",
     "column7":"POS IP @",
-    "column8":"QR Code"
+    "column8":"QR Code",
+    "column9":"Financial.Inst",
+    "column10":"Fund Affiliation",
+    "column11":"Payment Channel"
 },
 "modifierCaisse": {
     "headercard": "Update Checkout"
@@ -238,7 +269,28 @@
           } ,   
           "ajouterCanal":{
             "headercard": "Payment Channel"   
-          },       
+          }, 
+          "affiliation":{
+            "headercard": "Affiliate Management" ,
+            "column0":"Financial Institution",
+            "column1":"Payment Channel",
+            "column2":"Financial Product",
+            "column3":"Affilliation Fund",
+            "column4":"Store Affiliation"  ,
+            "column5":"store",
+            "column6":"checkout"
+          }, 
+          "affiliationCaisse":{
+            "headercard": "Affiliate Management" ,
+            "column0":"Checkout",
+            "column1":"ID-Checkout-FI",
+            "column2":"Fund Affiliation"
+           
+          },  
+          "detailCanal":{
+            "headercard": "Details Channel" ,
+            "column0":"Designation"
+          },   
 "input":{
 "tous":"All",
 "cde":"Coded",
@@ -270,7 +322,10 @@
     "prodFinance":"Financial Product",
     "canalPaiement":"Payment Channel",
     "acquisition":"Acquisition",
-    "emission":"Issue"
+    "emission":"Issue",
+    "etabli":"Financial Institution",
+    "affMag":"Store Affiliation",
+    "affCaiss":"Fund Affiliation"
 
 },
 
@@ -302,7 +357,8 @@
     "btn24": "NO",
     "btn25":"block",
     "btn26":"Unblock",
-    "btn27":"Add Channel"
+    "btn27":"Add Channel",
+    "btn28":"Affiliation"
 },
 "toast": {
     "connecter": "User logged in",
@@ -333,6 +389,7 @@
     "commission": "Commission already in use! Try another",
     "toast_limit": "Max open windows reach",
     "listvide": "You must choose at least one product",
+    "listAffvide": "You must fill at least one affiliation",
     "dateeffet": "Effective date must be greater than current date",
     "suppression":"Deletion successfully done",
     "affectCanal":"Assignment successfully done"

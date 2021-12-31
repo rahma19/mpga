@@ -1,0 +1,15 @@
+#tabcanal{
+    width: 99%;
+    margin: auto;
+  }
+  #tabcanal th{
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    border: 1px solid black
+  }
+  #tabcanal td{
+    
+    font-size: 16px;
+    border: 1px solid black
+  }

@@ -27,6 +27,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UpdateCaisseComponent } from '../update-caisse/update-caisse.component';
 import { UpdateServiceComponent } from '../update-service/update-service.component';
 import { ActifServiceComponent } from '../actif-service/actif-service.component';
+import { EtablissementFinancierService } from 'app/pages/services/etablissement_financier.service';
+import { DatailCanalComponent } from './datail-canal/datail-canal.component';
+import { DetailCaisseComponent } from './detail-caisse/detail-caisse.component';
 
 export class ServiceNode {
   id_famille: number;
@@ -141,7 +144,8 @@ export class UpdateVenteComponent implements OnInit {
   public Type_Message = TYPE_MESSAGE;
   listecaisses:any
   idetat:any
-  displayedColumns: string[] = ['nomWallet','affiliationMonetique','numeroRefMpga','etatWallet'];
+  displayedColumns: string[] = ['etablissemnt','nomWallet','affiliationMonetique','mode',
+ 'listCanalPaiement','numeroRefMpga','etatWallet'];
   displayedColumnscaisse: string[] = ['code','libelleCaisse','adresseIpCaisse','adresseIpTpe','qrCode','etatCaisse'];
   Messages: FormMessage[]
   contextMenuPosition=  {a: '0', b: '0'};
@@ -156,7 +160,8 @@ export class UpdateVenteComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,private dialog:MatDialog,private format:FormatNumberPipe,
    private dialogRef: MatDialogRef<UpdateVenteComponent> ,private fb:FormBuilder,
    private toast: ToastrService,private mag:MagasinService,private Transaction:TransactionService
-   , private formUtils: FormUtils,private translate:TranslateService,private changeDetector: ChangeDetectorRef ,) {
+   , private formUtils: FormUtils,private translate:TranslateService,private changeDetector: ChangeDetectorRef ,
+   private Etabli:EtablissementFinancierService ) {
   
     window.addEventListener('offline', () => {
       this.isConnectionAvailableMU = false
@@ -182,6 +187,8 @@ export class UpdateVenteComponent implements OnInit {
     //  this.email=res.email;
       this.nombrecaisse=res.nombreCaisse;
       this.adresseIP=res.adresseIpRacine;
+
+      
     //  this.mag.getvillebyid(this.gouver).subscribe(res=>{
     //    this.villes=res;
     //  })
@@ -205,6 +212,8 @@ export class UpdateVenteComponent implements OnInit {
       this.result=res;
       console.log('liste services  ',this.result);
       
+     
+      
     })
     // this.mag.getgouvernorat().subscribe(res=>{
     //   this.gouvernorats=res;
@@ -213,9 +222,9 @@ export class UpdateVenteComponent implements OnInit {
       this.agents=res;
     })
     this.magasinform = this.fb.group({
-      nom_mg:new FormControl('', Validators.compose([Validators.required,Validators.maxLength(30)])),
+      nom_mg:new FormControl('', [Validators.required,Validators.maxLength(30)]),
      // nombre_caisse:new FormControl('', Validators.compose([Validators.required,Validators.pattern("^[0-9]*$")])),
-      code:new FormControl('', Validators.compose([Validators.required,Validators.pattern("^[0-9]*$"),Validators.minLength(4)])),
+      code:new FormControl({value: '', disabled: true}),
       // codepostal:new FormControl({value: '', disabled: true}),
       // rue_:new FormControl('', Validators.compose([Validators.required,Validators.maxLength(50)])),
       // gouvernorat:new FormControl('', Validators.compose([Validators.required])),
@@ -229,10 +238,10 @@ export class UpdateVenteComponent implements OnInit {
       nom_mgserv:new FormControl({value: '', disabled: true}),
       code:new FormControl({value: '', disabled: true}),
     });
-    this.caisseform=this.fb.group({
-      nbr_caisse: new FormControl({value: '', disabled: true}),
-      adrIP:new FormControl({value: '', disabled: true}),
-    });
+    // this.caisseform=this.fb.group({
+    //   nbr_caisse: new FormControl({value: '', disabled: true}),
+    //   adrIP:new FormControl({value: '', disabled: true}),
+    // });
     this.agentform=this.fb.group({});
 
     
@@ -314,18 +323,20 @@ getErrorMessage() {
    this.magasinform.get('tele').hasError('maxlength')?'Num téléphone de 8 chiffres':"";
   }
 
- onSubmit(form1){
-  if (form1.invalid) {
+ onSubmit(){
+ 
+   
+  if (this.magasinform.invalid) {
     this.onError()
-    this.markInvalidControls(form1);
+    this.markInvalidControls(this.magasinform);
  
   }
-  else if(form1.valid){
-  for(var i in form1.value) { 
-    if(form1.value[i] === undefined) {
-      form1.value[i] = '';
-    }
-  }
+  else if(this.magasinform.valid){
+  // for(var i in form1.value) { 
+  //   if(form1.value[i] === undefined) {
+  //     form1.value[i] = '';
+  //   }
+  // }
   this.disable=true;
   // var listCaisses= this.resultat;
   // var object={listCaisses};
@@ -333,14 +344,14 @@ getErrorMessage() {
   // },err=>{
   // })
   this.editmagasin.idMagasin=this.id;
-  this.editmagasin.libelle=form1.value.nom_mg;
-  this.editmagasin.code_magasin=form1.value.code;
+  this.editmagasin.libelle=this.magasinform.value.nom_mg;
+  this.editmagasin.code_magasin=this.code_mg;
  // this.editmagasin.numeroTelephone=form1.value.tele;
   // this.editmagasin.fax=form1.value.fax_;
   // this.editmagasin.email=form1.value.email_;
   // this.editmagasin.rue=form1.value.rue_;
   // this.editmagasin.idville=form1.value.ville;
-  //console.log(this.editmagasin);
+  // console.log(this.editmagasin);
   this.mag.updatemagasin(this.editmagasin).subscribe(res=>{
     this.dialogRef.close('1');
     this.toast.success(this.translate.instant('toast.modifier') );
@@ -394,7 +405,7 @@ Mini(){
     this.dialogRef.updatePosition({
       
     })
-    this.dialogRef.updateSize("800px", "auto");
+    this.dialogRef.updateSize("950px", "auto");
     this.isOpened=true;
    
   }
@@ -417,7 +428,9 @@ markInvalidControls(form): void {
 }
 ngAfterViewChecked() {
 
+
   if(this.activetab=='service'){
+
   this.service = new MatTableDataSource(this.result);
   setTimeout(() => {
   this.service.paginator = this.paginator
@@ -523,4 +536,50 @@ const diag=  this.dialog.open(ActifServiceComponent,dialogConfig);
     }
   })
 }
+changeaffiche(etat: boolean) {
+        if (etat == true) { return this.translate.instant('affiliation.column6'); }
+        else   {
+          return this.translate.instant('affiliation.column5');
+        } 
+      }
+      detail(item){
+
+ 
+        const dialogConfig= new MatDialogConfig;
+        dialogConfig.disableClose=true;
+        dialogConfig.autoFocus=true;
+        dialogConfig.width="700px";
+         dialogConfig.hasBackdrop = false;
+         let obj={data:this.data,item:item};
+        dialogConfig.data=obj;
+      const diag=  this.dialog.open( DatailCanalComponent,dialogConfig);
+      
+        diag.afterClosed().subscribe(item => {
+          if(item==1){
+            this.ngOnInit();
+         }
+        })
+      }
+
+
+
+      detailCaisse(item){
+
+ 
+        const dialogConfig= new MatDialogConfig;
+        dialogConfig.disableClose=true;
+        dialogConfig.autoFocus=true;
+        dialogConfig.width="700px";
+         dialogConfig.hasBackdrop = false;
+         let obj={data:this.data,item:item};
+        dialogConfig.data=obj;
+      const diag=  this.dialog.open( DetailCaisseComponent,dialogConfig);
+      
+        diag.afterClosed().subscribe(item => {
+        //   if(item==1){
+        //     this.ngOnInit();
+        //  }
+        })
+      }
 }
+

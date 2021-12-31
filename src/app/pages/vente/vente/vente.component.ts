@@ -22,6 +22,7 @@ import { PaginationService } from 'app/pages/services/pagination.service';
 import { DetailVenteComponent } from './detail-vente/detail-vente.component';
 import { UpdateVenteComponent } from './update-vente/update-vente.component';
 import { ChangerEtatComponent } from './changer-etat/changer-etat.component';
+import { AffiliationComponent } from './affiliation/affiliation.component';
 
 // import { TestDirective } from 'app/pages/shared/test.directive';
 
@@ -113,7 +114,7 @@ export class VenteComponent implements OnInit {
     nbcaisse: 0,
   };
   contextMenuPosition=  {a: '0', b: '0'};
-  displayedColumns: string[] = ['code','libelle','nombreCaisse','nombreCaissier','etatMagsin'];
+  displayedColumns: string[] = ['code','libelle','nombreCaisse','nombreCaissier','nombreTPE','etatMagsin'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatMenuTrigger) contextMenu: MatMenuTrigger;
@@ -252,488 +253,12 @@ export class VenteComponent implements OnInit {
     
    
   }
-  // groupage(groupe){
-  //   this.page_bol=false;
-  //   this.scroll_bol=true;
-  //   // this.settings = {
-     
-  //   //   columns: {
-  //   //     nbr: {
-  //   //       title: 'Nombre magasin',
-  //   //     type: 'custom',
-  //   //     renderComponent: CustomRendergeneral,
-  //   //     valuePrepareFunction: (row, cell) => {
-  //   //       let data = {
-  //   //         cell,
-  //   //         row
-  //   //       }            
-  //   //       return data;
-  //   //     },
-  //   //     onComponentInitFunction: (instance, cell) => {
-  //   //       instance.save.subscribe(row => {
-  //   //         if (row == 'Done') {
-  //   //           this.ngOnInit();
-  //   //         }
-  //   //       });
-  //   //     }
-
-  //   //     },
-       
-  //   //     zoneGeographique: {
-  //   //       title: 'Zone',
-  //   //     type: 'custom',
-  //   //     renderComponent: CustomRendergeneral,
-  //   //     valuePrepareFunction: (row, cell) => {
-  //   //       let data = {
-  //   //         cell,
-  //   //         row
-  //   //       }              
-  //   //       return data;
-  //   //     },
-  //   //     onComponentInitFunction: (instance, cell) => {
-  //   //       instance.save.subscribe(row => {
-  //   //         if (row == 'Done') {
-  //   //           this.ngOnInit();
-  //   //         }
-  //   //       });
-  //   //     }
-  //   //     },
-  //   //     gouvernorat: {
-  //   //       title: 'Gouvernorat',
-  //   //     type: 'custom',
-  //   //     renderComponent: CustomRendergeneral,
-  //   //     valuePrepareFunction: (row, cell) => {
-  //   //       let data = {
-  //   //         cell,
-  //   //         row
-  //   //       }              
-  //   //       return data;
-  //   //     },
-  //   //     onComponentInitFunction: (instance, cell) => {
-  //   //       instance.save.subscribe(row => {
-  //   //         if (row == 'Done') {
-  //   //           this.ngOnInit();
-  //   //         }
-  //   //       });
-  //   //     }
-  //   //     },
-  //   //     ville: {
-  //   //       title: 'Ville',
-  //   //     type: 'custom',
-  //   //     renderComponent: CustomRendergeneral,
-  //   //     valuePrepareFunction: (row, cell) => {
-  //   //       let data = {
-  //   //         cell,
-  //   //         row
-  //   //       }              
-  //   //       return data;
-  //   //     },
-  //   //     onComponentInitFunction: (instance, cell) => {
-  //   //       instance.save.subscribe(row => {
-  //   //         if (row == 'Done') {
-  //   //           this.ngOnInit();
-  //   //         }
-  //   //       });
-  //   //     }
-  //   //     },
-  //   //     nombreCaisse: {
-  //   //       title: 'Nb Caisses',
-  //   //     type: 'custom',
-  //   //     renderComponent: CustomRendergeneral,
-  //   //     valuePrepareFunction: (row, cell) => {
-  //   //       let data = {
-  //   //         cell,
-  //   //         row
-  //   //       }            
-  //   //       return data;
-  //   //     },
-  //   //     onComponentInitFunction: (instance, cell) => {
-  //   //       instance.save.subscribe(row => {
-  //   //         if (row == 'Done') {
-  //   //           this.ngOnInit();
-  //   //         }
-  //   //       });
-  //   //     }
-
-  //   //     },
-  //   //     nombreCaissier: {
-  //   //       title: 'Nb Caissiers',
-  //   //     type: 'custom',
-  //   //     renderComponent: CustomRendergeneral,
-  //   //     valuePrepareFunction: (row, cell) => {
-  //   //       let data = {
-  //   //         cell,
-  //   //         row
-  //   //       }            
-  //   //       return data;
-  //   //     },
-  //   //     onComponentInitFunction: (instance, cell) => {
-  //   //       instance.save.subscribe(row => {
-  //   //         if (row == 'Done') {
-  //   //           this.ngOnInit();
-  //   //         }
-  //   //       });
-  //   //     }
-
-  //   //     },
-  //   //   },
-  //   //   hideSubHeader: true,
-  //   //   attr: {
-  //   //     class: 'table',
-  //   //   },
-  //   //   noDataMessage: '',
-  //   //   actions: {
-  //   //     add: false,
-  //   //     edit: false,
-  //   //     delete: false,
-  //   //   },
   
-  //   //   pager: {  
-  //   //     display: true,  
-  //   //     perPage: 10,
-  //   //   }, 
-  //   // }
-  //   this.newarray=[];
-  //   this.liste=[];
-  //   this.listegroupage=[];
-  //   this.flag=false;
-  //   if(groupe==2){
-  //    // this.checked=true;
-  //     this.title='Groupage par gouvernorat';
-  //     for(var i=0; i < this.resultat.length; i++){
-  //       var raison = this.resultat[i].gouvernorat;
-  //       var obj={raison};
-  //        this.liste.push(obj);
-  //      }
-  //      this.listegroupage = this.liste.reduce((unique, o) => {
-  //        if(!unique.some(obj => obj.raison === o.raison)) {
-  //          unique.push(o);
-  //        }
-  //        return unique;
-  //    },[]);
-  //    for(var j=0; j < this.listegroupage.length; j++) {
-  //     var gouvernorat:string=this.listegroupage[j].raison;
-  //     var nombreCaisse=0;
-  //     var nombreCaissier=0;
-  //     var nbr=0;
-  //     for(var k=0; k < this.resultat.length; k++){
-  //       if(this.resultat[k].gouvernorat== gouvernorat){
-  //         nombreCaisse=nombreCaisse+Number(this.resultat[k].nombreCaisse);
-  //         nombreCaissier=nombreCaissier+Number(this.resultat[k].nombreCaissier);
-  //         nbr=nbr+1;
-  //       }
-  //     }
-  //     // var code='N/A';
-  //     // var etatMagsin='N/A';
-  //     // var libelle='N/A';
-  //     // var responsablemagasin='N/A';
-  //     var ville='N/A';
-  //     var zoneGeographique='N/A';
-  //     // var nombreCaisse='N/A';
-  //     var object={gouvernorat,ville,zoneGeographique,nombreCaisse,nombreCaissier,nbr};
-  //     this.newarray.push(object);
-  //     this.nbr_ligne=this.newarray.length;
-  //   } 
-  //   this.data=this.newarray;
-  //   // this.source= new LocalDataSource(this.data);
-    
-  //   }
-  //   else if(groupe==3){
-  //    // this.checked=true;
-  //     this.title='Groupage par ville';
-  //     for(var i=0; i < this.resultat.length; i++){
-  //       var raison = this.resultat[i].ville;
-  //       var obj2={raison};
-  //        this.liste.push(obj2);
-  //      }
-  //      this.listegroupage = this.liste.reduce((unique, o) => {
-  //        if(!unique.some(obj => obj.raison === o.raison)) {
-  //          unique.push(o);
-  //        }
-  //        return unique;
-  //    },[]);
-  //    for(var j=0; j < this.listegroupage.length; j++) {
-  //     var ville:string=this.listegroupage[j].raison;
-  //     var nombreCaisse=0;
-  //     var nombreCaissier=0;
-  //     var nbr=0;
-  //     for(var k=0; k < this.resultat.length; k++){
-  //       if(this.resultat[k].ville== ville){
-  //         nombreCaisse=nombreCaisse+Number(this.resultat[k].nombreCaisse);
-  //         nombreCaissier=nombreCaissier+Number(this.resultat[k].nombreCaissier);
-  //         nbr=nbr+1;
-  //       }
-  //     }
-  //     // var code='N/A';
-  //     // var etatMagsin='N/A';
-  //     // var libelle='N/A';
-  //     // var responsablemagasin='N/A';
-  //     var gouvernorat='N/A';
-  //     var zoneGeographique='N/A';
-  //    // var nombreCaisse='N/A';
-  //     var object1={gouvernorat,ville,zoneGeographique,nombreCaisse,nombreCaissier,nbr};
-  //     this.newarray.push(object1);
-  //     this.nbr_ligne=this.newarray.length;
-  //   }
-  //   this.data=this.newarray;
-  //   // this.source= new LocalDataSource(this.data);
-  //   }
-  //   else if(groupe==4){
-  //    // this.checked=true;
-  //     this.title='Groupage par zone';
-  //     for(var i=0; i < this.resultat.length; i++){
-  //       var raison = this.resultat[i].zoneGeographique;
-  //       var obj2={raison};
-  //        this.liste.push(obj2);
-  //      }
-  //      this.listegroupage = this.liste.reduce((unique, o) => {
-  //        if(!unique.some(obj => obj.raison === o.raison)) {
-  //          unique.push(o);
-  //        }
-  //        return unique;
-  //    },[]);
-  //    for(var j=0; j < this.listegroupage.length; j++) {
-  //     // this.montantpargroupe=0; 
-  //     var zoneGeographique:string=this.listegroupage[j].raison;
-  //     var nombreCaisse=0;
-  //     var nombreCaissier=0;
-  //     var nbr=0;
-  //     for(var k=0; k < this.resultat.length; k++){
-  //       if(this.resultat[k].zoneGeographique== zoneGeographique){
-  //         nombreCaisse=nombreCaisse+Number(this.resultat[k].nombreCaisse);
-  //         nombreCaissier=nombreCaissier+Number(this.resultat[k].nombreCaissier);
-  //         nbr=nbr+1;
-  //       }
-  //     }
-  //     // var code='N/A';
-  //     // var etatMagsin='N/A';
-  //     // var libelle='N/A';
-  //     // var responsablemagasin='N/A';
-  //     var gouvernorat='N/A';
-  //     var ville='N/A';
-  //    // var nombreCaisse='N/A';
-  //     var object2={gouvernorat,ville,zoneGeographique,nombreCaisse,nombreCaissier,nbr};
-  //     this.newarray.push(object2);
-  //     this.nbr_ligne=this.newarray.length;
-  //   } 
-  //    this.data=this.newarray;
-  //   // this.source= new LocalDataSource(this.data);
-  //   }
-  //   else if(groupe==1){
-  //  //   this.checked=false;
-  //     this.title='Liste des Magasins';
-  //     // this.settings = {
-     
-  //     //   columns: {
-  //     //     code: {
-  //     //       title: 'Code',
-  //     //     type: 'custom',
-  //     //     renderComponent: CustomRenderMagasin,
-  //     //     valuePrepareFunction: (row, cell) => {
-  //     //       let data = {
-  //     //         cell,
-  //     //         row
-  //     //       }            
-  //     //       return data;
-  //     //     },
-  //     //     onComponentInitFunction: (instance, cell) => {
-  //     //       instance.save.subscribe(row => {
-  //     //         if (row == 'Done') {
-  //     //           this.ngOnInit();
-  //     //         }
-  //     //       });
-  //     //     }
-  
-  //     //     },
-  //     //     libelle: {
-  //     //       title: 'Nom',
-  //     //     type: 'custom',
-  //     //     renderComponent: CustomRenderMagasin,
-  //     //     valuePrepareFunction: (row, cell) => {
-  //     //       let data = {
-  //     //         cell,
-  //     //         row
-  //     //       }            
-  //     //       return data;
-  //     //     },
-  //     //     onComponentInitFunction: (instance, cell) => {
-  //     //       instance.save.subscribe(row => {
-  //     //         if (row == 'Done') {
-  //     //           this.ngOnInit();
-  //     //         }
-  //     //       });
-  //     //     }
-  
-  //     //     },
-         
-  //     //     zoneGeographique: {
-  //     //       title: 'Zone',
-  //     //     type: 'custom',
-  //     //     renderComponent: CustomRenderMagasin,
-  //     //     valuePrepareFunction: (row, cell) => {
-  //     //       let data = {
-  //     //         cell,
-  //     //         row
-  //     //       }              
-  //     //       return data;
-  //     //     },
-  //     //     onComponentInitFunction: (instance, cell) => {
-  //     //       instance.save.subscribe(row => {
-  //     //         if (row == 'Done') {
-  //     //           this.ngOnInit();
-  //     //         }
-  //     //       });
-  //     //     }
-  //     //     },
-  //     //     responsablemagasin: {
-  //     //       title: 'Nom RM',
-  //     //     type: 'custom',
-  //     //     renderComponent: CustomRenderMagasin,
-  //     //     valuePrepareFunction: (row, cell) => {
-  //     //       let data = {
-  //     //         cell,
-  //     //         row
-  //     //       }              
-  //     //       return data;
-  //     //     },
-  //     //     onComponentInitFunction: (instance, cell) => {
-  //     //       instance.save.subscribe(row => {
-  //     //         if (row == 'Done') {
-  //     //           this.ngOnInit();
-  //     //         }
-  //     //       });
-  //     //     }
-  //     //     },
-  //     //     gouvernorat: {
-  //     //       title: 'Gouvernorat',
-  //     //     type: 'custom',
-  //     //     renderComponent: CustomRenderMagasin,
-  //     //     valuePrepareFunction: (row, cell) => {
-  //     //       let data = {
-  //     //         cell,
-  //     //         row
-  //     //       }              
-  //     //       return data;
-  //     //     },
-  //     //     onComponentInitFunction: (instance, cell) => {
-  //     //       instance.save.subscribe(row => {
-  //     //         if (row == 'Done') {
-  //     //           this.ngOnInit();
-  //     //         }
-  //     //       });
-  //     //     }
-  //     //     },
-  //     //     ville: {
-  //     //       title: 'Ville',
-  //     //     type: 'custom',
-  //     //     renderComponent: CustomRenderMagasin,
-  //     //     valuePrepareFunction: (row, cell) => {
-  //     //       let data = {
-  //     //         cell,
-  //     //         row
-  //     //       }              
-  //     //       return data;
-  //     //     },
-  //     //     onComponentInitFunction: (instance, cell) => {
-  //     //       instance.save.subscribe(row => {
-  //     //         if (row == 'Done') {
-  //     //           this.ngOnInit();
-  //     //         }
-  //     //       });
-  //     //     }
-  //     //     },
-  //     //     nombreCaisse: {
-  //     //       title: 'Nb Caisses',
-  //     //     type: 'custom',
-  //     //     renderComponent: CustomRenderMagasin,
-  //     //     valuePrepareFunction: (row, cell) => {
-  //     //       let data = {
-  //     //         cell,
-  //     //         row
-  //     //       }            
-  //     //       return data;
-  //     //     },
-  //     //     onComponentInitFunction: (instance, cell) => {
-  //     //       instance.save.subscribe(row => {
-  //     //         if (row == 'Done') {
-  //     //           this.ngOnInit();
-  //     //         }
-  //     //       });
-  //     //     }
-  
-  //     //     },
-  //     //     nombreCaissier: {
-  //     //       title: 'Nb Caissiers',
-  //     //     type: 'custom',
-  //     //     renderComponent: CustomRenderMagasin,
-  //     //     valuePrepareFunction: (row, cell) => {
-  //     //       let data = {
-  //     //         cell,
-  //     //         row
-  //     //       }            
-  //     //       return data;
-  //     //     },
-  //     //     onComponentInitFunction: (instance, cell) => {
-  //     //       instance.save.subscribe(row => {
-  //     //         if (row == 'Done') {
-  //     //           this.ngOnInit();
-  //     //         }
-  //     //       });
-  //     //     }
-  
-  //     //     },
-  //     //     etatMagsin: {
-  //     //       title: 'Etat',
-  //     //     type: 'custom',
-  //     //     renderComponent: CustomRenderMagasin,
-  //     //     valuePrepareFunction: (row, cell) => {
-  //     //       let data = {
-  //     //         cell,
-  //     //         row
-  //     //       }            
-  //     //       return data;
-  //     //     },
-  //     //     onComponentInitFunction: (instance, cell) => {
-  //     //       instance.save.subscribe(row => {
-  //     //         if (row == 'Done') {
-  //     //           this.ngOnInit();
-  //     //         }
-  //     //       });
-  //     //     }
-  //     //     },
-  //     //   },
-  //     //   hideSubHeader: true,
-  //     //   attr: {
-  //     //     class: 'table',
-  //     //   },
-  //     //   noDataMessage: '',
-  //     //   actions: {
-  //     //     add: false,
-  //     //     edit: false,
-  //     //     delete: false,
-  //     //   },
-    
-  //     //   pager: {  
-  //     //     display: true,  
-  //     //     perPage: 10,
-  //     //   }, 
-  //     // }
-  //     this.data=this.resultat;
-  //     // this.source= new LocalDataSource(this.data);
-  //     this.nbr_ligne=this.data.length;
-  //   }
-  //  }
 
   Rechercher(value) {
-   
-    // this.title='Liste des Magasins';
-    // this.checked=false;
-    // this.groupe=1;
-   
+  
     this.active=false
-   
- // console.log('partenaire '+this.id_part+' sociale '+ this.sociale+' etat '+ this.etat+' parc '+this.parc, ' code '+this.code);
-     //this.ngProgress.start();
+
      this.loading = true;
      this.mag.filtremagasin('','','').subscribe(res=>{
      
@@ -849,7 +374,7 @@ const diag=  this.dialog.open(ChangerEtatComponent,dialogConfig);
   modifier(item){
     const dialogConfig= new MatDialogConfig;
     dialogConfig.disableClose=true;
-    dialogConfig.width = "700px";
+    dialogConfig.width = "950px";
     // dialogConfig.height = "550px";
     dialogConfig.hasBackdrop = false;
     // dialogConfig.maxHeight = "550px"
@@ -868,7 +393,7 @@ const diag=  this.dialog.open(ChangerEtatComponent,dialogConfig);
 
     cdmagasin:[''],
     // ville:[''],
-    service_magasin:[''],
+    nomagasin:[''],
     etat_magasin:[''],
     // zone_:['']
   });
@@ -881,11 +406,13 @@ const diag=  this.dialog.open(ChangerEtatComponent,dialogConfig);
       const cmag =!filter.cdmagasin ||
       data.code.toLowerCase().includes(filter.cdmagasin);
       // const cmag =!filter.cdmagasin  || data.code == filter.filter.cdmagasin;
-      const service = !filter.service_magasin || data.idPointVente == filter.service_magasin;
+      const nom =!filter.nomagasin ||
+      data.libelle.toLowerCase().includes(filter.nomagasin.toLowerCase());
+     
       const etat = !filter.etat_magasin|| data.idEtatMagasin == filter.etat_magasin;
      
      
-      return cmag  && service && etat 
+      return cmag  && nom && etat 
     }) as (PeriodicElement, string) => boolean;
   }
 
@@ -942,5 +469,22 @@ private countStat(magasin) {
   
   
   
+}
+affiliation(item){
+  const dialogConfig= new MatDialogConfig;
+  dialogConfig.disableClose=true;
+  dialogConfig.width = "850px";
+  // dialogConfig.height = "550px";
+  dialogConfig.hasBackdrop = false;
+  // dialogConfig.maxHeight = "550px"
+  dialogConfig.data=this.liste;
+const diag=  this.dialog.open(AffiliationComponent,dialogConfig);
+
+  diag.afterClosed().subscribe(item => {
+   // console.log(item);
+     if(item==1){
+       this.ngOnInit();
+    }
+  })
 }
 }

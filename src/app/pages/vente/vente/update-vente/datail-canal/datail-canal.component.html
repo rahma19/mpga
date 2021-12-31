@@ -1,0 +1,79 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div id="detcanal">
+        <div class="card text-center" clickNoRightClick >
+            <div  class="card-header font-weight-bold black-text p-0" > {{'detailCanal.headercard' | translate}}
+              <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect title="{{'btn.btn1'| translate}}" (click)="Fermer()">
+                <i class="fa fa-times"></i>
+              </button>
+              <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"    title="{{'btn.btn15'| translate}}" (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+                <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title="{{'btn.btn16'| translate}}" (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+            </div></div><br [hidden]="!isOpened">
+
+
+
+
+            <div  mat-dialog-content [hidden]="!isOpened" >
+
+                <div  class="input-group" >
+                    <div style="font-size: 3px;">
+                        <mat-form-field id="magasininput" appearance="outline">
+                            <mat-label  >{{'input.cde' | translate}}</mat-label>
+                          <input disabled id="datestyle" matInput class="form-control col-12" [(ngModel)]="code" >
+                        
+                        </mat-form-field>
+                      </div>
+                      <div style="font-size: 3px; ">
+                        <mat-form-field id="magasinname" appearance="outline" style=" width: 220px;">
+                            <mat-label  >{{'input.nomMag' | translate}}</mat-label>
+                          <input disabled style="width: 100%;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="nom">
+                         
+                        </mat-form-field>
+                      </div>
+                </div>
+                
+                <div class="input-group" style="margin-top: 10px;">
+                    <div style="font-size: 3px;">
+                        <mat-form-field id="magasininput" appearance="outline">
+                            <mat-label  >{{'input.etabli' | translate}}</mat-label>
+                          <input disabled id="datestyle" matInput class="form-control col-12" [(ngModel)]="etablifi" >
+                        
+                        </mat-form-field>
+                      </div>
+                      <div style="font-size: 3px; ">
+                        <mat-form-field id="magasinname" appearance="outline">
+                            <mat-label  >{{'input.prodFinance' | translate}}</mat-label>
+                          <input disabled style="width: 100%;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="produitfin">
+                         
+                        </mat-form-field>
+                      </div>
+                      <div style="font-size: 3px; ">
+                        <mat-form-field id="magasinname" appearance="outline">
+                            <mat-label  >{{'input.affMag' | translate}}</mat-label>
+                          <input disabled style="width: 100%;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="affMagasin">
+                         
+                        </mat-form-field>
+                      </div>
+                    
+                      
+                </div>
+
+
+<br>
+
+
+                <table id="tabcanal" >
+                    <tr>
+                        <th>{{'detailCanal.column0' | translate}}</th>
+                        
+                       
+                    </tr>
+                    <tr *ngFor="let canal of cannaux">
+                        <td>{{canal.designation}}</td>
+                       
+                    </tr>
+        
+                </table>
+            </div>
+
+    </div>
+</div>

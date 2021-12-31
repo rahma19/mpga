@@ -14,56 +14,64 @@
   
     <table id="detailrecon" [hidden]="!isOpened">
       <tr>
-        <td> <label id="espleft">
-            <h6 id="titleliste" style="font-weight: bold;">{{'transaction.attribute.n0' | translate}} :</h6>
-          </label>
-          <label id="pass">
-            <h6>{{date}}</h6>
-          </label>
-        </td>
-        <td> <label id="pass">
-            <h6 id="titleliste" style="font-weight: bold;">{{'transaction.attribute.n6' | translate}} :</h6>
-          </label>
-          <label id="pass">
-            <h6>{{etatTransaction}}</h6>
-          </label>
-        </td>
-      </tr>
-  
-      <tr>
-        <td> <label id="espleft">
-            <h6 id="titleliste" style="font-weight: bold;">{{'magasin.attribute.n7' | translate}} :</h6>
-          </label>
-          <label id="pass">
-            <h6>{{libelleMagasin}}</h6>
-          </label>
-        </td>
-        <td> <label id="pass">
+        <td>
+            <label id="espleft">
+              <h6 id="titleliste" style="font-weight: bold;">{{'ecart.refmpga' | translate}} :</h6>
+            </label>
+            <label id="pass">
+              <h6>{{refMPGA}}</h6>
+            </label>
+          </td>
+          <td> <label id="pass">
             <h6 id="titleliste" style="font-weight: bold;">{{'ecart.montant' | translate}} :</h6>
           </label>
           <label id="pass">
-            <h6>{{montant}}</h6>
+            <h6 style="font-weight: bold;">{{montant}}</h6>
           </label>
         </td>
+    </tr>
+
+<tr>
+    <td> <label id="espleft">
+        <h6 id="titleliste" style="font-weight: bold;">{{'magasin.attribute.n7' | translate}} :</h6>
+      </label>
+      <label id="pass">
+        <h6>{{libelleMagasin}}</h6>
+      </label>
+    </td>
+    <td>
+        <label id="pass">
+          <h6 id="titleliste" style="font-weight: bold;">{{'ecart.codeMag' | translate}} :</h6>
+        </label>
+        <label id="pass">
+          <h6></h6>
+        </label>
+      </td>
       </tr>
-  
+
       <tr>
-        <td>
-          <label id="espleft">
-            <h6 id="titleliste" style="font-weight: bold;">{{'ecart.refmpga' | translate}} :</h6>
+        <td> <label id="espleft">
+            <h6 id="titleliste" style="font-weight: bold;">{{'transaction.column_Num_Ticket' | translate}} :</h6>
           </label>
           <label id="pass">
-            <h6>{{refMPGA}}</h6>
+            <h6>{{numTicket}}</h6>
           </label>
         </td>
-        <td>
-          <label id="pass">
-            <h6 id="titleliste" style="font-weight: bold;">{{'magasin.recap.codeCaisse' | translate}} :</h6>
+        <td> <label id="pass">
+            <h6 id="titleliste" style="font-weight: bold;">{{'transaction.column_Caisse' | translate}} :</h6>
           </label>
           <label id="pass">
             <h6>{{codeCaisse}}</h6>
           </label>
         </td>
+        <td>
+            <label id="pass">
+              <h6 id="titleliste" style="font-weight: bold;">{{'transaction.column_Caissier' | translate}} :</h6>
+            </label>
+            <label id="pass">
+              <h6>{{caisse}}</h6>
+            </label>
+          </td>
       </tr>
   
       <tr>
@@ -81,39 +89,113 @@
             <h6>{{libelleWallet}}</h6>
           </label>
         </td>
-      </tr>
-  
-      <tr>
-        <td>
-          <label id="espleft">
-            <h6 id="titleliste" style="font-weight: bold;">{{'ecart.autorisation' | translate}} :</h6>
+        <td><label id="pass">
+            <h6 id="titleliste" style="font-weight: bold;">{{'input.canalPaiement' | translate}} :</h6>
           </label>
           <label id="pass">
-            <h6>{{autorisation}}</h6>
-          </label>
-        </td>
-  
-        <td> <label id="pass">
-            <h6 id="titleliste" style="font-weight: bold;">{{'transaction.attribute.n8' | translate}} :</h6>
-          </label>
-          <label id="pass">
-            <h6>{{etatLettrage}}</h6>
+            <h6>{{canalPai}}</h6>
           </label>
         </td>
       </tr>
 
       <tr>
-        <td>
-          <label id="espleft">
-            <h6 id="titleliste" style="font-weight: bold;">{{'transaction.attribute.n7' | translate}} :</h6>
+        <td><label id="espleft">
+            <h6 id="titleliste" style="font-weight: bold;">{{'transaction.attribute.n6' | translate}} :</h6>
           </label>
-          <label id="pass">
-            <h6>{{etatReconciliation}}</h6>
+          <label style="display: flex;" id="pass">
+            <h6 style="width: 80px;" class="coul" [style.background-color]="couleurEtatTransaction">{{etatTransaction}}</h6> 
+            <span class="coul">{{date}}</span>
           </label>
         </td>
+        <td><label id="pass">
+            <h6 id="titleliste" style="font-weight: bold;">{{'transaction.column_reconcilie' | translate}} :</h6>
+          </label>
+          <label style="display: flex;" id="pass">
+            <h6 style="width: 80px;" class="coul"[style.background-color]="couleurEtatReconciliation">{{etatReconciliation}}</h6>
+            <span class="coul">{{dateRec}}</span>  
+        </label>
+        </td>
+        <td><label id="pass">
+            <h6 id="titleliste" style="font-weight: bold;">{{'transaction.column_lettre' | translate}} :</h6>
+          </label>
+          <label style="display: flex;" id="pass">
+            <h6 style="width: 80px;" class="coul" [style.background-color]="couleurEtatLettrage">{{etatLettrage}}</h6>
+            <span class="coul">{{dateLet}}</span>  
+        </label>
+        </td>
+      </tr>
+
+      <tr>
+        <td *ngIf="idEtatTransaction==3"> 
+          <label id="espleft">
+            <h6 id="titleliste" style="font-weight: bold;">Num auto :</h6>
+          </label>
+          <label id="pass" >
+              <h6 style="font-weight: bold;">{{autorisation}} </h6>
+          </label>
+        </td>
+
+        <td *ngIf="idEtatTransaction==5 ||idEtatTransaction==6"> 
+          <label  id="espleft">   
+             <h6 id="titleliste" style="font-weight: bold;">RefMPGA :</h6>
+          </label>
+          <label id="pass" >{{refMPGA}}</label>
+          </td>
+
+          <!-- <td *ngIf="idEtatTransaction==6" colspan="3"> 
+            <label  id="espleft">
+              <h6 id="titleliste" style="font-weight: bold;">Num auto :</h6>
+            </label>
+            <label id="pass" >{{refMPGA}}</label>
+            </td> -->
+      </tr>
+
+      <tr *ngIf="idEtatTransaction==4">
+        <td > 
+          <label  id="espleft">   
+             <h6 id="titleliste" style="font-weight: bold;">Code erreur :</h6>
+          </label>
+          <label id="pass" >{{codeErreur}}</label>
+          </td>
+          <td > 
+            <label  id="pass">   
+               <h6 id="titleliste" style="font-weight: bold;">Motif erreur :</h6>
+            </label>
+            <label id="pass" >{{motifErreur}}</label>
+            </td>
+      </tr>
+
+      <tr>
+        <td> <label id="espleft">
+            <h6 id="titleliste" style="font-weight: bold;">{{'transaction.HistoriqueTrans' | translate}} :</h6>
+          </label></td>
       </tr>
 
     </table>
+
+    <table id="tablemagasin" clickNoRightClick [hidden]="!isOpened">
+      <thead  class="head">
+          <tr>
+              <th><h6 id="titleliste" style="font-weight: bold;" >{{'transaction.column_date' | translate}}</h6></th>
+              <th><h6 id="titleliste" style="font-weight: bold;" >{{'transaction.attribute.n6' | translate}}</h6></th>
+              <th><h6 id="titleliste" style="font-weight: bold;" >{{'recon.user' | translate}}</h6></th>
+              </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let row of source">
+              <td ><h6>{{row.dateHistorique }}</h6></td>
+              <td ><h6>{{row.etatTransaction }}</h6></td>
+              <td ><h6>{{row.user }}</h6></td>
+                 </tr>
+          </tbody>
+    </table>
+    <div style="width: 100%;" id="tab">
+      <div [hidden]="loading ">
+        <div class="table-responsive ">
+          </div>
+    </div>
+  
+    </div>
   </div>
   
   <div *ngIf="loading" clickNoRightClick>

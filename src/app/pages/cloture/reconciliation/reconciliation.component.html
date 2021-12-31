@@ -156,8 +156,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumnsReconc" id="mat-table"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumnsReconc;"
-          style="background-color: rgb(238, 200, 119);"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsReconc;"></tr>
         <tr class="mat-row" *matNoDataRow>
           <td colspan="12">
             <h4 class="text-center"> {{'ReconsVide' | translate}}</h4>

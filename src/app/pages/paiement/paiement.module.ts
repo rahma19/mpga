@@ -29,6 +29,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTableModule } from '@angular/material/table';
 import { AffNokComponent } from './paiement/aff-nok/aff-nok.component';
+import { DatailCanalComponent } from 'app/pages/vente/vente/update-vente/datail-canal/datail-canal.component';
+import { CaisseAffComponent } from '../vente/vente/affiliation/caisse-aff/caisse-aff.component';
 
 
 
@@ -36,7 +38,7 @@ import { AffNokComponent } from './paiement/aff-nok/aff-nok.component';
   declarations: [PaiementComponent, AddEtablissementComponent, AddBinComponent, ModifierBinComponent, SupprimerBinComponent,
     UpdateEtablissementComponent, AjouterCanalComponent, DetailBinComponent, EmetteurComponent, DetailEmetteurComponent, AffNokComponent],
   entryComponents: [PaiementComponent, AddEtablissementComponent, AddBinComponent, ModifierBinComponent,
-    SupprimerBinComponent, AffNokComponent, UpdateEtablissementComponent, AjouterCanalComponent, DetailBinComponent, EmetteurComponent, DetailEmetteurComponent],
+    SupprimerBinComponent, AffNokComponent, CaisseAffComponent, DatailCanalComponent, UpdateEtablissementComponent, AjouterCanalComponent, DetailBinComponent, EmetteurComponent, DetailEmetteurComponent],
   imports: [
     CommonModule,
     PaiementRouting,

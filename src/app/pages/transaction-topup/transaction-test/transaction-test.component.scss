@@ -159,3 +159,51 @@ mat-select,mat-option,mat-label,mat-datepicker-toggle,#dateinputstyle,#datestyle
         font-size: 17px;
       }
 }
+#pass{
+  padding-left: 5px;
+  padding-right: 10px;  
+}
+#espleft{
+   //margin-top: 20px;
+   padding-left: 20px;
+   padding-right: 10px;     
+}
+//  #detailecart{
+//     margin-top: 20px;
+//     margin-bottom: 40px;
+//     margin-left: 30px;
+//     margin-right: 30px;
+// }
+#labeldetailrecon{
+  margin-left: 4%;
+}
+
+#titleliste{color: #e22d2c;}
+
+table tr td{
+  width: auto;
+}
+
+.coul{
+  border-radius: 5px;
+  text-align: center;
+  padding: 3%;
+}
+
+
+#tablemagasin{
+  border: solid 1.5px;
+  width: 90%;
+ // height: 10%;
+ // empty-cells: hide;
+  margin-left: 5%;
+  margin-bottom: 6%;
+  border-color: rgb(55, 63, 31);
+}
+#tablemagasin thead>tr>th,#tablemagasin tbody>tr>td{
+  border: solid 2px;
+  border-color: rgb(115, 118, 119);
+ // font-family: cursive;
+  margin-left: 5px;
+ // height: 10px;
+}

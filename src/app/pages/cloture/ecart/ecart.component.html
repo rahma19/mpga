@@ -33,7 +33,7 @@
           <div style="font-size: 10px">
               <mat-form-field id="newinput" appearance="outline">
                   <mat-label>{{'magasin.recap.g2' | translate}}</mat-label>
-              <mat-select  formControlName="gouvernorat"  [(ngModel)]="gouver" placeholder="" (selectionChange)="getville(gouver)"> 
+              <mat-select  formControlName="gouvernorat"  placeholder="" (selectionChange)="getville()"> 
                   <mat-option [value]="''">Tous</mat-option>
                   <mat-option *ngFor="let gouvern of gouvernorats" [value]="gouvern.idGouvernorat">
                       {{gouvern.nom}} </mat-option>
@@ -44,7 +44,7 @@
             <div style="font-size: 10px">
                     <mat-form-field id="newinput" appearance="outline">
                       <mat-label>{{'magasin.recap.g3' | translate}}</mat-label>
-                        <mat-select  formControlName="ville"  [(ngModel)]="villegouver" placeholder="" >
+                        <mat-select  formControlName="ville"  placeholder="" >
                             <mat-option [value]="''">Tous</mat-option>
                             <mat-option *ngFor="let vvv of villes" [value]="vvv.idVille">
                                 {{vvv.nom}} </mat-option>
@@ -55,7 +55,7 @@
           <div style="font-size: 10px">
               <mat-form-field id="newinput" appearance="outline">
                   <mat-label>{{'magasin.recap.g4' | translate}}</mat-label>
-                  <mat-select  formControlName="zone_"  [(ngModel)]="zone" placeholder="" > 
+                  <mat-select  formControlName="zone_"  placeholder="" > 
                       <mat-option [value]="''">Tous</mat-option>
                     <mat-option *ngFor="let zzz of zones" [value]="zzz.idZoneGeographique">
                           {{zzz.libelleZone}} </mat-option>
@@ -162,8 +162,7 @@
               </ng-container>
     
               <tr mat-header-row *matHeaderRowDef="displayedColumnsEcart" id="mat-table"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumnsEcart;"
-                style="background-color: rgb(238, 200, 119);"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsEcart;"></tr>
               <tr class="mat-row" *matNoDataRow>
                 <td colspan="9">
                   <h4 class="text-center"> {{'EcartVide' | translate}}</h4>

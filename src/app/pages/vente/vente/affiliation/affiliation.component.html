@@ -1,0 +1,106 @@
+<div  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div id="aff">
+        <div class="card text-center" clickNoRightClick >
+            <div  class="card-header font-weight-bold black-text p-0" > {{'affiliation.headercard' | translate}}
+              <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" mdbWavesEffect title="{{'btn.btn1'| translate}}" (click)="Fermer()">
+                <i class="fa fa-times"></i>
+              </button>
+              <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"    title="{{'btn.btn15'| translate}}" (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
+                <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title="{{'btn.btn16'| translate}}" (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+            </div></div><br [hidden]="!isOpened">
+
+            <div  mat-dialog-content [hidden]="!isOpened" class="addaff">
+                <div  class="form-inline">
+                <div style="font-size: 3px;">
+                    <mat-form-field id="magasininput" appearance="outline">
+                        <mat-label  >{{'input.cde' | translate}}</mat-label>
+                      <input disabled id="datestyle" matInput class="form-control col-12" [(ngModel)]="code" >
+                    
+                    </mat-form-field>
+                  </div>
+                  <div style="font-size: 3px; ">
+                    <mat-form-field id="magasinname" appearance="outline" style=" width: 220px;">
+                        <mat-label  >{{'input.nomMag' | translate}}</mat-label>
+                      <input disabled style="width: 100%;" id="datestyle" matInput class="form-control col-12" [(ngModel)]="nom">
+                     
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="table-responsive" id="tab">
+                   
+                    <table mat-table matSort   
+                    [dataSource]="dataSource" class="mat-elevation-z8" 
+                  >
+                  
+                    <ng-container matColumnDef="nom_commercial">
+                      <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'affiliation.column0' | translate}} </th>
+                      <td mat-cell *matCellDef="let element"  > {{element.nom_commercial}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="produit_financier">
+                      <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'affiliation.column2' | translate}} </th>
+                      <td mat-cell *matCellDef="let element"  > {{element.produit_financier}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="affiliation_magasin">
+                      <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'affiliation.column4' | translate}} </th>
+                      <td mat-cell *matCellDef="let element"  >
+                        
+                             
+                            <input autocomplete="off"  style="font-weight: bold; margin:4px;border: solid black;width: auto;"  id="datestyle" matInput class="form-control col-12" [(ngModel)]="element.affiliation_magasin"
+                            maxlength="20" >
+                          
+                            
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="etat_affilation_caisse">
+                      <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'affiliation.column3' | translate}} </th>
+                      <td mat-cell *matCellDef="let element" >
+                        <div style="text-align: center;"  *ngIf="!element.etat_affilation_caisse">{{'btn.btn24'|translate}}</div>
+                        <button  style="text-align: center;"  *ngIf="element.etat_affilation_caisse" (click)="detail(element)"
+                         mat-menu-item ><i class="fa fa-info-circle fa-2x"></i></button>
+                        <!-- {{changeaffiche(element.etat_affilation_caisse)}}  -->
+                      </td>
+                    </ng-container>
+                      <ng-container matColumnDef="listCanalPaiement" >
+                        <th  mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{'affiliation.column1' | translate}} </th>
+                        <td mat-cell *matCellDef="let element" > 
+                          <div class="canals" *ngIf="element.listCanalPaiement.length==1">
+                            <ng-container  *ngFor="let canal of element.listCanalPaiement">
+                              <div class="canal"  >
+                                 {{canal.designation}}
+                              </div>
+                            </ng-container>
+                          </div>
+                          <div class="canals" *ngIf="element.listCanalPaiement.length>1">
+                            <ng-container >
+                              <div class="canal"  >
+                          <button  style="text-align: center;"   (click)=" detailCanal(element)" mat-menu-item ><i class="fa fa-info-circle fa-2x"></i></button>
+                             </div>
+                            </ng-container>
+                          </div>
+                        </td>
+                      </ng-container> 
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    
+                    <mat-paginator *ngIf="dataSource.data.length>8"  [pageSize]="8" hidePageSize showFirstLastButtons></mat-paginator>
+                  </div>
+            </div>
+            <div mat-dialog-actions align="end" class="footr mt-auto"  [hidden]="!isOpened">
+                <br>
+                <div class="d-left">
+                  <ul style="list-style-type:none; " class="small text-left pl-4 m-3">
+                    <li *ngFor="let m of Messages" [ngStyle]="{'color': m.color}"><i style="margin-right: 10px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{m.message }}</li>
+                 
+                 <li>
+                  <mat-error  *ngIf="err"><i style="margin-right: 10px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{msg}}</mat-error> 
+                 </li> </ul>
+                </div>
+              <div class="form-group dialog-footer" [hidden]="!isOpened" >
+                <button [disabled]="disable" id="bbt" class="waves-light btn red-yellow float-right btn-sm"  title="{{'btn.btn1'| translate}}" type="reset" (click)="Fermer()"><span id="sp"><i class="fa fa-times"></i></span></button>
+                <button [disabled]="disable" id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="submit" title="{{'btn.btn3'| translate}}" (click)="onSubmit()"><span id="sp"><i class="fa fa-check" aria-hidden="true"></i></span></button>
+                <button [disabled]="disable" id="bbt" class="waves-light btn red-yellow float-right btn-sm" type="reset" (click)="reset()" title="{{'btn.btn2'| translate}}"><span id="sp"><i class="fa fa-eraser" aria-hidden="true"></i></span></button>
+              </div>
+               </div>
+    </div>
+</div>

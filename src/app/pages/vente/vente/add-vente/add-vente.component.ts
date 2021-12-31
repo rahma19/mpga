@@ -81,6 +81,8 @@ export class AddVenteComponent implements OnInit {
   disable:boolean=false;
   public Type_Message = TYPE_MESSAGE;
   Messages: FormMessage[]
+  activetab:string = 'magasin';
+  affiliationform:FormGroup
   constructor(private dialogRef: MatDialogRef<AddVenteComponent> ,private Transaction:TransactionService,
     private format:FormatNumberPipe,private dialog:MatDialog,private fb:FormBuilder,private toast: ToastrService,
     private mag:MagasinService, private formUtils: FormUtils,private translate:TranslateService) { 
@@ -354,5 +356,15 @@ this.listeARM=res;
         controls[name].markAllAsTouched();
       }
     }
+  }
+  tab(event){
+ 
+    let active = document.getElementById(event);
+    let oldactive = document.getElementsByClassName('activetab');
+    oldactive[0].classList.remove('activetab')
+    active.classList.add('activetab')
+    this.activetab = event;
+  
+  //  console.log(this.activetab);
   }
 }

@@ -51,7 +51,7 @@
         border-top: none;
         border-radius: 0;
         .card-header{
-            padding: 0.34rem 1.25rem;
+            //padding: 0.34rem 1.25rem;
             background: #fff !important;
             border-radius: 0;
             text-transform: uppercase;
@@ -409,3 +409,18 @@ legend.scheduler-border {
   #labelobligatoir {
     color: orangered;
   }
+  mat-select,
+mat-option,
+mat-label,
+mat-datepicker-toggle,
+#dateinputstyle,
+#datestyle {
+  font-size: 13px !important;
+}
+.mat-form-field {
+  margin-right: 10px;
+  margin-left: 10px;
+ 
+
+}
+

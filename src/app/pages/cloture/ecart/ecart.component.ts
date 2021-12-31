@@ -59,7 +59,6 @@ export class EcartComponent implements OnInit {
   listegroupage = [];
   resultatecartnul = [];
   date: any;
-  villegouver: any;
   currentDate = new Date();
   parametres: any
   adresse: any
@@ -75,7 +74,6 @@ export class EcartComponent implements OnInit {
   mg: any
   gouver: any;
   vil: any;
-  zone: any;
   dateecart: any;
   flag: boolean = false;
   message: any;
@@ -172,11 +170,6 @@ export class EcartComponent implements OnInit {
     ];
     this.initFormControl();
     this.watchFormChange();
-
-    // this.groupe = 1;
-    // this.gouver = -1;
-    // this.villegouver = -1;
-    // this.zone = -1;
     this.filtreE();
 
     this.current = moment(this.currentDate).format("DD/MM/YYYY");
@@ -243,9 +236,8 @@ export class EcartComponent implements OnInit {
       })
   }
 
-  getville(gouver) {
-    this.villegouver = "";
-    this.mag.getvillebyid(gouver).subscribe(res => {
+  getville() {
+    this.mag.getvillebyid(this.filterform.value.gouvernorat).subscribe(res => {
       this.villes = res;
     })
   }

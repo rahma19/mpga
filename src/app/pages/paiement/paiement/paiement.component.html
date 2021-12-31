@@ -1,68 +1,59 @@
 <mat-tab-group >
   <mat-tab  label="{{ 'servicePaiement.title0' | translate }}"> 
 <ng-template matTabContent >
-    <table [hidden]="loading" id="detailrecon" style=" margin-top: 50px;">
-      <tr>
-        <td> <label id="espleft">
-            <h6 id="titleliste" style="font-weight: bold;">{{'magasin.recap.NbMagOuvert' | translate}} :</h6>
-          </label>
-          <label id="pass">
-            <h6> {{magOuvert}} </h6>
-          </label>
-        </td>
-        <td> <label id="espleft">
-            <h6 id="titleliste" style="font-weight: bold;">{{'magasin.recap.NbMagFerme' | translate}} :</h6>
-          </label>
-          <label id="pass">
-            <h6>{{magFerme}}</h6>
-          </label>
-        </td>
-      </tr>
-  
-      <tr>
-        <td> <label id="espleft">
-            <h6 id="titleliste" style="font-weight: bold;">{{'magasin.recap.NbEtabPai' | translate}} :</h6>
-          </label>
-          <label id="pass">
-            <h6>{{nbrEtab}}</h6>
-          </label>
-        </td>
-        <td>
-          <label id="espleft">
-            <h6 id="titleliste" style="font-weight: bold;">{{'magasin.recap.NbProdFin' | translate}} :</h6>
-          </label>
-          <label id="pass">
-            <h6>{{nbrProduit}}</h6>
-          </label>
-        </td>
-        <!-- <td> <label id="pass">
-            <h6 id="titleliste" style="font-weight: bold;">{{'magasin.recap.NbCaissPai' | translate}} :</h6>
-          </label>
-          <label id="pass">
-            <h6>{{nbrEtab}}</h6>
-          </label>
-        </td> -->
-      </tr>
 
-    </table>
+  <div [hidden]="loading"  class=" container-fluid form-inline">
+  <div style="font-size: 3px; ">
+    <mat-form-field style="margin-left: 10px;margin-top: 20px;margin-bottom: 10px;margin-right: 20px;width: 150px;" appearance="outline">
+        <mat-label>{{'magasin.recap.NbMagOuvert' | translate}}</mat-label>
+      <input disabled style="font-weight: bold;" id="datestyle" matInput class="form-control col-12" [value]="magOuvert" >
+    </mat-form-field>
+  </div>
+  <div style="font-size: 3px; ">
+    <mat-form-field style="margin-left: 10px;margin-top: 20px;margin-bottom: 10px;margin-right: 20px;width: 150px;" appearance="outline">
+        <mat-label>{{'magasin.recap.NbMagFerme' | translate}}</mat-label>
+      <input disabled style="font-weight: bold;" id="datestyle" matInput class="form-control col-12" [value]="magFerme">
+    </mat-form-field>
+  </div>
+  <div style="font-size: 3px; ">
+    <mat-form-field style="margin-left: 10px;margin-top: 20px;margin-bottom: 10px;margin-right: 20px;width: 150px;" appearance="outline">
+        <mat-label>{{'magasin.recap.NbEtabPai' | translate}}</mat-label>
+      <input disabled style="font-weight: bold;" id="datestyle" matInput class="form-control col-12" [value]="nbrEtab">
+    </mat-form-field>
+  </div>
+  <div style="font-size: 3px; ">
+    <mat-form-field style="margin-left: 10px;margin-top: 20px;margin-bottom: 10px;margin-right: 20px;width: 150px;" appearance="outline">
+        <mat-label>{{'magasin.recap.NbProdFin' | translate}}</mat-label>
+      <input disabled style="font-weight: bold;" id="datestyle" matInput class="form-control col-12" [value]="nbrProduit">
+    </mat-form-field>
+  </div>
+</div>
 
     <div [hidden]="loading" class="card" >
       <div [hidden]="loading" class="card-header  font-weight-bold black-text p-0"><span style="margin-left: 43%;"> {{'affiliation.headerDetail' | translate}}</span><!--{{'bin.bodycard' | translate}}-->
          <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="scroll_bol" mdbWavesEffect (click)="scrollAff()" title="{{ 'btn.btn14' | translate }}"><i class="fa fa-arrows-v" aria-hidden="true"></i></button>
           <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="page_bol" mdbWavesEffect (click)="pageAff()"  title="{{ 'btn.btn13' | translate }}"><i class="fa fa-files-o" aria-hidden="true"></i></button>
-          <input autocomplete="off" *ngIf="scroll_bol" class="float-right waves-light p-0 pl-3 pr-3" id="nbrligne" [(ngModel)]="row_nbrAff" (keyup)="getrow_nbrAff()">
+          <input autocomplete="off" *ngIf="scroll_bol && row_nbrAff>18" class="float-right waves-light p-0 pl-3 pr-3" id="nbrligne" [(ngModel)]="row_nbrAff" (keyup)="getrow_nbrAff()">
       </div>
       <div [hidden]="loading" class="table-responsive ">
-        <table mat-table matSort [dataSource]="affsource"  >
+        <table mat-table matSort [hidden]="loading" [dataSource]="affsource"  >
           <!-- Item Column -->
           <ng-container  matColumnDef="etablissement">
-            <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header> {{'affiliation.etabFin' | translate}} </th>
+            <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header> {{'affiliation.EtabPai' | translate}} </th>
             <td (contextmenu)="menuAff($event,row)" mat-cell *matCellDef="let row" style="width: auto;"> {{row.etablissement}} </td>
           </ng-container>
 
           <ng-container matColumnDef="produitFinancier">
-            <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header >{{'affiliation.prodFin' | translate}} </th>
+            <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header >{{'affiliation.column2' | translate}} </th>
             <td (contextmenu)="menuAff($event,row)" mat-cell *matCellDef="let row" style="width: auto;"> {{row.produitFinancier}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="canalPaiement">
+            <th cdkDrag mat-header-cell *matHeaderCellDef mat-sort-header >{{'affiliation.CanalPai' | translate}} </th>
+            <td (contextmenu)="menuAff($event,row)" mat-cell *matCellDef="let row" style="width: auto;"> 
+              <span style="width: auto;" *ngIf="row.listCanalPaiement.length==1"> {{row.listCanalPaiement[0].designation}} </span>
+              <span style="width: auto;padding-left: 50px;" *ngIf="row.listCanalPaiement.length>1"> <i (click)="detailCanal(row)" class="fa fa-info-circle fa-2x"></i> </span>
+            </td>
           </ng-container>
 
           <ng-container  matColumnDef="nbr_affiliation_Ok">
@@ -76,15 +67,14 @@
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumnsAff" id="mat-table"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumnsAff;"
-          style="background-color: rgb(238, 200, 119);"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsAff;"></tr>
           <tr class="mat-row" *matNoDataRow>
             <td colspan="5">
               <h4 class="text-center"> {{'affiliation.AffVide' | translate}}</h4>
             </td>
           </tr>
         </table>
-        <mat-paginator *ngIf="scroll_bol" [pageSize]="row_nbrAff" hidePageSize showFirstLastButtons></mat-paginator>
+        <mat-paginator *ngIf="scroll_bol && row_nbrAff>18" [pageSize]="row_nbrAff" hidePageSize showFirstLastButtons></mat-paginator>
         <div style="visibility: hidden; position: fixed" 
         [style.left]="contextMenuBinPosition.a"
         [style.top]="contextMenuBinPosition.b"
@@ -98,12 +88,6 @@
               </ng-template>
             </mat-menu>
       </div>
-  </div>
-
-  <div *ngIf="loading" >
-    <div class="spinner-img">
-    </div>
-    <h3 id="titreload">{{ "spinner" | translate }}</h3>
   </div>
   </ng-template>
 </mat-tab>
@@ -244,7 +228,7 @@
               
               </form>
                   </div>
-                  <div class="col-3" style="text-align: left;">
+                  <div class="col-3"  style="text-align: left">
                     <div id="ligne_verticale" style="font-size: 10px">
                       <mat-form-field id="partinput" appearance="outline">
                         <mat-label>{{'bin.groupage.group' | translate}}</mat-label>
@@ -254,7 +238,7 @@
                         </mat-select>
                       </mat-form-field>
                    </div>
-                   <h5 style="color: blue">{{'bin.recap.title' | translate}} : </h5>
+                   <h5 style="color:  #e22d2c;font-weight: bold;">{{'bin.recap.title' | translate}} : </h5>
                    <label style="font-weight: bold;">{{'bin.recap.nbr_ligne' | translate}} : {{statistique.nbligne}}</label><br>
                    <label style="font-weight: bold;">{{'bin.recap.nbr_bin' | translate}} : {{statistique.nbbin}}</label><br>
                   

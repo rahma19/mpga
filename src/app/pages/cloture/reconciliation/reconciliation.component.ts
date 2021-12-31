@@ -24,7 +24,7 @@ interface column {
   selector: 'app-reconciliation',
   templateUrl: './reconciliation.component.html',
   styleUrls: ['./reconciliation.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.None
 })
 
 export class ReconciliationComponent implements OnInit {

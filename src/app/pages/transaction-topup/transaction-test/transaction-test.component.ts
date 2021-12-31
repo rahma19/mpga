@@ -19,46 +19,54 @@ export class TransactionTestComponent implements OnInit {
   filterform: FormGroup;
   myControl: FormControl = new FormControl();
   filter: any = false;
-  settings: any;
-  data: boolean = false;
   identifiant: any;
-  autorisation: string = "-------------";
-  codeCaisse: string = "-------------";
-  dateLettrage: any = "--/--/----  -- : --";
-  dateReconciliation: any = "--/--/----  -- : --";
-  dateTransaction: any = "--/--/----  -- : --";
-  etatLettrage: string = "-------------";
-  etatReconciliation: string = "-------------";
-  etatTransaction: string = "-------------";
+  autorisation: string;
+  codeCaisse: string;
+  dateLettrage: any;
+  dateReconciliation: any;
+  dateTransaction: any;
+  etatLettrage: string;
+  etatReconciliation: string;
+  etatTransaction: string;
   idTransaction: number;
-  libelleCaissier: string = "-------------";
-  libelleEtablissementFinancier: string = "-------------";
-  libelleMagasin: string = "-------------";
-  libelleWallet: string = "-------------";
-  montant: any = "-------------";
-  numeroTicket: string = "-------------";
-  refMpga: string = "-------------";
-  idlettrage: any = "-------------";
-  idreconciliation: any = "-------------";
+  libelleCaissier: string;
+  libelleEtablissementFinancier: string;
+  libelleMagasin: string;
+  libelleWallet: string;
+  montant: any;
+  numeroTicket: string;
+  refMpga: string;
+  idlettrage: any;
+  idreconciliation: any;
   active: boolean
   currentDate = new Date();
   id = 3
   parametres: any
-  adresse: any = "-------------";
-  ville: any = "-------------";
-  code: any = "-------------";
-  tel: any = "-------------";
-  rne: any = "-------------";
+  adresse: any;
+  ville: any;
+  code: any;
+  tel: any;
+  rne: any;
   detail = new DetailTrans
   resultat: any;
   message: any;
-  critere: any = "-------------";
+  critere: any;
   loading = false;
   check = false;
   date: any;
   mySubscription: any;
-  typerecons: string = "-------------";
+  typerecons: string;
   isConnectionAvailable: boolean = navigator.onLine;
+  etab: any;
+  dateRec: string;
+  dateLet: string;
+  couleurEtatTransaction: any;
+  numTicket: any;
+  caisse: any;
+  canalPai: any;
+  couleurEtatLettrage: any;
+  couleurEtatReconciliation: any;
+  source: any;
 
   constructor(private fb: FormBuilder, private dialog: MatDialog,
     private router: Router, private format: TestPipe,
@@ -79,6 +87,8 @@ export class TransactionTestComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.check = true;
+    this.initData();
     this.date = moment(this.currentDate).format("DD/MM/YYYY");
     this.Transaction.getParametre(this.id).subscribe(resultat => {
       this.parametres = resultat
@@ -92,45 +102,53 @@ export class TransactionTestComponent implements OnInit {
     })
     this.filterform = this.fb.group({
       critere_rech: [''],
-      ident_critere: new FormControl('', Validators.compose([Validators.required])),
+      ident_critere: new FormControl('', Validators.compose([Validators.required, Validators.pattern('')])),
     })
   }
 
   Rechercher(value) {
     this.active = false;
-    this.data = false;
+    this.check = true;
     if (value.critere_rech == 0) {
       this.loading = true;
-      this.Transaction.ConsulterTransactionref(value.ident_critere).subscribe((res: DetailTrans) => {
+      this.Transaction.ConsulterTransactionref(value.ident_critere).subscribe((res: any) => {
         this.getDetails(res);
-        this.autorisation = res.autorisation;
-        this.codeCaisse = res.codeCaisse;
-        this.idlettrage = res.idEtatLettrage;
-        if (this.idlettrage == 2) {
-          this.dateLettrage = res.dateLettrage;
-          this.dateLettrage = moment(this.dateLettrage).format("DD/MM/YYYY HH:mm");
-        }
-        this.idreconciliation = res.idEtatReconciliation;
-        if (this.idreconciliation == 2) {
-          this.dateReconciliation = res.dateReconciliation;
-          this.dateReconciliation = moment(this.dateReconciliation).format("DD/MM/YYYY HH:mm");
-        }
-        this.typerecons = res.typeReconciliation;
-        this.dateTransaction = res.dateTransaction;
-        this.dateTransaction = moment(this.dateTransaction).format("DD/MM/YYYY HH:mm");
-        this.etatTransaction = res.etatTransaction;
-        this.libelleCaissier = res.libelleCaissier;
-        this.libelleEtablissementFinancier = res.libelleEtablissementFinancier;
-        this.libelleMagasin = res.libelleMagasin;
-        this.libelleWallet = res.libelleWallet;
-        this.montant = res.montant;
-        this.montant = this.format.transform(this.montant);
-        this.numeroTicket = res.numeroTicket;
+        console.log(res);
+        this.dateTransaction = moment(res.dateTransaction).format("DD-MM-YYYY HH:mm");
+        this.dateReconciliation = moment(res.dateReconciliation).format("DD-MM-YYYY HH:mm");
+        this.dateLettrage = moment(res.dateLettrage).format("DD-MM-YYYY HH:mm");
+        this.montant = this.format.transform(res.montant);
         this.refMpga = res.refMpga;
+        this.etatTransaction = res.etatTransaction;
+        this.couleurEtatTransaction = res.couleurEtatTransaction;
+        this.libelleMagasin = res.libelleMagasin;
+        this.etab = res.libelleEtablissementFinancier;
+        this.libelleWallet = res.libelleWallet;
+        this.codeCaisse = res.codeCaisse;
+        this.numTicket = res.numeroTicket;
+        this.canalPai = res.canalPaiement;
+        this.caisse = res.libelleCaissier;
+        this.autorisation = res.autorisation;
+        this.etatLettrage = res.etatLettrage;
+        this.couleurEtatLettrage = res.couleurEtatLettrage;
+        this.couleurEtatReconciliation = res.couleurEtatReconciliation;
+        this.etatReconciliation = res.etatReconciliation;
+        for (var i = 0; i < res.listHistoriques.length; i++) {
+          res.listHistoriques[i].dateHistorique = moment(res.listHistoriques[i].dateHistorique).format('DD/MM/YYYY HH:mm:ss');
+          if (res.listHistoriques[i].idEtatReconciliation == '2') { this.etatReconciliation = this.translate.instant('transaction.column_Oui'); } else { this.etatReconciliation = this.translate.instant('transaction.column_Non'); }
+          if (res.listHistoriques[i].idEtatLettrage == '2') { this.etatLettrage = this.translate.instant('transaction.column_Oui'); } else { this.etatLettrage = this.translate.instant('transaction.column_Non'); }
+
+        }
+        this.source = res.listHistoriques
+
+        this.loading = false;
         this.active = true
       }, err => {
         if (err.status == 900) {
           this.initData();
+          this.check = false;
+          this.message = "Reference n'existe pas";
+
         }
         this.loading = false;
       })
@@ -157,7 +175,9 @@ export class TransactionTestComponent implements OnInit {
         this.active = true
       }, err => {
         if (err.status == 900) {
-          this.initData();
+          //this.initData();
+          this.check = false;
+          this.message = "Autorisation n'existe pas"
         }
         this.loading = false;
       })
@@ -167,7 +187,6 @@ export class TransactionTestComponent implements OnInit {
   getDetails(res) {
     this.resultat = res;
     this.loading = false;
-    this.detail.refMpga = res.refMpga
     this.detail.autorisation = res.autorisation
     this.detail.libelleEtablissementFinancier = res.libelleEtablissementFinancier
     this.detail.libelleWallet = res.libelleWallet
@@ -190,7 +209,6 @@ export class TransactionTestComponent implements OnInit {
     }
     this.detail.dateTransaction = moment(this.detail.dateTransaction).format("DD/MM/YYYY HH:mm")
     this.detail.dateReconciliation = moment(this.detail.dateTransaction).format("DD/MM/YYYY HH:mm")
-    this.data = true;
   }
 
   initData() {
@@ -199,11 +217,18 @@ export class TransactionTestComponent implements OnInit {
     this.dateLettrage = "--/--/----  -- : --";
     this.dateReconciliation = "--/--/----  -- : --";
     this.dateTransaction = "--/--/----  -- : --";
+    this.couleurEtatLettrage = "#FFFFFF";
+    this.couleurEtatReconciliation = "#FFFFFF";
+    this.couleurEtatTransaction = "#FFFFFF";
+    this.caisse = "-------------";
     this.etatLettrage = "-------------";
+    this.libelleCaissier = "-------------";
+    this.canalPai = "-------------";
     this.etatReconciliation = "-------------";
     this.etatTransaction = "-------------";
     this.libelleCaissier = "-------------";
-    this.libelleEtablissementFinancier = "-------------";
+    this.numTicket = "-------------";
+    this.etab = "-------------";
     this.libelleMagasin = "-------------";
     this.libelleWallet = "-------------";
     this.montant = "-------------";
@@ -216,8 +241,8 @@ export class TransactionTestComponent implements OnInit {
     this.code = "-------------";
     this.tel = "-------------";
     this.rne = "-------------";
-    this.critere = "-------------";
     this.typerecons = "-------------";
+    this.source = [];
   }
 
   show() {
@@ -228,4 +253,7 @@ export class TransactionTestComponent implements OnInit {
     window.print();
   }
 
+  get critere_rech() {
+    return this.filterform.get('critere_rech');
+  }
 }

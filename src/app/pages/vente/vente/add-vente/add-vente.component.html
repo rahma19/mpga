@@ -8,22 +8,23 @@
       <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==true"    title="{{'btn.btn15'| translate}}" (click)="Mini(isOpened)"><i class="fa fa-window-minimize" aria-hidden="true" ></i></button>
         <button type="button" class="float-right waves-light btn red-yellow p-0 pl-3 pr-3" *ngIf="isOpened==false "  title="{{'btn.btn16'| translate}}" (click)="Maxi(isOpened2)"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
     </div></div><br [hidden]="!isOpened">
-                   <!-- <ul class="nav nav-tabs col-12 p-0">
+    <div  mat-dialog-content [hidden]="!isOpened" class="addmg">
+                   <ul class="nav nav-tabs col-12 p-0" [hidden]="!isOpened">
                       <li class="nav-item p-0">
-                          <a class="nav-link activetab" (click)="tab('contact')" id="contact"><h6>Données générales</h6>
+                          <a class="nav-link activetab" (click)="tab('magasin')" id="magasin"><h6>{{'ajouterMagasin.onglet.ogl1' | translate}}</h6>
                           </a>
                         </li>
                            <li class="nav-item p-0">
-                             <a class="nav-link" (click)="tab('caisse')" id="caisse"><h6>Caisse</h6>
+                             <a class="nav-link" (click)="tab('service')" id="service"><h6> {{'ajouterMagasin.onglet.ogl2' | translate}}</h6>
                              </a>
                            </li>
-                           <li class="nav-item p-0">
+                           <!-- <li class="nav-item p-0">
                              <a class="nav-link" (click)="tab('caissier')" id="caissier"><h6>Caissier </h6></a>
-                           </li>
-                           <li class="nav-item p-0">
-                            <a class="nav-link" (click)="tab('service')" id="service"><h6>Services </h6></a>
-                          </li>
-                    </ul> -->
+                           </li> -->
+                           <!-- <li class="nav-item p-0">
+                            <a class="nav-link" (click)="tab('affiliation')" id="affiliation"><h6>Services </h6></a>
+                          </li> -->
+                    </ul>
     <!-- <form #form1="ngForm" [formGroup]="caisseform" id="form1" class="form-inline">
         <ng-template [ngIf]="activetab=='caisse'">
             <div style="font-size: 3px">
@@ -48,7 +49,15 @@
               </div>
         </ng-template>
     </form> -->
+
+   
+    <!-- <form #form2="ngForm" [formGroup]="affiliationform"  class="form-inline">
+      <ng-template [ngIf]="activetab=='service'">
+        
+      </ng-template>
+  </form>  -->
     <form #form3="ngForm" [formGroup]="contactform"  class="form-inline"  clickNoRightClick [hidden]="!isOpened">
+      <ng-template [ngIf]="activetab=='magasin'">
             <div style="font-size: 3px;">
                 <mat-form-field id="magasininput" appearance="outline">
                     <mat-label  id="labelobligatoir">{{'input.cde' | translate}}</mat-label>
@@ -101,14 +110,14 @@
                     
                   </mat-form-field>
                 </div>
-                <div style="font-size: 3px">
+                <!-- <div style="font-size: 3px">
                   <mat-form-field  id="magasininput" appearance="outline">
                     <mat-label  id="labelobligatoir">{{'input.affiliation' | translate}}</mat-label>
                       <input (focus)="onFocus([Type_Message.NUMBER,Type_Message.CUSTOM_CAR],true,5)"
                       (blur)="onBlur()" autocomplete="off" id="datestyle" matInput class="form-control col-12" [(ngModel)]="affiliation" formControlName="affiliationd17" (blur)="calculLuhn(affiliation)" maxlength="5">
-                      <!-- <mat-error style="font-size: 13px;" *ngIf="!contactform.controls['affiliationd17'].valid && contactform.controls['affiliationd17'].touched">{{getErroraffiliation()}}</mat-error> -->
+                     
                 </mat-form-field>
-                </div>
+                </div> -->
                 <!-- <div style="font-size: 3px">
                   <mat-form-field id="magasininput" appearance="outline">
                       <mat-label>Début plage adresse IP</mat-label>
@@ -232,7 +241,10 @@
                                   <input id="datestyle" matInput class="form-control col-12" [(ngModel)]="email_RZ" formControlName="emailRZ">
                                 </mat-form-field>
                                 </fieldset> -->
-     </form>
+    
+      </ng-template>
+       </form>
+    </div>
      <div mat-dialog-actions align="end" class="footr mt-auto"  [hidden]="!isOpened">
       <br>
       <div class="d-left">

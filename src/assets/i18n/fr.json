@@ -1,18 +1,5 @@
 {
-    "affiliation":{
-        "headerDetail":"Liste des affiliations",
-        "bodyDetail":"Liste des affiliations NOk",
-        "etabFin":"Etablissement financier",
-        "Canal":"Canal paiement",
-        "prodFin":"Produit financier",
-        "AffOk":"Aff Ok",
-    "AffNOk":"Aff NOK",
-    "AffVide":"Affiliation vide",
-    "EtabPai":"Etablissements de paiement",
-    "CanalPai":"Canal de paiement",
-    "column0":"Produit Financier",
-    "nbMag":"Nb magasin"
-    },
+  
     "transaction":{
         "headercard": "Recherche Transaction",
         "bodycard": "Liste des Transactions",
@@ -24,6 +11,7 @@
         "groupebyetat":"Groupage par etat",
         "groupebycanal":"Groupage par canal",
         "message":"Pas de transaction",
+        "HistoriqueTrans":"Historique transaction",
         "recap":{
             "title":"Récapitulation",
             "group":"Groupage par",
@@ -31,6 +19,7 @@
             "groupeGouv":"Groupage par gouvernorat",
             "groupeVille":"Groupage par ville",
             "groupeMag":"Groupage par magasin",
+            "categCP":"Catégorie Canal Paiement",
             "g1":"Aucun",
             "g2":"Magasin",
             "g3":"Etablissement financier",
@@ -118,13 +107,16 @@
             "n6":"Code magasin",
             "n7":"Libelle magasin",
             "n8":"Vcn",
-            "n9":"Motif"
+            "n9":"Motif",
+            "n10":"Nom magasin",
+            "n11":"Nb TPE"
         },
         "column0":"Code",
         "column1":"Nom",
         "column2":"Nb Caisses",
         "column3":"Nb Caissiers",
-        "column4":"Etat"
+        "column4":"Etat",
+        "column5":"Nb TPE"
     },
     "detailMagasin": {
         "headercard": "Détails Magasin",
@@ -151,7 +143,11 @@
         
     },
     "ajouterMagasin": {
-        "headercard": "Ajouter Magasin"
+        "headercard": "Ajouter Magasin",
+        "onglet":{
+            "ogl1":"Données générales",
+            "ogl2":"Affiliation"
+        }
         
     },
     "activation": {
@@ -163,17 +159,20 @@
         "ongletName": {
             "ongl0": "Données générales",
             "ongl1": "Caisses",
-            "ongl2":"Services"
+            "ongl2":"Produit Financier"
         },
-        "column0":"Wallet",
-        "column1":"Affiliation",
+        "column0":"Prod.Financier",
+        "column1":"Affiliation Magasin",
         "column2":"Num Ref MPGA",
         "column3":"Etat",
         "column4":"Code",
         "column5":"Libellé",
         "column6":"@ IP",
         "column7":"@ IP TPE",
-        "column8":"QR Code"
+        "column8":"QR Code",
+        "column9":"Etabli.Financier",
+        "column10":"Affiliation Caisse",
+        "column11":"Canal Paiement"
     },
     "modifierCaisse": {
         "headercard": "Modifier Caisse"
@@ -270,6 +269,39 @@
   "ajouterCanal":{
     "headercard": "Canal Paiement"   
   },
+  "affiliation":{
+      "nbMag":"Nb magasin",
+    "headerDetail":"Liste des affiliations",
+    "bodyDetail":"Liste des affiliations Non Ok",
+    "AffOk":"Affiliation Ok",
+    "affMag":"Affiliation magasin",
+    "affcode":"Affiliation code",
+    "affcaisse":"Affiliation caisse",
+"AffNOk":"Affiliation Non OK",
+"AffVide":"Affiliation vide",
+"EtabPai":"Etablissements de paiement",
+"CanalPai":"Canal de paiement",
+"headercard": "Gestion Affiliation" ,
+    "column0":"Etablissement Financier",
+    "column1":"Canal Paiement",
+    "column2":"Produit Financier",
+    "column3":"Affilliation Caisse",
+    "column4":"Affiliantion Magasin",
+    "column5":"magasin",
+    "column6":"caisse"
+  },
+  "affiliationCaisse":{
+    "headercard": "Gestion Affiliation" ,
+    "column0":"Caisse",
+    "column1":"Id-Caisse-EF",
+    "column2":"Affiliation Caisse"
+   
+  },
+  "detailCanal":{
+    "headercard": "Détails Canal" ,
+    "column0":"Désignation"
+  },
+  
 "input":{
     "tous":"Tous",
     "cde":"Code",
@@ -301,7 +333,10 @@
     "prodFinance":"Produit Financier",
     "canalPaiement":"Canal Paiement",
     "acquisition":"Acquisition",
-    "emission":"Emission"
+    "emission":"Emission",
+    "etabli":"Etablissement Financier",
+    "affMag":"Affiliation Magasin",
+    "affCaiss":"Affiliation Caisse"
 
 },
 "btn": {
@@ -332,7 +367,8 @@
     "btn24": "NON",
     "btn25":"Bloquer",
     "btn26":"Débloquer",
-    "btn27":"Ajouter Canal"
+    "btn27":"Ajouter Canal",
+    "btn28":"Affiliation"
 },
 "toast": {
     "affectationfcc": " FCC a été affecté avec succès",
@@ -363,6 +399,7 @@
     "commission": "Commission est déja utilisée ! Essayer une autre",
     "toast_limit": "Vous avez atteint la limite de 5 modals",
     "listvide": "Vous devez choisir au moins un produit",
+    "listAffvide": "Vous devez remplir au moins une affiliation",
     "dateeffet": "Date d'effet doit etre supèrieur à date de jour",
     "suppression":"La suppression à étè effectuée avec succès",
     "affectCanal":"Affectation effectué avec succées"
@@ -401,7 +438,7 @@
         "nbrEcart":"Nombre Ecart",
         "etatCloture":"Etat Cloture",
         "motif":"Motif Reconciliation",
-        "user":"User"
+        "user":"Utilisateur"
     },
     "ecart":{
         "headercard": "Recherche Ecart",

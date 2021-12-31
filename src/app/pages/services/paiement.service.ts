@@ -23,6 +23,10 @@ export class PaiementService {
   CanalPaiement() {
     return this.http.get(this.baseUrl + '/ListCanalPaiement')
   }
+
+  ListCanalPaiementByIdCategorie(id) {
+    return this.http.get(this.baseUrl + '/ListCanalPaiementByIdCategorie?id_categorie=' + id + '&user_level=-1');
+  }
   // AssociationProduit_canal(){
   //  return this.http.get(this.baseUrl+'/')
   // }
@@ -83,5 +87,15 @@ export class PaiementService {
   }
   listAffMonetique() {
     return this.http.get(this.baseUrl + "/ListAffiliationMonetique?user_level=-1")
+  }
+  AddUpdateListWalet(model) {
+    return this.http.put(this.baseUrl + '/AddUpdateListWallet', model)
+  }
+  AddUpdateListWaletCaisse(model) {
+    return this.http.put(this.baseUrl + '/AddUpdateListCaisseWallet', model)
+
+  }
+  listCategCanalPaiement() {
+    return this.http.get(this.baseUrl + "/ListCategorieCanalPaiement")
   }
 }
